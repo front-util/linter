@@ -5,6 +5,10 @@
 	"author": "IVGolubev",
 	"license": "ISC",
 	"type": "module",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/front-util/linter.git"
+	  },
 	"exports": {
 		".": "./index.js"
 	},
