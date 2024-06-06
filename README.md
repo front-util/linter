@@ -1,2 +1,2 @@
 # linter
-configuration files for linting
+configuration files for linting (eslint)
