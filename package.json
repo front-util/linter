@@ -1,6 +1,6 @@
 {
-	"name": "@front-util/linter",
-	"version": "0.1.0",
+	"name": "test-linting",
+	"version": "0.0.2",
 	"description": "Configuration files for linting",
 	"author": "IVGolubev",
 	"license": "ISC",
@@ -9,7 +9,8 @@
 		".": "./index.js"
 	},
 	"scripts": {
-		"check-lint": "cross-env ESLINT_USE_FLAT_CONFIG=true eslint . --max-warnings=0 --fix"
+		"check-lint": "cross-env ESLINT_USE_FLAT_CONFIG=true eslint . --max-warnings=0 --fix",
+		"publish:linter": "npm publish --access public"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.24.7",
