@@ -1,5 +1,5 @@
 {
-	"name": "test-linting",
+	"name": "@front-utils/linter",
 	"version": "0.0.2",
 	"description": "Configuration files for linting",
 	"author": "IVGolubev",
