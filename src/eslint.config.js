@@ -5,9 +5,7 @@ import {customRules, onlyTSRules, onlyJSRules} from './custom_rules.config.js';
 import { pluginsConfigsList, testPluginsConfigsList } from './plugins.config.js';
 import {files, ignores, tsFiles, jsFiles} from './constants.js';
 
-export default [
-    ...pluginsConfigsList,
-    ...testPluginsConfigsList,
+export const simpleEslintConfig = [
     {
         ignores,
         files,
@@ -15,7 +13,13 @@ export default [
         linterOptions: {
             reportUnusedDisableDirectives: true,
         },
-    },
+    }
+];
+
+export const baseMonorepoEslintConfig = [
+    ...pluginsConfigsList,
+    ...testPluginsConfigsList,
+    simpleEslintConfig[0],
     {
         files          : tsFiles,
         languageOptions: {

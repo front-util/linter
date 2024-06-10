@@ -13,7 +13,6 @@ import testingLibraryPlugin from 'eslint-plugin-testing-library';
 import jestDomPlugin from 'eslint-plugin-jest-dom';
 import globals from 'globals';
 
-import { fullEslintAliases } from './aliases.js';
 import {files, testFiles, tsFiles} from './constants.js';
 
 const airbnbPluginConfig = {
@@ -53,10 +52,6 @@ const importPluginConfig = {
     settings: {
         ...importPlugin.configs.typescript.settings,
         'import/resolver': {
-            alias: {
-                map       : fullEslintAliases,
-                extensions: ['.ts', '.tsx', '.json', '.js', 'jsx'],
-            },
             ...importPlugin.configs.typescript.settings['import/resolver'],
             typescript: {
                 alwaysTryTypes: true,
