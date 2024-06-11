@@ -14,6 +14,10 @@ npm install @front-utils/linter --save-dev
 # or
 
 yarn add @front-utils/linter -D
+
+# or
+
+bun add @front-utils/linter --dev
 ```
 
 ## Usage (ESM)
