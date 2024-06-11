@@ -6,31 +6,6 @@ export const customRules = {
         { blankLine: 'always', prev: ['const', 'let', 'var'], next: '*', },
         { blankLine: 'any', prev: ['const', 'let', 'var'], next: ['const', 'let', 'var'], }
     ],
-    'valid-jsdoc': ['error', {
-        matchDescription        : '.+',
-        requireParamDescription : false,
-        requireReturnDescription: false,
-        requireReturn           : false,
-        prefer                  : {
-            return: 'returns',
-        },
-        preferType: {
-            boolean  : 'Boolean',
-            number   : 'Number',
-            object   : 'Object',
-            string   : 'String',
-            symbol   : 'Symbol',
-            null     : 'Null',
-            undefined: 'Undefined',
-            function : 'Function',
-            array    : 'Array',
-            promise  : 'Promise',
-            set      : 'Set',
-            weakSet  : 'WeakSet',
-            map      : 'Map',
-            weakMap  : 'WeakMap',
-        },
-    }],
     'no-param-reassign': 'off',
     indent             : ['warn', 4, {
         SwitchCase: 1,

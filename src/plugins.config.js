@@ -5,15 +5,27 @@ import compatPlugin from 'eslint-plugin-compat';
 import regexPlugin from 'eslint-plugin-optimize-regex';
 import promisePlugin from 'eslint-plugin-promise';
 import sonarPlugin from 'eslint-plugin-sonarjs';
-import tsPlugin from '@typescript-eslint/eslint-plugin';
 import filenamesPlugin from 'eslint-plugin-filenames';
 import importPlugin from 'eslint-plugin-import';
 import ally11Plugin from 'eslint-plugin-jsx-a11y';
 import testingLibraryPlugin from 'eslint-plugin-testing-library';
 import jestDomPlugin from 'eslint-plugin-jest-dom';
 import globals from 'globals';
+import tseslint from 'typescript-eslint';
+import babelParser from "@babel/eslint-parser";
 
-import {files, testFiles, tsFiles} from './constants.js';
+import {
+    files, 
+    testFiles, 
+    tsFiles,
+    jsFiles,
+    ignores
+} from './constants.js';
+import {
+    customRules, 
+    onlyJSRules, 
+    onlyTSRules
+} from './custom_rules.config.js';
 
 const airbnbPluginConfig = {
     files,
@@ -87,9 +99,6 @@ const filenamesPluginConfig = {
     files,
     plugins: {
         filenames: filenamesPlugin,
-    },
-    rules: {
-        "filenames/match-exported": [ 2, [null, "camel", "pascal", "snake"] ],
     },
 };
 
@@ -216,10 +225,20 @@ const regexPluginConfig = {
 const tsPluginConfig = {
     files  : tsFiles,
     plugins: {
-        '@typescript-eslint': tsPlugin,
+        '@typescript-eslint': tseslint.plugin,
+    },
+    languageOptions: {
+        parser       : tseslint.parser,
+        parserOptions: {
+            project: [
+                './tsconfig.eslint.json', 
+                './packages/*/tsconfig.json', 
+                './apps/*/tsconfig.json'
+            ],
+            tsconfigRootDir: import.meta.dirname, 
+        },
     },
     rules: {
-        ...tsPlugin.configs.recommended.rules,
         '@typescript-eslint/no-unused-vars': ['error', {
             vars              : 'all',
             args              : 'after-used',
@@ -261,7 +280,44 @@ const testLibPluginConfig = {
     },
 };
 
-export const pluginsConfigs = {
+const customPluginConfig = {
+    ignores,
+    files,
+    rules        : customRules,
+    linterOptions: {
+        reportUnusedDisableDirectives: true,
+    },
+};
+
+const customPluginConfigTS = {
+    files: tsFiles,
+    rules: onlyTSRules,
+};
+
+const customPluginConfigJS = {
+    files          : jsFiles,
+    languageOptions: {
+        ecmaVersion  : 'latest',
+        parser       : babelParser,
+        parserOptions: {
+            requireConfigFile          : false,
+            sourceType                 : "module",
+            allowImportExportEverywhere: true,
+            babelOptions               : {
+                babelrc   : false,
+                configFile: false,
+                rootMode  : "upward",
+                plugins   : [
+                    "@babel/plugin-syntax-import-assertions", 
+                    "@babel/plugin-syntax-jsx"
+                ],
+            },
+        },
+    },
+    rules: onlyJSRules,
+};
+
+export const pluginsConfigsMap = {
     ts        : tsPluginConfig,
     react     : reactPluginConfig,
     airbnb    : airbnbPluginConfig,
@@ -275,9 +331,15 @@ export const pluginsConfigs = {
     regex     : regexPluginConfig,
     jest      : jestPluginConfig,
     testLib   : testLibPluginConfig,
+    custom    : {
+        all: customPluginConfig,
+        js : customPluginConfigJS,
+        ts : customPluginConfigTS,
+    },
 };
 
 export const pluginsConfigsList = [
+    ...tseslint.configs.recommended,
     tsPluginConfig,
     reactPluginConfig,
     airbnbPluginConfig,
@@ -288,7 +350,10 @@ export const pluginsConfigsList = [
     promisePluginConfig,
     reactHooksPluginConfig,
     sonarPluginConfig,
-    regexPluginConfig
+    regexPluginConfig,
+    customPluginConfig,
+    customPluginConfigTS,
+    customPluginConfigJS
 ];
 
 export const testPluginsConfigsList = [
