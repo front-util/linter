@@ -1,4 +1,4 @@
-export const customRules = {
+const customRules = {
     'no-mixed-operators'             : 'off',
     'guard-for-in'                   : 'off',
     'padding-line-between-statements': [
@@ -100,11 +100,153 @@ export const customRules = {
     "prefer-const"                : 'error',
 };
 
-export const onlyTSRules = {
+const onlyTSRules = {
     'no-unused-vars': "off",
 };
 
-export const onlyJSRules = {
-    'no-unused-vars'     : "error",
+const tsCommonRules = {
+    '@typescript-eslint/no-unused-vars': ['error', {
+        vars              : 'all',
+        args              : 'after-used',
+        ignoreRestSiblings: false,
+        varsIgnorePattern : 'React',
+    }],
+    '@typescript-eslint/no-use-before-define': ['error'],
+    '@typescript-eslint/ban-ts-comment'      : 0,
+    '@typescript-eslint/no-shadow'           : 'error',
+    '@typescript-eslint/ban-types'           : 0,
+};
+
+const onlyJSRules = {
+    'no-unused-vars': "error",
+};
+
+const allyRules = {
+    'jsx-a11y/anchor-is-valid'                       : 'off',
+    'jsx-a11y/no-noninteractive-element-interactions': 'off',
+    'jsx-a11y/interactive-supports-focus'            : 'off',
+    'jsx-a11y/click-events-have-key-events'          : 'off',
+    'jsx-a11y/control-has-associated-label'          : 'off',
+};
+
+const importRules = {
+    'import/no-extraneous-dependencies': [
+        'error',
+        {
+            peerDependencies    : true,
+            optionalDependencies: true,
+        }
+    ],
+    'import/prefer-default-export'     : 0,
+    'import/no-named-as-default'       : 'off',
+    'import/no-dynamic-require'        : 'off',
+    'import/no-named-as-default-member': 'off',
+    'import/extensions'                : 'off',
+    'import/namespace'                 : 'off',
+    'import/default'                   : 'off',
+    'import/export'                    : 'off',
+};
+
+const reactRules = {
     "react/jsx-uses-vars": "error",
+    'react/sort-comp'    : [1, {
+        order: [
+            'static-variables',
+            'static-methods',
+            'instance-variables',
+            'lifecycle',
+            'everything-else',
+            'render'
+        ],
+    }],
+    'react/jsx-uses-react'             : [1],
+    'react/jsx-props-no-spreading'     : 'off',
+    'react/static-property-placement'  : 'off',
+    'react/state-in-constructor'       : 'off',
+    'react/jsx-fragments'              : 'off',
+    'react/no-access-state-in-setstate': 'off',
+    'react/destructuring-assignment'   : 'off',
+    'react-hooks/rules-of-hooks'       : 'error',
+    'react-hooks/exhaustive-deps'      : 'warn',
+    'react/forbid-prop-types'          : ['warn', {
+        forbid: [
+            'any'
+        ],
+        checkContextTypes     : true,
+        checkChildContextTypes: true,
+    }],
+    'react/no-array-index-key'   : 'off',
+    'react/no-children-prop'     : 'off',
+    'react/no-danger'            : 'off',
+    'react/require-default-props': ['off', {
+        forbidDefaultForRequired: true,
+    }],
+    'react/jsx-indent'            : ['warn', 4],
+    'react/jsx-indent-props'      : ['warn', 4],
+    'react/jsx-max-props-per-line': ['off', {
+        maximum: 3,
+    }],
+    'react/jsx-one-expression-per-line': 'off',
+    'react/jsx-tag-spacing'            : ['error', {
+        closingSlash     : 'never',
+        beforeSelfClosing: 'always',
+        afterOpening     : 'never',
+    }],
+    'react/jsx-filename-extension': [
+        'error',
+        {
+            extensions: [
+                '.js',
+                '.jsx',
+                '.ts',
+                '.tsx'
+            ],
+        }
+    ],
+    'react/function-component-definition': [2, { namedComponents: 'arrow-function', }],
+};
+
+const reactHookRules = {
+    'react-hooks/rules-of-hooks' : 'error',
+    'react-hooks/exhaustive-deps': 'warn',
+};
+
+const sonarRules = {
+    'sonarjs/no-nested-template-literals': 0,
+    'sonarjs/no-duplicate-string'        : 0,
+};
+
+const testLibRules = {
+    'testing-library/await-async-query'              : 'error',
+    'testing-library/await-async-utils'              : 'error',
+    'testing-library/no-await-sync-query'            : 'error',
+    'testing-library/no-container'                   : 'error',
+    'testing-library/no-debugging-utils'             : 'error',
+    'testing-library/no-dom-import'                  : ['error', 'react'],
+    'testing-library/no-node-access'                 : 'error',
+    'testing-library/no-promise-in-fire-event'       : 'error',
+    'testing-library/no-render-in-setup'             : 'error',
+    'testing-library/no-unnecessary-act'             : 'error',
+    'testing-library/no-wait-for-empty-callback'     : 'error',
+    'testing-library/no-wait-for-multiple-assertions': 'error',
+    'testing-library/no-wait-for-side-effects'       : 'error',
+    'testing-library/no-wait-for-snapshot'           : 'error',
+    'testing-library/prefer-find-by'                 : 'error',
+    'testing-library/prefer-presence-queries'        : 'error',
+    'testing-library/prefer-query-by-disappearance'  : 'error',
+    'testing-library/prefer-screen-queries'          : 'error',
+    'testing-library/render-result-naming-convention': 'error',
+};
+
+export const customRulesMap = {
+    base      : customRules,
+    onlyTS    : onlyTSRules,
+    onlyJS    : onlyJSRules,
+    tsEslint  : tsCommonRules,
+    react     : reactRules,
+    reactHooks: reactHookRules,
+    jsxA11y   : allyRules,
+    import    : importRules,
+    sonar     : sonarRules,
+    test      : testLibRules,
 };

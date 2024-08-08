@@ -1,6 +1,6 @@
 {
   "name": "@front-utils/linter",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Configuration files for linting",
   "author": "IVGolubev",
   "license": "ISC",
@@ -10,46 +10,61 @@
     "url": "https://github.com/front-util/linter.git"
   },
   "exports": {
-    ".": "./src/index.js"
+    ".": "./index.js"
   },
   "scripts": {
     "check-lint": "eslint . --max-warnings=0 --fix",
     "publish:linter": "npm publish --access public"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "ignore": [
+      ".github/",
+      "*.md",
+      "*.config.js",
+      ".editorconfig",
+      "tsconfig.json"
+    ]
   },
   "keywords": [
     "ESLint",
-    "ESLint custom config",
-    "Configuration"
+    "ESLint-custom-config",
+    "Configuration",
+    "ESLint-plugin"
   ],
   "engines": {
     "node": ">=18.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.24.7",
-    "@babel/eslint-parser": "^7.24.7",
-    "@babel/plugin-syntax-import-assertions": "^7.22.5",
-    "@babel/plugin-syntax-jsx": "^7.24.7",
-    "@babel/preset-env": "^7.24.7",
-    "@babel/preset-react": "^7.24.7",
-    "@babel/preset-typescript": "^7.24.7",
-    "eslint": "^9.4.0",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-import-resolver-alias": "^1.1.2",
-    "eslint-import-resolver-typescript": "^3.6.1",
-    "eslint-plugin-compat": "^5.0.0",
-    "eslint-plugin-filenames": "^1.3.2",
-    "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-jest-dom": "^5.4.0",
-    "eslint-plugin-jsx-a11y": "^6.8.0",
-    "eslint-plugin-optimize-regex": "^1.2.1",
-    "eslint-plugin-promise": "^6.2.0",
-    "eslint-plugin-react": "^7.34.2",
-    "eslint-plugin-react-hooks": "^4.6.2",
-    "eslint-plugin-sonarjs": "^1.0.3",
-    "eslint-plugin-testing-library": "^6.2.2",
-    "globals": "^15.4.0"
+    "@babel/core": "*",
+    "@babel/eslint-parser": "*",
+    "@babel/plugin-syntax-import-assertions": "*",
+    "@babel/plugin-syntax-jsx": "*",
+    "@babel/preset-env": "*",
+    "@babel/preset-react": "*",
+    "@babel/preset-typescript": "*",
+    "@eslint/js": "*",
+    "eslint": "*",
+    "eslint-config-airbnb": "*",
+    "eslint-import-resolver-alias": "*",
+    "eslint-import-resolver-typescript": "*",
+    "eslint-plugin-compat": "*",
+    "eslint-plugin-filenames": "*",
+    "eslint-plugin-import": "*",
+    "eslint-plugin-jest-dom": "*",
+    "eslint-plugin-jsx-a11y": "*",
+    "eslint-plugin-optimize-regex": "*",
+    "eslint-plugin-promise": "*",
+    "eslint-plugin-react": "*",
+    "eslint-plugin-react-hooks": "*",
+    "eslint-plugin-sonarjs": "*",
+    "eslint-plugin-testing-library": "*",
+    "globals": "*"
+  },
+  "peerDependencies": {
+    "eslint": "^9"
+  },
+  "dependencies": {
+    "typescript-eslint": "^8.0.1"
   }
 }
