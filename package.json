@@ -17,7 +17,7 @@
     "publish:linter": "npm publish --access public"
   },
   "simple-git-hooks": {
-    "pre-commit": "bun run check-lint",
+    "pre-commit": "npx list-staged",
     "preserveUnused": true
   },
   "publishConfig": {
@@ -64,6 +64,7 @@
     "eslint-plugin-sonarjs": "*",
     "eslint-plugin-testing-library": "*",
     "globals": "*",
+    "lint-staged": "*",
     "simple-git-hooks": "*"
   },
   "peerDependencies": {
