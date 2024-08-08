@@ -263,7 +263,3 @@ export const configs = {
         babelUpwardJsPluginConfig
     ],
 };
-
-const a;
-const b;
-const b;

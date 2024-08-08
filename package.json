@@ -17,7 +17,7 @@
     "publish:linter": "npm publish --access public"
   },
   "simple-git-hooks": {
-    "pre-commit": "npx lint-staged",
+    "pre-commit": "npx lint-staged --no-stash",
     "preserveUnused": true
   },
   "publishConfig": {
