@@ -266,3 +266,4 @@ export const configs = {
 
 const a;
 const b;
+const b;
