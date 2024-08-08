@@ -253,10 +253,25 @@ const reactConfigList = [
 ];
 
 export const configs = {
+    /** 
+     * base rules with configured plugins
+     */
     standart: standartConfigList,
+    /**
+     * includes standart config + ts rules
+     */
     ts      : tsConfigList,
+    /**
+     * includes ts config + react rules
+     */
     react   : reactConfigList,
+    /**
+     * only jest rules
+     */
     test    : testConfigList,
+    /**
+     * includes all configs + monorepo babel settings
+     */
     monorepo: [
         ...reactConfigList,
         ...testConfigList,
