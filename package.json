@@ -16,6 +16,10 @@
     "check-lint": "eslint . --max-warnings=0 --fix",
     "publish:linter": "npm publish --access public"
   },
+  "simple-git-hooks": {
+    "pre-commit": "bun run check-lint",
+    "preserveUnused": true
+  },
   "publishConfig": {
     "access": "public",
     "ignore": [
@@ -59,7 +63,8 @@
     "eslint-plugin-react-hooks": "*",
     "eslint-plugin-sonarjs": "*",
     "eslint-plugin-testing-library": "*",
-    "globals": "*"
+    "globals": "*",
+    "simple-git-hooks": "*"
   },
   "peerDependencies": {
     "eslint": "^9"
