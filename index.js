@@ -1,7 +1,7 @@
 import * as utils from './src/utils.js';
 import { configs } from './src/plugins.config.js';
 
-export default {
+export {
     utils,
     configs,
 };
