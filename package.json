@@ -1,6 +1,6 @@
 {
   "name": "@front-utils/linter",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Configuration files for linting",
   "author": "IVGolubev",
   "license": "ISC",
@@ -9,11 +9,13 @@
     "type": "git",
     "url": "https://github.com/front-util/linter.git"
   },
+  "types": "index.d.ts",
   "exports": {
     ".": "./index.js"
   },
   "scripts": {
-    "check-lint": "eslint . --max-warnings=0 --fix",
+    "check:lint": "eslint . --max-warnings=0 --fix",
+    "gen:dts": "tsc index.ts --declaration --emitDeclarationOnly",
     "publish:linter": "npm publish --access public"
   },
   "simple-git-hooks": {
