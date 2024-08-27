@@ -24,6 +24,17 @@ import {
 } from './constants.js';
 import { customRulesMap } from './custom_rules.config.js';
 
+const baseConfig = {
+    languageOptions: {
+        ecmaVersion: 2022,
+        sourceType : "module",
+        globals    : {
+            ...globals.browser,
+            ...globals.node,
+        },
+    },
+};
+
 /**
  * ------ plugins configuration ------
  */
@@ -226,7 +237,8 @@ const standartConfigList = [
     promisePluginConfig,
     sonarPluginConfig,
     regexPluginConfig,
-    customPluginConfig
+    customPluginConfig,
+    baseConfig
 ];
 /**
  * with ts rules
