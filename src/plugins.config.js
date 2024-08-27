@@ -165,7 +165,6 @@ const tsPluginConfig = {
         parser       : tseslint.parser,
         parserOptions: {
             project: [
-                './tsconfig.eslint.json', 
                 './tsconfig.json', 
                 './packages/*/tsconfig.json', 
                 './apps/*/tsconfig.json'
