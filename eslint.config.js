@@ -1,3 +1,3 @@
-import { configs } from './src/plugins.config.js';
+import { createEslintConfig } from './src/utils.js';
 
-export default configs.standart;
+export default createEslintConfig();

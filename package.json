@@ -1,6 +1,6 @@
 {
   "name": "@front-utils/linter",
-  "version": "0.5.6",
+  "version": "0.6.0",
   "description": "Configuration files for linting",
   "author": "IVGolubev",
   "license": "ISC",
@@ -14,7 +14,7 @@
     ".": "./index.js"
   },
   "scripts": {
-    "check:lint": "eslint . --max-warnings=0 --fix",
+    "check:lint": "eslint ./src --max-warnings=0 --fix",
     "gen:dts": "tsc index.ts --declaration --emitDeclarationOnly",
     "publish:linter": "npm publish --access public"
   },
@@ -35,7 +35,7 @@
   "keywords": [
     "ESLint",
     "ESLint-custom-config",
-    "Configuration",
+    "Eslint configuration",
     "ESLint-plugin"
   ],
   "engines": {
@@ -71,32 +71,32 @@
     "typescript-eslint": "*"
   },
   "peerDependencies": {
-    "eslint": "^9.8.0",
-    "@eslint/js": "^9.8.0",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-import-resolver-alias": "^1.1.2",
-    "eslint-import-resolver-typescript": "^3.6.1",
+    "eslint": "^8.0.0 | ^9.0.0",
+    "@eslint/js": "^9.0.0",
+    "eslint-config-airbnb": "^19.0.0",
+    "eslint-import-resolver-alias": "^1.0.0",
+    "eslint-import-resolver-typescript": "^3.0.0",
     "eslint-plugin-compat": "^5.0.0",
-    "eslint-plugin-filenames": "^1.3.2",
-    "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-jsx-a11y": "^6.9.0",
-    "eslint-plugin-optimize-regex": "^1.2.1",
-    "eslint-plugin-promise": "^6.6.0",
-    "eslint-plugin-sonarjs": "^1.0.4",
-    "typescript-eslint": "^8.0.1"
+    "eslint-plugin-filenames": "^1.0.0",
+    "eslint-plugin-import": "^2.0.0",
+    "eslint-plugin-jsx-a11y": "^6.0.0",
+    "eslint-plugin-optimize-regex": "^1.0.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-sonarjs": "^1.0.0",
+    "typescript-eslint": "^8.0.0"
   },
   "optionalDependencies": {
-    "eslint-plugin-jest-dom": "^5.4.0",
-    "eslint-plugin-react": "^7.35.0",
-    "eslint-plugin-react-hooks": "^4.6.2",
-    "eslint-plugin-testing-library": "^6.2.2",
-    "@babel/core": "^7.25.2",
-    "@babel/eslint-parser": "^7.25.1",
-    "@babel/plugin-syntax-import-assertions": "^7.24.7",
-    "@babel/plugin-syntax-jsx": "^7.24.7",
-    "@babel/preset-env": "^7.25.3",
-    "@babel/preset-react": "^7.24.7",
-    "@babel/preset-typescript": "^7.24.7",
-    "globals": "^15.9.0"
+    "eslint-plugin-jest-dom": "^5.0.0",
+    "eslint-plugin-react": "^7.0.0",
+    "eslint-plugin-react-hooks": "^4.0.",
+    "eslint-plugin-testing-library": "^6.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/eslint-parser": "^7.0.0",
+    "@babel/plugin-syntax-import-assertions": "^7.0.0",
+    "@babel/plugin-syntax-jsx": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.0.0",
+    "globals": "^15.0.0"
   }
 }
