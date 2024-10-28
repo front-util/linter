@@ -1,5 +1,4 @@
 import pluginJs from "@eslint/js";
-import airbnbPlugin from 'eslint-config-airbnb';
 import ally11Plugin from 'eslint-plugin-jsx-a11y';
 import compatPlugin from 'eslint-plugin-compat';
 import importPlugin from 'eslint-plugin-import';
@@ -23,13 +22,6 @@ const baseConfig = {
             ...globals.browser,
             ...globals.node,
         },
-    },
-};
-
-const airbnbPluginConfig = {
-    files,
-    plugins: {
-        arbnb: airbnbPlugin,
     },
 };
 
@@ -120,7 +112,6 @@ const customPluginConfig = {
 
 export const basePlugins = [
     pluginJs.configs.recommended,
-    airbnbPluginConfig,
     allyPluginConfig,
     compatPluginConfig,
     importPluginConfig,
