@@ -76,7 +76,7 @@ const eslintConfig = utils.createEslintConfig({ts: true, react: true, babel: tru
 #### standart config without react, ts
 
 ```
-npm install @front-utils/linter @eslint/js eslint-config-airbnb eslint-plugin-compat eslint-plugin-optimize-regex eslint-plugin-promise eslint-plugin-sonarjs eslint-plugin-filenames  eslint-plugin-import eslint-plugin-jsx-a11y --save-dev
+npm install @front-utils/linter @eslint/js eslint-plugin-compat eslint-plugin-optimize-regex eslint-plugin-promise eslint-plugin-sonarjs eslint-plugin-filenames  eslint-plugin-import eslint-plugin-jsx-a11y --save-dev
 ```
 
 ```js
@@ -90,7 +90,7 @@ export default configs.standart;
 
 #### includes standart config + ts rules
 ```
-npm install @front-utils/linter @eslint/js typescript-eslint eslint-config-airbnb eslint-plugin-compat eslint-plugin-optimize-regex eslint-plugin-promise eslint-plugin-sonarjs eslint-plugin-filenames  eslint-plugin-import eslint-plugin-jsx-a11y --save-dev
+npm install @front-utils/linter @eslint/js typescript-eslint eslint-plugin-compat eslint-plugin-optimize-regex eslint-plugin-promise eslint-plugin-sonarjs eslint-plugin-filenames  eslint-plugin-import eslint-plugin-jsx-a11y --save-dev
 ```
 
 ```js
@@ -104,7 +104,7 @@ export default configs.ts;
 
 #### includes ts config + react rules
 ```
-npm install @front-utils/linter @eslint/js typescript-eslint eslint-plugin-react eslint-plugin-react-hooks eslint-config-airbnb eslint-plugin-compat eslint-plugin-optimize-regex eslint-plugin-promise eslint-plugin-sonarjs eslint-plugin-filenames  eslint-plugin-import eslint-plugin-jsx-a11y globals --save-dev
+npm install @front-utils/linter @eslint/js typescript-eslint eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-compat eslint-plugin-optimize-regex eslint-plugin-promise eslint-plugin-sonarjs eslint-plugin-filenames  eslint-plugin-import eslint-plugin-jsx-a11y globals --save-dev
 ```
 
 ```js
@@ -132,7 +132,7 @@ export default configs.test;
 
 #### includes all configs + monorepo babel settings
 ```
-npm install @front-utils/linter @eslint/js typescript-eslint eslint-plugin-react eslint-plugin-react-hooks eslint-config-airbnb eslint-plugin-compat eslint-plugin-optimize-regex eslint-plugin-promise eslint-plugin-sonarjs eslint-plugin-filenames  eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-testing-library eslint-plugin-jest-dom @babel/eslint-parser globals --save-dev
+npm install @front-utils/linter @eslint/js typescript-eslint eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-compat eslint-plugin-optimize-regex eslint-plugin-promise eslint-plugin-sonarjs eslint-plugin-filenames  eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-testing-library eslint-plugin-jest-dom @babel/eslint-parser globals --save-dev
 ```
 
 ```js
