@@ -37,8 +37,15 @@ import { utils } from "@front-utils/linter";
 import importPlugin from 'eslint-plugin-import';
 
 export const fullEslintAliases = [
-    ...utils.createEslintAlias({ name: 'pkg', basePath: '.', }),
-    ...utils.createEslintAlias({ name: 'api', basePath: '.', }),
+    ...utils.createEslintAlias({ 
+        name: 'pkg', 
+        basePath: '.', 
+        config: {
+            utils: 'src/infrastructure/utils', // @alias: @pkg/utils -> src/infrastructure/utils
+            models: 'src/data/models' // @alias: @pkg/models -> src/data/models
+        } 
+    }),
+    ...utils.createEslintAlias({ name: 'api', basePath: '.', config: {} }),
 ];
 
 const importPluginConfig = {
