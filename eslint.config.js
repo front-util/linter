@@ -1,8 +1,8 @@
 import { createEslintConfig } from './src/utils.js';
 
 export default [
-    ...createEslintConfig(),
-    { 
-        ignores: ["/*", "!/src"], 
-    }
+    ...createEslintConfig().map((val) => ({
+        ...val,
+        ignores: ["**/*" ,"!src/**/*"]
+    }))
 ];

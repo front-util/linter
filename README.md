@@ -78,7 +78,17 @@ The config parameter is an object that can contain the following keys:
 const eslintConfig = utils.createEslintConfig({ts: true, react: true, babel: true, test: true,}),
 ```
 
+#### rewrite the rules in all plugins.
+```js
+import { utils } from '@front-utils/linter';
 
+export default [
+    ...utils.createEslintConfig().map((val) => ({
+        ...val,
+        ignores: ["**/*" ,"!src/**/*"]
+    }))
+]; 
+```
 
 #### standart config without react, ts
 

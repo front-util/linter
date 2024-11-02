@@ -1,6 +1,9 @@
 import babelParser from "@babel/eslint-parser";
 import { jsFiles } from '../constants.js';
 import { customRulesMap } from '../custom_rules.config.js';
+   
+if(true) {}
+
 const babelUpwardJsPluginConfig = {
     files          : jsFiles,
     languageOptions: {

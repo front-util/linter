@@ -14,7 +14,7 @@
     ".": "./dist/index.js"
   },
   "scripts": {
-    "check-lint": "eslint ./src --max-warnings=0 --fix",
+    "check-lint": "eslint . --max-warnings=0 --fix",
     "publish-linter": "bun run build && npm publish --access public",
     "build": "rm -rf dist && rm -rf types && tsc"
   },
