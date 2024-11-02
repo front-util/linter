@@ -46,22 +46,8 @@ const importPluginConfig = {
     plugins: {
         import: importPlugin,
     },
-    settings: {
-        ...importPlugin.configs.typescript.settings,
-        'import/resolver': {
-            ...importPlugin.configs.typescript.settings['import/resolver'],
-            typescript: {
-                alwaysTryTypes: true,
-                project       : ['./tsconfig.json'],
-            },
-            node: {
-                project: ['./tsconfig.json'],
-            },
-        },
-    },
     rules: {
         ...importPlugin.configs.recommended.rules,
-        ...importPlugin.configs.typescript.rules,
         ...importPlugin.configs.react.rules,
         ...customRulesMap.import,
     },

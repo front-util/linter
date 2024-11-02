@@ -1,10 +1,43 @@
+import importPlugin from 'eslint-plugin-import';
+// eslint-disable-next-line import/no-unresolved
 import tseslint from 'typescript-eslint';
 
 import { basePlugins } from './base.js';
 import { customRulesMap } from '../custom_rules.config.js';
 import {
-    tsFiles
+    tsFiles,
+    files
 } from '../constants.js';
+
+const tsImportPluginConfig = {
+    files,
+    plugins: {
+        import: importPlugin,
+    },
+    settings: {
+        ...importPlugin.configs.typescript.settings,
+        'import/resolver': {
+            ...importPlugin.configs.typescript.settings['import/resolver'],
+            typescript: {
+                alwaysTryTypes: true,
+                project       : ['./tsconfig.json'],
+            },
+            node: {
+                project: [
+                    './tsconfig.json', 
+                    '**/tsconfig.json', 
+                    '**/*/tsconfig.json'
+                ],
+            },
+        },
+    },
+    rules: {
+        ...importPlugin.configs.recommended.rules,
+        ...importPlugin.configs.typescript.rules,
+        ...importPlugin.configs.react.rules,
+        ...customRulesMap.import,
+    },
+};
 
 const tsPluginConfig = {
     files  : tsFiles,
@@ -31,6 +64,7 @@ const customPluginConfigTS = {
 };
 
 export const tsPlugins = [
+    tsImportPluginConfig,
     ...tseslint.configs.recommended,
     ...basePlugins,
     tsPluginConfig,

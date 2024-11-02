@@ -1,6 +1,6 @@
 {
   "name": "@front-utils/linter",
-  "version": "0.8.0",
+  "version": "0.8.3",
   "description": "Configuration files for linting",
   "author": "IVGolubev",
   "license": "ISC",
@@ -14,7 +14,7 @@
     ".": "./dist/index.js"
   },
   "scripts": {
-    "check-lint": "eslint . --max-warnings=0 --fix",
+    "check-lint": "eslint --max-warnings=0 --fix",
     "publish-linter": "bun run build && npm publish --access public",
     "build": "rm -rf dist && rm -rf types && tsc"
   },
@@ -84,6 +84,14 @@
     "eslint-plugin-sonarjs": ">=1.0.0",
     "typescript-eslint": ">=8.0.0"
   },
+  "peerDependenciesMeta": {
+    "typescript-eslint": {
+      "optional": true
+    },
+    "eslint-import-resolver-typescript": {
+      "optional": true
+    }
+  },
   "optionalDependencies": {
     "eslint-plugin-jest-dom": ">=5.4.0",
     "eslint-plugin-react": ">=7.37.2",
@@ -96,6 +104,7 @@
     "@babel/preset-env": ">=7.26.0",
     "@babel/preset-react": ">=7.25.9",
     "@babel/preset-typescript": ">=7.26.0",
-    "globals": ">=15.11.0"
+    "globals": ">=15.11.0",
+    "typescript-eslint": ">=8.0.0"
   }
 }

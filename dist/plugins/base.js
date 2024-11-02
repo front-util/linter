@@ -12,8 +12,8 @@ import { files, ignores } from '../constants.js';
 const baseConfig = {
     languageOptions: {
         ecmaVersion: 2022,
-        sourceType : "module",
-        globals    : {
+        sourceType: "module",
+        globals: {
             ...globals.browser,
             ...globals.node,
         },
@@ -38,22 +38,8 @@ const importPluginConfig = {
     plugins: {
         import: importPlugin,
     },
-    settings: {
-        ...importPlugin.configs.typescript.settings,
-        'import/resolver': {
-            ...importPlugin.configs.typescript.settings['import/resolver'],
-            typescript: {
-                alwaysTryTypes: true,
-                project       : ['./tsconfig.json'],
-            },
-            node: {
-                project: ['./tsconfig.json'],
-            },
-        },
-    },
     rules: {
         ...importPlugin.configs.recommended.rules,
-        ...importPlugin.configs.typescript.rules,
         ...importPlugin.configs.react.rules,
         ...customRulesMap.import,
     },
@@ -91,12 +77,11 @@ const regexPluginConfig = {
 const customPluginConfig = {
     ignores,
     files,
-    rules        : customRulesMap.base,
+    rules: customRulesMap.base,
     linterOptions: {
         reportUnusedDisableDirectives: true,
     },
 };
-
 export const basePlugins = [
     pluginJs.configs.recommended,
     allyPluginConfig,

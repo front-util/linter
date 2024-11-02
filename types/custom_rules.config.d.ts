@@ -118,6 +118,14 @@ declare const customRules: {
     semi: string[];
     "no-var": string;
     "prefer-const": string;
+    "sonarjs/deprecation": string;
+    'sonarjs/function-return-type': string;
+    'sonarjs/todo-tag': string;
+    'sonarjs/no-array-index-key': string;
+    'sonarjs/no-ignored-exceptions': string;
+    'sonarjs/pseudo-random': string;
+    'sonarjs/no-clear-text-protocols': string;
+    'sonarjs/prefer-nullish-coalescing': string;
 };
 declare const onlyTSRules: {
     'no-unused-vars': string;

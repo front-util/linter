@@ -29,7 +29,6 @@ const reactHooksPluginConfig = {
         ...customRulesMap.reactHooks,
     },
 };
-
 export const reactPlugins = [
     reactPluginConfig,
     reactHooksPluginConfig
