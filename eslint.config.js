@@ -1,3 +1,8 @@
 import { createEslintConfig } from './src/utils.js';
 
-export default createEslintConfig();
+export default [
+    ...createEslintConfig(),
+    { 
+        ignores: ["/*", "!/src"], 
+    }
+];
