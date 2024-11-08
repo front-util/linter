@@ -80,6 +80,16 @@ const eslintConfig = utils.createEslintConfig({
 }),
 ```
 
+
+| config.type | included plugins                                                                                                                                                              |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| standart    | @eslint/js eslint-plugin-compat eslint-plugin-optimize-regex eslint-plugin-promise eslint-plugin-sonarjs eslint-plugin-filenames  eslint-plugin-import eslint-plugin-jsx-a11y |
+| test        | **standart config plugins** +  eslint-plugin-testing-library eslint-plugin-jest-dom                                                                                           |
+| ts          | **standart config plugins** +  typescript-eslint                                                                                                                              |
+| react       | **ts config plugins** +  eslint-plugin-react-hooks eslint-plugin-react                                                                                                        |
+| monorepo    | plugins from **all** configs + @babel/eslint-parser                                                                                                                           |
+
+
 #### rewrite the rules in all plugins.
 ```js
 import { utils } from '@front-utils/linter';
@@ -91,7 +101,9 @@ export default [
 ]; 
 ```
 
-#### standart config without react, ts
+#### standart config
+ 
+_alias for utils.createEslintConfig()_
 
 ```
 npm install @front-utils/linter @eslint/js eslint-plugin-compat eslint-plugin-optimize-regex eslint-plugin-promise eslint-plugin-sonarjs eslint-plugin-filenames  eslint-plugin-import eslint-plugin-jsx-a11y --save-dev
@@ -106,7 +118,10 @@ import {
 export default configs.standart;
 ```
 
-#### includes standart config + ts rules
+#### ts config
+
+_alias for utils.createEslintConfig({types: ['ts'],})_
+
 ```
 npm install @front-utils/linter @eslint/js typescript-eslint eslint-plugin-compat eslint-plugin-optimize-regex eslint-plugin-promise eslint-plugin-sonarjs eslint-plugin-filenames  eslint-plugin-import eslint-plugin-jsx-a11y --save-dev
 ```
@@ -120,7 +135,10 @@ import {
 export default configs.ts;
 ```
 
-#### includes ts config + react rules
+#### react config 
+
+_alias for utils.createEslintConfig({types: ['ts', 'react'],})_
+
 ```
 npm install @front-utils/linter @eslint/js typescript-eslint eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-compat eslint-plugin-optimize-regex eslint-plugin-promise eslint-plugin-sonarjs eslint-plugin-filenames  eslint-plugin-import eslint-plugin-jsx-a11y globals --save-dev
 ```
@@ -134,7 +152,10 @@ import {
 export default configs.react;
 ```
 
-#### only jest rules
+#### test config 
+
+_alias for utils.createEslintConfig({types: ['test'],})_
+
 ```
 npm install @front-utils/linter @eslint/js eslint-plugin-testing-library eslint-plugin-jest-dom --save-dev
 ```
@@ -148,7 +169,11 @@ import {
 export default configs.test;
 ```
 
-#### includes all configs + monorepo babel settings
+#### monorepo config 
+
+_alias for utils.createEslintConfig({types: ['test', 'babel', 'ts', 'react'],})_
+
+
 ```
 npm install @front-utils/linter @eslint/js typescript-eslint eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-compat eslint-plugin-optimize-regex eslint-plugin-promise eslint-plugin-sonarjs eslint-plugin-filenames  eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-testing-library eslint-plugin-jest-dom @babel/eslint-parser globals --save-dev
 ```

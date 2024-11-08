@@ -26,3 +26,5 @@ lerna-debug.log
 # build
 build
 temp
+dist
+types
