@@ -1,10 +1,10 @@
 import reactPluginRecommended from 'eslint-plugin-react/configs/recommended.js';
 import globals from 'globals';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
+
 import { customRulesMap } from '../custom_rules.config.js';
-import { files } from '../constants.js';
+
 const reactPluginConfig = {
-    files,
     ...reactPluginRecommended,
     languageOptions: {
         ...reactPluginRecommended.languageOptions,
@@ -20,7 +20,6 @@ const reactPluginConfig = {
     rules: customRulesMap.react,
 };
 const reactHooksPluginConfig = {
-    files,
     plugins: {
         'react-hooks': reactHooksPlugin,
     },
@@ -29,6 +28,7 @@ const reactHooksPluginConfig = {
         ...customRulesMap.reactHooks,
     },
 };
+
 export const reactPlugins = [
     reactPluginConfig,
     reactHooksPluginConfig

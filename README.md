@@ -69,13 +69,15 @@ const importPluginConfig = {
 import { utils } from "@front-utils/linter";
 
 /** 
-The config parameter is an object that can contain the following keys:
- - babel (type: boolean): can be either true or false.
- - react (type: boolean): indicates whether React support is enabled.
- - test (type: boolean): indicates whether testing support is enabled.
- - ts (type: boolean): indicates whether TypeScript support is enabled.
+The config.types parameter is an array that can contain the following keys:
+ - babel: include babel settings
+ - react: indicates whether React support is enabled.
+ - test: indicates whether testing support is enabled.
+ - ts: indicates whether TypeScript support is enabled.
 */
-const eslintConfig = utils.createEslintConfig({ts: true, react: true, babel: true, test: true,}),
+const eslintConfig = utils.createEslintConfig({
+    types: ['ts', 'babel', 'react', 'test']
+}),
 ```
 
 #### rewrite the rules in all plugins.
@@ -83,10 +85,9 @@ const eslintConfig = utils.createEslintConfig({ts: true, react: true, babel: tru
 import { utils } from '@front-utils/linter';
 
 export default [
-    ...utils.createEslintConfig().map((val) => ({
-        ...val,
+    ...utils.createEslintConfig({
         ignores: ["**/*" ,"!src/**/*"]
-    }))
+    })
 ]; 
 ```
 

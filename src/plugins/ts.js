@@ -2,7 +2,6 @@ import importPlugin from 'eslint-plugin-import';
 // eslint-disable-next-line import/no-unresolved
 import tseslint from 'typescript-eslint';
 
-import { basePlugins } from './base.js';
 import { customRulesMap } from '../custom_rules.config.js';
 import {
     tsFiles,
@@ -52,6 +51,7 @@ const tsPluginConfig = {
                 './packages/*/tsconfig.json', 
                 './apps/*/tsconfig.json'
             ],
+            projectService : true,
             tsconfigRootDir: import.meta.dirname, 
         },
     },
@@ -64,9 +64,8 @@ const customPluginConfigTS = {
 };
 
 export const tsPlugins = [
-    tsImportPluginConfig,
     ...tseslint.configs.recommended,
-    ...basePlugins,
+    tsImportPluginConfig,
     tsPluginConfig,
     customPluginConfigTS
 ];
