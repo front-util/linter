@@ -12,12 +12,17 @@ const pluginsByName = {
 export const createEslintAlias = (/** @type {} */ { basePath, name, config, }) => {
     return Object.entries(config).map(([key, value]) => ([`@${name}/${key}`, `${basePath}/${value}`]));
 };
-export const createEslintConfig = (/** @type {{ [x: 'babel' | 'react' | 'test' | 'ts']: boolean; }} */ config = {}) => {
+export const createEslintConfig = (/** @type {{ types: ('babel' | 'react' | 'test' | 'ts')[] }} */ config = {}) => {
+    const { types = [], ...baseConfig } = config;
+    const hasBaseConfig = !!Object.keys(baseConfig).length;
     const plugins = [...basePlugins];
     Object.entries(pluginsByName).forEach(([key, list]) => {
-        if (config[key]) {
+        if (types.includes(key)) {
             plugins.push(...list);
         }
     });
-    return plugins;
+    return !hasBaseConfig ? plugins : plugins.map((p) => ({
+        ...p,
+        ...baseConfig,
+    }));
 };

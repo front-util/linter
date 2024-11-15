@@ -1,6 +1,6 @@
 {
   "name": "@front-utils/linter",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Configuration files for linting",
   "author": "IVGolubev",
   "license": "ISC",

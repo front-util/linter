@@ -7,34 +7,34 @@ import promisePlugin from 'eslint-plugin-promise';
 import sonarPlugin from 'eslint-plugin-sonarjs';
 import regexPlugin from 'eslint-plugin-optimize-regex';
 import globals from 'globals';
-
 import { customRulesMap } from '../custom_rules.config.js';
-import { ignores } from '../constants.js';
-
+import { files, ignores } from '../constants.js';
 const baseConfig = {
     languageOptions: {
         ecmaVersion: 2022,
-        sourceType : "module",
-        globals    : {
+        sourceType: "module",
+        globals: {
             ...globals.browser,
             ...globals.node,
-            jest: true,
         },
     },
 };
 const allyPluginConfig = {
+    files,
     plugins: {
         'jsx-a11y': ally11Plugin,
     },
     rules: customRulesMap.jsxA11y,
 };
 const compatPluginConfig = {
+    files,
     plugins: {
         compat: compatPlugin,
     },
     rules: compatPlugin.configs.recommended.rules,
 };
 const importPluginConfig = {
+    files,
     plugins: {
         import: importPlugin,
     },
@@ -45,17 +45,20 @@ const importPluginConfig = {
     },
 };
 const filenamesPluginConfig = {
+    files,
     plugins: {
         filenames: filenamesPlugin,
     },
 };
 const promisePluginConfig = {
+    files,
     plugins: {
         promise: promisePlugin,
     },
     rules: promisePlugin.configs.recommended.rules,
 };
 const sonarPluginConfig = {
+    files,
     plugins: {
         sonarjs: sonarPlugin,
     },
@@ -65,6 +68,7 @@ const sonarPluginConfig = {
     },
 };
 const regexPluginConfig = {
+    files,
     plugins: {
         'optimize-regex': regexPlugin,
     },
@@ -72,12 +76,12 @@ const regexPluginConfig = {
 };
 const customPluginConfig = {
     ignores,
-    rules        : customRulesMap.base,
+    files,
+    rules: customRulesMap.base,
     linterOptions: {
         reportUnusedDisableDirectives: true,
     },
 };
-
 export const basePlugins = [
     pluginJs.configs.recommended,
     allyPluginConfig,

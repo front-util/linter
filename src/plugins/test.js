@@ -1,5 +1,6 @@
 import testingLibraryPlugin from 'eslint-plugin-testing-library';
 import jestDomPlugin from 'eslint-plugin-jest-dom';
+import globals from 'globals';
 
 import {
     testFiles 
@@ -11,7 +12,13 @@ const testLibPluginConfig = {
     plugins: {
         'testing-library': testingLibraryPlugin,
     },
-    rules: customRulesMap.test,
+    rules          : customRulesMap.test,
+    languageOptions: {
+        globals: {
+            ...globals.browser,
+            ...globals.jest,
+        },
+    },
 };
 
 const jestPluginConfig = {

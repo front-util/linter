@@ -76,18 +76,25 @@ The config.types parameter is an array that can contain the following keys:
  - ts: indicates whether TypeScript support is enabled.
 */
 const eslintConfig = utils.createEslintConfig({
-    types: ['ts', 'babel', 'react', 'test']
+    types: ['ts', 'babel', 'react', 'test'],
+    ...{
+        ignores: [],
+        files: []
+    } /** any eslint rule */
 }),
 ```
 
+| base rules            | included plugins                                                                                                                                                              |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| with any config.types | @eslint/js eslint-plugin-compat eslint-plugin-optimize-regex eslint-plugin-promise eslint-plugin-sonarjs eslint-plugin-filenames  eslint-plugin-import eslint-plugin-jsx-a11y |
 
-| config.type | included plugins                                                                                                                                                              |
-| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| standart    | @eslint/js eslint-plugin-compat eslint-plugin-optimize-regex eslint-plugin-promise eslint-plugin-sonarjs eslint-plugin-filenames  eslint-plugin-import eslint-plugin-jsx-a11y |
-| test        | **standart config plugins** +  eslint-plugin-testing-library eslint-plugin-jest-dom                                                                                           |
-| ts          | **standart config plugins** +  typescript-eslint                                                                                                                              |
-| react       | **ts config plugins** +  eslint-plugin-react-hooks eslint-plugin-react                                                                                                        |
-| monorepo    | plugins from **all** configs + @babel/eslint-parser                                                                                                                           |
+
+| config.types | included plugins                                     |
+| ------------ | ---------------------------------------------------- |
+| test         | eslint-plugin-testing-library eslint-plugin-jest-dom |
+| ts           | typescript-eslint                                    |
+| react        | eslint-plugin-react-hooks eslint-plugin-react        |
+| babel        | @babel/eslint-parser                                 |
 
 
 #### rewrite the rules in all plugins.
@@ -100,6 +107,14 @@ export default [
     })
 ]; 
 ```
+
+| alias    | included plugins                                                                                                                                                              |
+| -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| standart | @eslint/js eslint-plugin-compat eslint-plugin-optimize-regex eslint-plugin-promise eslint-plugin-sonarjs eslint-plugin-filenames  eslint-plugin-import eslint-plugin-jsx-a11y |
+| test     | **standart config plugins** +  eslint-plugin-testing-library eslint-plugin-jest-dom                                                                                           |
+| ts       | **standart config plugins** +  typescript-eslint                                                                                                                              |
+| react    | **ts config plugins** +  eslint-plugin-react-hooks eslint-plugin-react                                                                                                        |
+| monorepo | plugins from **all** configs + @babel/eslint-parser                                                                                                                           |
 
 #### standart config
  

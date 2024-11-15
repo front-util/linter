@@ -14,6 +14,7 @@ const reactPluginConfig = {
         ...reactPluginRecommended.languageOptions,
         globals: {
             ...globals.browser,
+            jest: true,
         },
     },
     settings: {
