@@ -114,10 +114,12 @@ const onlyTSRules = {
 
 const tsCommonRules = {
     '@typescript-eslint/no-unused-vars': ['error', {
-        vars              : 'all',
-        args              : 'after-used',
-        ignoreRestSiblings: false,
-        varsIgnorePattern : 'React',
+        vars                     : 'all',
+        args                     : 'after-used',
+        ignoreRestSiblings       : false,
+        varsIgnorePattern        : 'React',
+        argsIgnorePattern        : "^_",
+        caughtErrorsIgnorePattern: "^_",
     }],
     '@typescript-eslint/no-use-before-define': ['error'],
     '@typescript-eslint/ban-ts-comment'      : 0,

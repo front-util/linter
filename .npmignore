@@ -1,0 +1,6 @@
+.github
+.idea
+.eslintcache
+.vscode/launch.json
+.version
+.nx

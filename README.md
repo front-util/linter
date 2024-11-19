@@ -88,6 +88,7 @@ const eslintConfig = utils.createEslintConfig({
 | --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | with any config.types | @eslint/js eslint-plugin-compat eslint-plugin-optimize-regex eslint-plugin-promise eslint-plugin-sonarjs eslint-plugin-filenames  eslint-plugin-import eslint-plugin-jsx-a11y |
 
+add plugins with config.types
 
 | config.types | included plugins                                     |
 | ------------ | ---------------------------------------------------- |
@@ -108,13 +109,13 @@ export default [
 ]; 
 ```
 
-| alias    | included plugins                                                                                                                                                              |
-| -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| standart | @eslint/js eslint-plugin-compat eslint-plugin-optimize-regex eslint-plugin-promise eslint-plugin-sonarjs eslint-plugin-filenames  eslint-plugin-import eslint-plugin-jsx-a11y |
-| test     | **standart config plugins** +  eslint-plugin-testing-library eslint-plugin-jest-dom                                                                                           |
-| ts       | **standart config plugins** +  typescript-eslint                                                                                                                              |
-| react    | **ts config plugins** +  eslint-plugin-react-hooks eslint-plugin-react                                                                                                        |
-| monorepo | plugins from **all** configs + @babel/eslint-parser                                                                                                                           |
+| alias    | is equal                                                             |
+| -------- | -------------------------------------------------------------------- |
+| standart | utils.createEslintConfig()                                           |
+| test     | utils.createEslintConfig({types: ['test'],})                         |
+| ts       | utils.createEslintConfig({types: ['ts'],})                           |
+| react    | utils.createEslintConfig({types: ['ts', 'react'],})                  |
+| monorepo | utils.createEslintConfig({types: ['test', 'babel', 'ts', 'react'],}) |
 
 #### standart config
  

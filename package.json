@@ -1,6 +1,6 @@
 {
   "name": "@front-utils/linter",
-  "version": "0.9.1",
+  "version": "0.9.5",
   "description": "Configuration files for linting",
   "author": "IVGolubev",
   "license": "ISC",
@@ -29,9 +29,6 @@
     "access": "public",
     "ignore": [
       ".github/",
-      "*.md",
-      "*.config.js",
-      ".editorconfig",
       "tsconfig.json"
     ]
   },
