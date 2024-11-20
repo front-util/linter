@@ -1,5 +1,6 @@
-import { createEslintConfig } from './src/utils.js';
+import { createEslintConfig } from './dist/utils.js';
 
 export default createEslintConfig({
-    files: ['src/**/*.{js,jsx}'],
+    types: ['ts'],
+    files: ['src/**/*.{ts,tsx,js}'],
 });

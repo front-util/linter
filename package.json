@@ -1,6 +1,6 @@
 {
   "name": "@front-utils/linter",
-  "version": "0.9.5",
+  "version": "0.9.6",
   "description": "Configuration files for linting",
   "author": "IVGolubev",
   "license": "ISC",
@@ -18,8 +18,10 @@
   },
   "scripts": {
     "check-lint": "eslint --max-warnings=0 --fix",
+    "check-types": "tsc --noEmit",
     "publish-linter": "bun run build && npm publish --access public",
-    "build": "rm -rf dist && rm -rf types && tsc"
+    "build": "rm -rf dist && rm -rf types && tsc",
+    "build-bun": "rm -rf dist && rm -rf types && bun build ./src/index.ts --outdir ./dist --target node --no-bundle"
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged --no-stash",
@@ -50,7 +52,10 @@
     "@babel/preset-react": "^7.25.9",
     "@babel/preset-typescript": "^7.26.0",
     "@eslint/js": "^9.13.0",
+    "@types/eslint-plugin-jsx-a11y": "^6.9.0",
     "@types/eslint__js": "^8.42.3",
+    "@types/node": "^22.9.1",
+    "bun": "^1.1.36",
     "eslint": "^9.13.0",
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-import-resolver-typescript": "^3.6.3",
@@ -60,7 +65,7 @@
     "eslint-plugin-jest-dom": "^5.4.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-optimize-regex": "^1.2.1",
-    "eslint-plugin-promise": "^6.6.0",
+    "eslint-plugin-promise": ">=6.0.0",
     "eslint-plugin-react": "^7.37.2",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-sonarjs": "^1.0.4",

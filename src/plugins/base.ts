@@ -1,10 +1,14 @@
 import pluginJs from "@eslint/js";
 import ally11Plugin from 'eslint-plugin-jsx-a11y';
 import compatPlugin from 'eslint-plugin-compat';
+// @ts-ignore
 import importPlugin from 'eslint-plugin-import';
+// @ts-ignore
 import filenamesPlugin from 'eslint-plugin-filenames';
+// @ts-ignore
 import promisePlugin from 'eslint-plugin-promise';
 import sonarPlugin from 'eslint-plugin-sonarjs';
+// @ts-ignore
 import regexPlugin from 'eslint-plugin-optimize-regex';
 import globals from 'globals';
 
@@ -13,6 +17,7 @@ import {
     files,
     ignores
 } from '../constants.js';
+import { type LinterConfig } from "../types.js";
 
 const baseConfig = {
     languageOptions: {
@@ -107,4 +112,4 @@ export const basePlugins = [
     regexPluginConfig,
     customPluginConfig,
     baseConfig
-];
+] as LinterConfig[];

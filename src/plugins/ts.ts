@@ -1,5 +1,5 @@
+// @ts-ignore
 import importPlugin from 'eslint-plugin-import';
-// eslint-disable-next-line import/no-unresolved
 import tseslint from 'typescript-eslint';
 
 import { customRulesMap } from '../custom_rules.config.js';
@@ -7,6 +7,7 @@ import {
     tsFiles,
     files
 } from '../constants.js';
+import { type LinterConfig } from "../types.js";
 
 const tsImportPluginConfig = {
     files,
@@ -68,4 +69,4 @@ export const tsPlugins = [
     tsImportPluginConfig,
     tsPluginConfig,
     customPluginConfigTS
-];
+] as LinterConfig[];

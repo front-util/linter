@@ -4,6 +4,7 @@ import {
     jsFiles
 } from '../constants.js';
 import { customRulesMap } from '../custom_rules.config.js';
+import { type LinterConfig } from "../types.js";
 
 const babelUpwardJsPluginConfig = {
     files          : jsFiles,
@@ -30,4 +31,4 @@ const babelUpwardJsPluginConfig = {
 
 export const babelPlugins = [
     babelUpwardJsPluginConfig
-];
+] as LinterConfig[];

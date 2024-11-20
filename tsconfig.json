@@ -3,21 +3,26 @@
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
     "skipLibCheck": true,
-    "target": "esnext",                      
-    "module": "ESNext",                    
-    "allowJs": true,                     
-    "declaration": true,                     
-    "declarationMap": true,       
-    "declarationDir": "./types",         
-    "outDir": "./dist",  
-    "rootDir": "./src",                
-    "strict": true,                           
-    "noImplicitAny": true,                    
-    "moduleResolution": "node",            
+    "target": "esnext",
+    "module": "ESNext",
+    "declaration": true,
+    "declarationMap": true,
+    "declarationDir": "./types",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "noImplicitAny": true,
+    "moduleResolution": "node",
     "baseUrl": ".",
-    "allowSyntheticDefaultImports": true,     
-    "esModuleInterop": true,                  
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
   },
-  "exclude": ["node_modules", "dist", ".vscode"],
-  "include": ["./src/**/*"]
+  "exclude": [
+    "node_modules",
+    "dist",
+    ".vscode"
+  ],
+  "include": [
+    "./src/**/*"
+  ]
 }
