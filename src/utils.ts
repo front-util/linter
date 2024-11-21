@@ -7,6 +7,7 @@ import { type CustomTypes, type LinterConfig } from './types.js';
 
 export interface CustomConfig extends LinterConfig {
     types?: CustomTypes[];
+    /** additional config rules has priority! */
     typesAdapter?: (type: CustomTypes ,config: LinterConfig) => LinterConfig;
 }
 
@@ -29,7 +30,7 @@ export const createEslintAlias = ({ basePath, name, config, }: CreateAliasConfig
     return Object.entries(config).map(([key, value]) => ([`@${name}/${key}`, `${basePath}/${value}`]));
 };
 
-export const createEslintConfig: CreateEslintConfigFn = (config = {} as CustomConfig) => {
+export const createEslintConfig: CreateEslintConfigFn = (config = {}) => {
     const {types = [], typesAdapter, ...baseConfig} = config;
     const hasBaseConfig = !!Object.keys(baseConfig).length;
     const plugins = [...basePlugins] as LinterConfig[];

@@ -9,7 +9,7 @@
     "declarationMap": true,
     "declarationDir": "./types",
     "outDir": "./dist",
-    "rootDir": "./src",
+    "rootDir": ".",
     "strict": true,
     "noImplicitAny": true,
     "moduleResolution": "node",
@@ -23,6 +23,7 @@
     ".vscode"
   ],
   "include": [
-    "./src/**/*"
+    "./src/**/*",
+    "tests/utils.test.ts"
   ]
 }

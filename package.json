@@ -1,6 +1,6 @@
 {
   "name": "@front-utils/linter",
-  "version": "0.9.6",
+  "version": "0.9.7",
   "description": "Configuration files for linting",
   "author": "IVGolubev",
   "license": "ISC",
@@ -19,12 +19,13 @@
   "scripts": {
     "check-lint": "eslint --max-warnings=0 --fix",
     "check-types": "tsc --noEmit",
+    "test": "bun test",
     "publish-linter": "bun run build && npm publish --access public",
-    "build": "rm -rf dist && rm -rf types && tsc",
-    "build-bun": "rm -rf dist && rm -rf types && bun build ./src/index.ts --outdir ./dist --target node --no-bundle"
+    "build": "rm -rf dist && rm -rf types && tsc"
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged --no-stash",
+    "pre-push": "bun run test",
     "preserveUnused": true
   },
   "publishConfig": {
@@ -52,6 +53,7 @@
     "@babel/preset-react": "^7.25.9",
     "@babel/preset-typescript": "^7.26.0",
     "@eslint/js": "^9.13.0",
+    "@types/bun": "^1.1.13",
     "@types/eslint-plugin-jsx-a11y": "^6.9.0",
     "@types/eslint__js": "^8.42.3",
     "@types/node": "^22.9.1",
