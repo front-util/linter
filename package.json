@@ -1,6 +1,6 @@
 {
   "name": "@front-utils/linter",
-  "version": "0.9.8",
+  "version": "0.9.9",
   "description": "Configuration files for linting",
   "author": "IVGolubev",
   "license": "ISC",
@@ -11,9 +11,9 @@
   },
   "types": "./types/index.d.ts",
   "exports": {
-    ".": "./dist/index.js",
-    "./types": "./types/index.d.ts",
-    "./types/*": "./types/*"
+    ".": "./dist/src/index.js",
+    "./types": "./types/src/index.d.ts",
+    "./types/*": "./types/src/*"
   },
   "scripts": {
     "check-lint": "eslint --max-warnings=0 --fix",
