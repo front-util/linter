@@ -6,3 +6,8 @@
 .nx
 
 tests/
+
+bun.lockb
+eslint.config.js
+tsconfig.build.json
+tsconfig.json

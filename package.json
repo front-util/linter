@@ -1,6 +1,6 @@
 {
   "name": "@front-utils/linter",
-  "version": "0.9.9",
+  "version": "1.0.0",
   "description": "Configuration files for linting",
   "author": "IVGolubev",
   "license": "ISC",
@@ -11,16 +11,19 @@
   },
   "types": "./types/index.d.ts",
   "exports": {
-    ".": "./dist/src/index.js",
-    "./types": "./types/src/index.d.ts",
-    "./types/*": "./types/src/*"
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./types/index.d.ts"
+    },
+    "./types": "./types/index.d.ts",
+    "./types/*": "./types/*"
   },
   "scripts": {
     "check-lint": "eslint --max-warnings=0 --fix",
     "check-types": "tsc --noEmit",
     "test": "bun test",
     "publish-linter": "bun run build && npm publish --access public",
-    "build": "rm -rf dist && rm -rf types && tsc"
+    "build": "rm -rf dist && rm -rf types && tsc -p tsconfig.build.json"
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged --no-stash",
