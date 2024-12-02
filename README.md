@@ -139,7 +139,7 @@ export default configs.standart;
 _alias for utils.createEslintConfig({types: ['ts'],})_
 
 ```
-npm install @front-utils/linter @eslint/js typescript-eslint eslint-plugin-compat eslint-plugin-optimize-regex eslint-plugin-promise eslint-plugin-sonarjs eslint-plugin-filenames  eslint-plugin-import eslint-plugin-jsx-a11y --save-dev
+npm install @front-utils/linter @eslint/js typescript-eslint eslint-plugin-compat eslint-plugin-optimize-regex eslint-plugin-promise eslint-plugin-sonarjs eslint-plugin-filenames  eslint-plugin-import eslint-plugin-jsx-a11y eslint-import-resolver-typescript --save-dev
 ```
 
 ```js
