@@ -5,7 +5,6 @@ const configs = {
     test    : utils.createEslintConfig({types: ['test'],}),
     ts      : utils.createEslintConfig({types: ['ts'],}),
     react   : utils.createEslintConfig({types: ['ts', 'react'],}),
-    monorepo: utils.createEslintConfig({types: ['test', 'babel', 'ts', 'react'],}),
 };
 
 export {

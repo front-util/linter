@@ -1,3 +1,4 @@
+import { defineConfig } from "eslint/config";
 import pluginJs from "@eslint/js";
 import ally11Plugin from 'eslint-plugin-jsx-a11y';
 import compatPlugin from 'eslint-plugin-compat';
@@ -11,16 +12,15 @@ import sonarPlugin from 'eslint-plugin-sonarjs';
 // @ts-ignore
 import regexPlugin from 'eslint-plugin-optimize-regex';
 import globals from 'globals';
-import pluginSecurity  from 'eslint-plugin-security';
+import pluginSecurity from 'eslint-plugin-security';
 
 import { customRulesMap } from '../custom_rules.config.js';
 import {
     files,
     ignores
 } from '../constants.js';
-import { type LinterConfig } from "../types.js";
 
-const baseConfig = {
+const baseConfig = defineConfig({
     languageOptions: {
         ecmaVersion: 2022,
         sourceType : "module",
@@ -29,25 +29,25 @@ const baseConfig = {
             ...globals.node,
         },
     },
-};
+});
 
-const allyPluginConfig = {
+const allyPluginConfig = defineConfig({
     files,
     plugins: {
         'jsx-a11y': ally11Plugin,
     },
     rules: customRulesMap.jsxA11y,
-};
+});
 
-const compatPluginConfig = {
+const compatPluginConfig = defineConfig({
     files,
     plugins: {
         compat: compatPlugin,
     },
     rules: compatPlugin.configs.recommended.rules,
-};
+});
 
-const importPluginConfig = {
+const importPluginConfig = defineConfig({
     files,
     plugins: {
         import: importPlugin,
@@ -57,24 +57,24 @@ const importPluginConfig = {
         ...importPlugin.configs.react.rules,
         ...customRulesMap.import,
     },
-};
+});
 
-const filenamesPluginConfig = {
+const filenamesPluginConfig = defineConfig({
     files,
     plugins: {
         filenames: filenamesPlugin,
     },
-};
+});
 
-const promisePluginConfig = {
+const promisePluginConfig = defineConfig({
     files,
     plugins: {
         promise: promisePlugin,
     },
     rules: promisePlugin.configs.recommended.rules,
-};
+});
 
-const sonarPluginConfig = {
+const sonarPluginConfig = defineConfig({
     files,
     plugins: {
         sonarjs: sonarPlugin,
@@ -83,28 +83,28 @@ const sonarPluginConfig = {
         ...sonarPlugin.configs.recommended.rules,
         ...customRulesMap.sonar,
     },
-};
+});
 
-const regexPluginConfig = {
+const regexPluginConfig = defineConfig({
     files,
     plugins: {
         'optimize-regex': regexPlugin,
     },
     rules: regexPlugin.configs.recommended.rules,
-};
+});
 
-const customPluginConfig = {
+const customPluginConfig = defineConfig({
     ignores,
     files,
     rules        : customRulesMap.base,
     linterOptions: {
         reportUnusedDisableDirectives: true,
     },
-};
+});
 
-export const basePlugins = [
-    pluginSecurity.configs.recommended,
-    pluginJs.configs.recommended,
+export const basePlugins = defineConfig([
+    defineConfig(pluginSecurity.configs.recommended),
+    defineConfig(pluginJs.configs.recommended),
     allyPluginConfig,
     compatPluginConfig,
     importPluginConfig,
@@ -114,4 +114,4 @@ export const basePlugins = [
     regexPluginConfig,
     customPluginConfig,
     baseConfig
-] as LinterConfig[];
+]);

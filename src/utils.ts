@@ -1,3 +1,4 @@
+import { defineConfig } from 'eslint/config';
 import {basePlugins} from './plugins/base.js';
 import {reactPlugins} from './plugins/react.js';
 import {testPlugins} from './plugins/test.js';
@@ -6,8 +7,6 @@ import { type CustomTypes, type LinterConfig } from './types.js';
 
 export interface CustomConfig extends LinterConfig {
     types?: CustomTypes[];
-    /** additional config rules has priority! */
-    typesAdapter?: (type: CustomTypes ,config: LinterConfig) => LinterConfig;
 }
 
 export interface CreateAliasConfig { 
@@ -29,24 +28,26 @@ export const createEslintAlias = ({ basePath, name, config, }: CreateAliasConfig
 };
 
 export const createEslintConfig: CreateEslintConfigFn = (config = {}) => {
-    const {types = [], typesAdapter, ...baseConfig} = config;
-    const hasBaseConfig = !!Object.keys(baseConfig).length;
+    const {types = [], ...baseConfig} = config;
     const plugins = [...basePlugins] as LinterConfig[];
 
     Object.entries(pluginsByName).forEach(([key, list]) => {
-        const typeName = key as CustomTypes;
-
-        if(types.includes(typeName)) {
-            if(typeof typesAdapter === 'function') {
-                plugins.push(...list.map((c) => typesAdapter(typeName, c)));
-            } else {
-                plugins.push(...list);
-            }
+        if(types.includes(key as CustomTypes)) {
+            plugins.push(...list);
         }
     });
+
+    if(baseConfig.files) {
+        return defineConfig([
+            {
+                ...baseConfig,
+                extends: plugins,
+            }
+        ]);
+    }
     
-    return !hasBaseConfig ? plugins : plugins.map((p) => ({
-        ...p,
-        ...baseConfig,
-    }));
+    return defineConfig([
+        plugins,
+        baseConfig
+    ]);
 };

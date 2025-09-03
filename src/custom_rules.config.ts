@@ -1,3 +1,5 @@
+import { Linter } from "eslint";
+
 const customRules = {
     'no-mixed-operators'             : 'off',
     'guard-for-in'                   : 'off',
@@ -106,11 +108,11 @@ const customRules = {
     'sonarjs/pseudo-random'            : 'off',
     'sonarjs/no-clear-text-protocols'  : 'off',
     'sonarjs/prefer-nullish-coalescing': 'off',
-};
+} satisfies Linter.RulesRecord;
 
 const onlyTSRules = {
     'no-unused-vars': "off",
-};
+} satisfies Linter.RulesRecord;
 
 const tsCommonRules = {
     '@typescript-eslint/no-unused-vars': ['error', {
@@ -125,11 +127,11 @@ const tsCommonRules = {
     '@typescript-eslint/ban-ts-comment'      : 0,
     '@typescript-eslint/no-shadow'           : 'error',
     '@typescript-eslint/ban-types'           : 0,
-};
+} satisfies Linter.RulesRecord;
 
 const onlyJSRules = {
     'no-unused-vars': "error",
-};
+} satisfies Linter.RulesRecord;
 
 const allyRules = {
     'jsx-a11y/anchor-is-valid'                       : 'off',
@@ -137,7 +139,7 @@ const allyRules = {
     'jsx-a11y/interactive-supports-focus'            : 'off',
     'jsx-a11y/click-events-have-key-events'          : 'off',
     'jsx-a11y/control-has-associated-label'          : 'off',
-};
+} satisfies Linter.RulesRecord;
 
 const importRules = {
     'import/no-extraneous-dependencies': [
@@ -155,7 +157,7 @@ const importRules = {
     'import/namespace'                 : 'off',
     'import/default'                   : 'off',
     'import/export'                    : 'off',
-};
+} satisfies Linter.RulesRecord;
 
 const reactRules = {
     "react/jsx-uses-vars": "error",
@@ -214,17 +216,17 @@ const reactRules = {
         }
     ],
     'react/function-component-definition': [2, { namedComponents: 'arrow-function', }],
-};
+} satisfies Linter.RulesRecord;
 
 const reactHookRules = {
     'react-hooks/rules-of-hooks' : 'error',
     'react-hooks/exhaustive-deps': 'warn',
-};
+} satisfies Linter.RulesRecord;
 
 const sonarRules = {
     'sonarjs/no-nested-template-literals': 0,
     'sonarjs/no-duplicate-string'        : 0,
-};
+} satisfies Linter.RulesRecord;
 
 const testLibRules = {
     'testing-library/await-async-utils'              : 'error',
@@ -242,7 +244,7 @@ const testLibRules = {
     'testing-library/prefer-query-by-disappearance'  : 'error',
     'testing-library/prefer-screen-queries'          : 'error',
     'testing-library/render-result-naming-convention': 'error',
-};
+} satisfies Linter.RulesRecord;
 
 export const customRulesMap = {
     base      : customRules,

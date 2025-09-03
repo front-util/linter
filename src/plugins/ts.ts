@@ -1,15 +1,15 @@
 // @ts-ignore
 import importPlugin from 'eslint-plugin-import';
 import tseslint from 'typescript-eslint';
+import { defineConfig } from "eslint/config";
 
 import { customRulesMap } from '../custom_rules.config.js';
 import {
     tsFiles,
     files
 } from '../constants.js';
-import { type LinterConfig } from "../types.js";
 
-const tsImportPluginConfig = {
+const tsImportPluginConfig = defineConfig({
     files,
     plugins: {
         import: importPlugin,
@@ -37,9 +37,9 @@ const tsImportPluginConfig = {
         ...importPlugin.configs.react.rules,
         ...customRulesMap.import,
     },
-};
+});
 
-const tsPluginConfig = {
+const tsPluginConfig = defineConfig({
     files  : tsFiles,
     plugins: {
         '@typescript-eslint': tseslint.plugin,
@@ -52,21 +52,21 @@ const tsPluginConfig = {
                 './packages/*/tsconfig.json', 
                 './apps/*/tsconfig.json'
             ],
-            projectService : true,
-            tsconfigRootDir: import.meta.dirname, 
+            projectService : false,
+            tsconfigRootDir: process.cwd(), 
         },
     },
     rules: customRulesMap.tsEslint,
-};
+});
 
-const customPluginConfigTS = {
+const customPluginConfigTS = defineConfig({
     files: tsFiles,
     rules: customRulesMap.onlyTS,
-};
+});
 
-export const tsPlugins = [
+export const tsPlugins = defineConfig([
     ...tseslint.configs.recommended,
     tsImportPluginConfig,
     tsPluginConfig,
     customPluginConfigTS
-] as LinterConfig[];
+]);
