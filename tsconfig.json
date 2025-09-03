@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
+    "types": ["bun-types"]
   },
   "exclude": [
     "node_modules",

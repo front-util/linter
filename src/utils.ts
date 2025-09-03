@@ -1,4 +1,3 @@
-import {babelPlugins} from './plugins/babel.js';
 import {basePlugins} from './plugins/base.js';
 import {reactPlugins} from './plugins/react.js';
 import {testPlugins} from './plugins/test.js';
@@ -20,7 +19,6 @@ export interface CreateAliasConfig {
 export type CreateEslintConfigFn = (config?: CustomConfig) => LinterConfig[]
 
 const pluginsByName = {
-    babel: babelPlugins,
     react: reactPlugins,
     test : testPlugins,
     ts   : tsPlugins,

@@ -95,7 +95,6 @@ add plugins with config.types
 | test         | eslint-plugin-testing-library eslint-plugin-jest-dom |
 | ts           | typescript-eslint                                    |
 | react        | eslint-plugin-react-hooks eslint-plugin-react        |
-| babel        | @babel/eslint-parser                                 |
 
 
 #### rewrite the rules in all plugins.
@@ -191,7 +190,7 @@ _alias for utils.createEslintConfig({types: ['test', 'babel', 'ts', 'react'],})_
 
 
 ```
-npm install @front-utils/linter @eslint/js typescript-eslint eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-compat eslint-plugin-optimize-regex eslint-plugin-promise eslint-plugin-sonarjs eslint-plugin-filenames  eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-testing-library eslint-plugin-jest-dom @babel/eslint-parser globals --save-dev
+npm install @front-utils/linter @eslint/js typescript-eslint eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-compat eslint-plugin-optimize-regex eslint-plugin-promise eslint-plugin-sonarjs eslint-plugin-filenames  eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-testing-library eslint-plugin-jest-dom globals --save-dev
 ```
 
 ```js

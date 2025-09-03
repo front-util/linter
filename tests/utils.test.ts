@@ -7,7 +7,6 @@ import {
 } from '../src/utils';
 import { basePlugins } from "../src/plugins/base";
 import { CustomTypes } from "../src/types";
-import { babelPlugins } from "../src/plugins/babel";
 import { reactPlugins } from "../src/plugins/react";
 import { testPlugins } from "../src/plugins/test";
 
@@ -107,10 +106,10 @@ describe('[src/utils]', () => {
 
         // Correctly applies plugins based on specified types in the config
         it('should apply plugins based on specified types in config', () => {
-            const config = { types: ['babel', 'react'] as CustomTypes[], };
+            const config = { types: ['react'] as CustomTypes[], };
             const result = createEslintConfig(config);
 
-            expect(result).toEqual(expect.arrayContaining([...babelPlugins, ...reactPlugins]));
+            expect(result).toEqual(expect.arrayContaining([...reactPlugins]));
         });
 
         // Uses the typesAdapter function to modify plugins when provided

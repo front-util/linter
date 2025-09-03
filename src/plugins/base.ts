@@ -11,6 +11,7 @@ import sonarPlugin from 'eslint-plugin-sonarjs';
 // @ts-ignore
 import regexPlugin from 'eslint-plugin-optimize-regex';
 import globals from 'globals';
+import pluginSecurity  from 'eslint-plugin-security';
 
 import { customRulesMap } from '../custom_rules.config.js';
 import {
@@ -102,6 +103,7 @@ const customPluginConfig = {
 };
 
 export const basePlugins = [
+    pluginSecurity.configs.recommended,
     pluginJs.configs.recommended,
     allyPluginConfig,
     compatPluginConfig,
