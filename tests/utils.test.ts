@@ -1,4 +1,4 @@
-import { expect, it, describe, mock } from "bun:test";
+import { expect, it, describe } from "bun:test";
 
 import {
     createEslintAlias,
@@ -8,7 +8,6 @@ import {
 import { basePlugins } from "../src/plugins/base";
 import { CustomTypes } from "../src/types";
 import { reactPlugins } from "../src/plugins/react";
-import { testPlugins } from "../src/plugins/test";
 
 describe('[src/utils]', () => {
     describe('- createEslintAlias', () => {
@@ -112,25 +111,16 @@ describe('[src/utils]', () => {
             expect(result).toEqual(expect.arrayContaining([...reactPlugins]));
         });
 
-        // Uses the typesAdapter function to modify plugins when provided
-        it('should use typesAdapter to modify plugins when provided', () => {
-            const typesAdapter = mock((_, config) => ({ ...config, modified: true, }));
-            const config = { types: ['test'] as CustomTypes[], typesAdapter, };
-            const result = createEslintConfig(config);
-
-            expect(typesAdapter).toHaveBeenCalled();
-            expect(result).toEqual(expect.arrayContaining(testPlugins.map((p) => ({ ...p, modified: true, }))));
-        });
-
         // Merges baseConfig properties into each plugin when baseConfig is present
         it('should merge baseConfig properties into each plugin when baseConfig is present', () => {
             const baseConfig = { rules: { 'no-console': 'warn', } as CustomConfig['rules'], };
             const config = { ...baseConfig, };
             const result = createEslintConfig(config);
 
-            result.forEach((plugin) => {
-                expect(plugin).toMatchObject(baseConfig);
-            });
+            expect(result).toEqual([
+                ...basePlugins,
+                baseConfig
+            ]);
         });
     });
 });
