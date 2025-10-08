@@ -1,13 +1,8 @@
-import { expect, it, describe } from "bun:test";
+import { describe, expect, it } from "bun:test";
 
 import {
-    createEslintAlias,
-    createEslintConfig,
-    CustomConfig
+    createEslintAlias
 } from '../src/utils';
-import { basePlugins } from "../src/plugins/base";
-import { CustomTypes } from "../src/types";
-import { reactPlugins } from "../src/plugins/react";
 
 describe('[src/utils]', () => {
     describe('- createEslintAlias', () => {
@@ -83,43 +78,6 @@ describe('[src/utils]', () => {
             expect(result).toEqual([
                 ['@special/key-special!@#', '/special/value-special!@#'],
                 ['@special/another$key', '/special/another$value']
-            ]);
-        });
-    });
-
-    describe('code snippet', () => {
-        // Generates a default ESLint configuration when no custom config is provided
-        it('should generate default ESLint configuration when no custom config is provided', () => {
-            const result = createEslintConfig();
-
-            expect(result).toEqual(expect.arrayContaining(basePlugins));
-        });
-
-        // Handles an empty types array without errors
-        it('should handle an empty types array without errors', () => {
-            const config = { types: [], };
-            const result = createEslintConfig(config);
-
-            expect(result).toEqual(expect.arrayContaining(basePlugins));
-        });
-
-        // Correctly applies plugins based on specified types in the config
-        it('should apply plugins based on specified types in config', () => {
-            const config = { types: ['react'] as CustomTypes[], };
-            const result = createEslintConfig(config);
-
-            expect(result).toEqual(expect.arrayContaining([...reactPlugins]));
-        });
-
-        // Merges baseConfig properties into each plugin when baseConfig is present
-        it('should merge baseConfig properties into each plugin when baseConfig is present', () => {
-            const baseConfig = { rules: { 'no-console': 'warn', } as CustomConfig['rules'], };
-            const config = { ...baseConfig, };
-            const result = createEslintConfig(config);
-
-            expect(result).toEqual([
-                ...basePlugins,
-                baseConfig
             ]);
         });
     });

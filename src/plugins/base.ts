@@ -1,117 +1,97 @@
-import { defineConfig } from "eslint/config";
-import pluginJs from "@eslint/js";
-import ally11Plugin from 'eslint-plugin-jsx-a11y';
+import js from "@eslint/js";
 import compatPlugin from 'eslint-plugin-compat';
-// @ts-ignore
-import importPlugin from 'eslint-plugin-import';
-// @ts-ignore
+// @ts-expect-error - ESLint plugin types
 import filenamesPlugin from 'eslint-plugin-filenames';
-// @ts-ignore
-import promisePlugin from 'eslint-plugin-promise';
-import sonarPlugin from 'eslint-plugin-sonarjs';
-// @ts-ignore
+import importPlugin from 'eslint-plugin-import';
+import ally11Plugin from 'eslint-plugin-jsx-a11y';
+// @ts-expect-error - ESLint plugin types
 import regexPlugin from 'eslint-plugin-optimize-regex';
-import globals from 'globals';
+import perfectionist from 'eslint-plugin-perfectionist';
+// @ts-expect-error - ESLint plugin types
+import promisePlugin from 'eslint-plugin-promise';
 import pluginSecurity from 'eslint-plugin-security';
+import sonarPlugin from 'eslint-plugin-sonarjs';
+import unicorn from 'eslint-plugin-unicorn';
+import { defineConfig } from "eslint/config";
+import globals from 'globals';
 
-import { customRulesMap } from '../custom_rules.config.js';
 import {
-    files,
     ignores
 } from '../constants.js';
+import { customRulesMap } from '../custom_rules.config.js';
 
-const baseConfig = defineConfig({
+const config = defineConfig({
+    plugins: {
+        'jsx-a11y'      : ally11Plugin,
+        filenames       : filenamesPlugin,
+        'optimize-regex': regexPlugin,
+    },
     languageOptions: {
-        ecmaVersion: 2022,
+        ecmaVersion: 'latest',
         sourceType : "module",
         globals    : {
             ...globals.browser,
             ...globals.node,
         },
+        parserOptions: {
+            ecmaFeatures: {
+                jsx: true,
+            },
+        },
     },
-});
-
-const allyPluginConfig = defineConfig({
-    files,
-    plugins: {
-        'jsx-a11y': ally11Plugin,
-    },
-    rules: customRulesMap.jsxA11y,
-});
-
-const compatPluginConfig = defineConfig({
-    files,
-    plugins: {
-        compat: compatPlugin,
-    },
-    rules: compatPlugin.configs.recommended.rules,
-});
-
-const importPluginConfig = defineConfig({
-    files,
-    plugins: {
-        import: importPlugin,
-    },
-    rules: {
-        ...importPlugin.configs.recommended.rules,
-        ...importPlugin.configs.react.rules,
-        ...customRulesMap.import,
-    },
-});
-
-const filenamesPluginConfig = defineConfig({
-    files,
-    plugins: {
-        filenames: filenamesPlugin,
-    },
-});
-
-const promisePluginConfig = defineConfig({
-    files,
-    plugins: {
-        promise: promisePlugin,
-    },
-    rules: promisePlugin.configs.recommended.rules,
-});
-
-const sonarPluginConfig = defineConfig({
-    files,
-    plugins: {
-        sonarjs: sonarPlugin,
-    },
-    rules: {
-        ...sonarPlugin.configs.recommended.rules,
-        ...customRulesMap.sonar,
-    },
-});
-
-const regexPluginConfig = defineConfig({
-    files,
-    plugins: {
-        'optimize-regex': regexPlugin,
-    },
-    rules: regexPlugin.configs.recommended.rules,
-});
-
-const customPluginConfig = defineConfig({
     ignores,
-    files,
-    rules        : customRulesMap.base,
     linterOptions: {
         reportUnusedDisableDirectives: true,
     },
+    rules: {
+        ...customRulesMap.base,
+        ...customRulesMap.sonar,
+        ...customRulesMap.import,
+        ...customRulesMap.jsxA11y,
+        ...regexPlugin.configs.recommended.rules,
+    },
 });
 
-export const basePlugins = defineConfig([
-    defineConfig(pluginSecurity.configs.recommended),
-    defineConfig(pluginJs.configs.recommended),
-    allyPluginConfig,
-    compatPluginConfig,
-    importPluginConfig,
-    filenamesPluginConfig,
-    promisePluginConfig,
-    sonarPluginConfig,
-    regexPluginConfig,
-    customPluginConfig,
-    baseConfig
+const modernPluginsConfig = defineConfig({
+    plugins: {
+        unicorn,
+        perfectionist,
+    },
+    rules: {
+        ...unicorn.configs.recommended.rules,
+        // Отключаем некоторые слишком строгие правила unicorn для совместимости
+        'unicorn/no-array-callback-reference'  : 'off',
+        'unicorn/prefer-spread'                : 'off',
+        'unicorn/no-null'                      : 'off',
+        'unicorn/prefer-optional-catch-binding': 'off',
+        'unicorn/prefer-top-level-await'       : 'off',
+        'unicorn/prevent-abbreviations'        : 'off',
+        'unicorn/filename-case'                : ['error', { case: 'snakeCase', }],
+        // Настраиваем perfectionist для алфавитной сортировки
+        'perfectionist/sort-imports'           : ['error', {
+            type           : 'alphabetical',
+            order          : 'asc',
+            newlinesBetween: 'always',
+            groups         : [
+                'type',
+                ['builtin', 'external'],
+                'internal',
+                ['parent', 'sibling', 'index'],
+                'unknown'
+            ],
+        }],
+        'perfectionist/sort-named-imports': 'error',
+        'perfectionist/sort-named-exports': 'error',
+    },
+});
+
+export const baseConfig = defineConfig([
+    js.configs.recommended,
+    compatPlugin.configs["flat/recommended"],
+    importPlugin.flatConfigs.recommended,
+    promisePlugin.configs['flat/recommended'],
+    sonarPlugin.configs.recommended,
+    pluginSecurity.configs.recommended,
+    modernPluginsConfig,
+    config
 ]);

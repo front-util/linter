@@ -1,19 +1,11 @@
-// @ts-ignore
 import importPlugin from 'eslint-plugin-import';
-import tseslint from 'typescript-eslint';
 import { defineConfig } from "eslint/config";
+import tseslint from 'typescript-eslint';
 
 import { customRulesMap } from '../custom_rules.config.js';
-import {
-    tsFiles,
-    files
-} from '../constants.js';
+import { baseConfig } from './base.js';
 
 const tsImportPluginConfig = defineConfig({
-    files,
-    plugins: {
-        import: importPlugin,
-    },
     settings: {
         ...importPlugin.configs.typescript.settings,
         'import/resolver': {
@@ -32,15 +24,11 @@ const tsImportPluginConfig = defineConfig({
         },
     },
     rules: {
-        ...importPlugin.configs.recommended.rules,
-        ...importPlugin.configs.typescript.rules,
-        ...importPlugin.configs.react.rules,
         ...customRulesMap.import,
     },
 });
 
 const tsPluginConfig = defineConfig({
-    files  : tsFiles,
     plugins: {
         '@typescript-eslint': tseslint.plugin,
     },
@@ -60,12 +48,13 @@ const tsPluginConfig = defineConfig({
 });
 
 const customPluginConfigTS = defineConfig({
-    files: tsFiles,
     rules: customRulesMap.onlyTS,
 });
 
-export const tsPlugins = defineConfig([
-    ...tseslint.configs.recommended,
+export const tsConfig = defineConfig([
+    ...baseConfig,
+    tseslint.configs.recommended,
+    importPlugin.flatConfigs.typescript,
     tsImportPluginConfig,
     tsPluginConfig,
     customPluginConfigTS

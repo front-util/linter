@@ -1,19 +1,24 @@
-// @ts-ignore
-import reactPluginRecommended from 'eslint-plugin-react/configs/recommended.js';
-import globals from 'globals';
+import reactPlugin from 'eslint-plugin-react';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
 import { defineConfig } from "eslint/config";
+import globals from 'globals';
 
 import { customRulesMap } from '../custom_rules.config.js';
-import {
-    files
-} from '../constants.js';
+import { tsConfig } from './ts.js';
 
-const reactPluginConfig = defineConfig({
-    files,
-    ...reactPluginRecommended,
+const reactHooksConfig = defineConfig({
+    plugins: {
+        'react-hooks': reactHooksPlugin,
+    },
+    rules: customRulesMap.reactHooks,
+});
+
+const customReactConfig = defineConfig({
+    plugins: {
+        react: reactPlugin,
+    },
     languageOptions: {
-        ...reactPluginRecommended.languageOptions,
+        ...reactPlugin.configs.flat.recommended.languageOptions,
         globals: {
             ...globals.browser,
             jest: true,
@@ -27,18 +32,10 @@ const reactPluginConfig = defineConfig({
     rules: customRulesMap.react,
 });
 
-const reactHooksPluginConfig = defineConfig({
-    files,
-    plugins: {
-        'react-hooks': reactHooksPlugin,
-    },
-    rules: {
-        ...reactHooksPlugin.configs.recommended.rules,
-        ...customRulesMap.reactHooks,
-    },
-});
-
-export const reactPlugins = defineConfig([
-    reactPluginConfig,
-    reactHooksPluginConfig
+export const reactConfig = defineConfig([
+    ...tsConfig,
+    reactPlugin.configs.flat.recommended,
+    reactPlugin.configs.flat['jsx-runtime'],
+    customReactConfig,
+    reactHooksConfig
 ]);
