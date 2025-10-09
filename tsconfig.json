@@ -25,7 +25,7 @@
   ],
   "include": [
     "./src/**/*",
-    "tests/utils.test.ts",
+    "tests/**/*",
     "./eslint.config.ts"
   ]
 }

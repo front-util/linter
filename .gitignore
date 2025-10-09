@@ -17,7 +17,7 @@ yarn-error.log*
 
 # hidden
 .idea
-.eslintcache
+**/.eslintcache
 .vscode/launch.json
 .version
 .nx

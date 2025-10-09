@@ -31,7 +31,10 @@
     "check:types": "tsc --noEmit",
     "test": "bun test",
     "publish:linter": "bun run build && npm publish --access public",
-    "build": "rm -rf dist && rm -rf types && tsc -p tsconfig.build.json"
+    "build": "rm -rf dist && rm -rf types && tsc -p tsconfig.build.json",
+    "test:js": "cd test_pkg && eslint --max-warnings=0 --fix --cache --config ./eslint.config.js",
+    "test:ts": "cd test_pkg && eslint --max-warnings=0 --fix --cache --config ./eslint.config.ts",
+    "test:react": "cd test_pkg && eslint --max-warnings=0 --fix --cache --config ./eslint.config.react.js"
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged --no-stash",
@@ -85,7 +88,11 @@
     "lint-staged": "^16.2.3",
     "simple-git-hooks": "^2.13.1",
     "typescript": "^5.9.3",
-    "typescript-eslint": ">=8.42.0"
+    "typescript-eslint": ">=8.42.0",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
   },
   "peerDependencies": {
     "@eslint/js": ">=9.0.0",

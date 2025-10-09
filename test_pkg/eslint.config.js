@@ -1,12 +1,11 @@
 import { defineConfig } from 'eslint/config';
 
-import { configs } from './src/index';
+import { configs } from '../dist/index.js';
 
 export default defineConfig({
-    extends: configs.ts,
-    files  : ['src/**/*.{ts,tsx,js}', 'eslint.config.ts', 'tests/*'],
+    extends: configs.js,
+    files  : ['js_test.js'],
     rules  : {
         'import/no-unresolved': ['error', { ignore: ['^bun:'], }],
     },
-    ignores: ['test_pkg/'],
 });
