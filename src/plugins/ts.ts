@@ -12,7 +12,7 @@ const tsImportPluginConfig = defineConfig({
             ...importPlugin.configs.typescript.settings?.['import/resolver'],
             typescript: {
                 alwaysTryTypes: true,
-                project       : ['./tsconfig.json'],
+                project       : null,
             },
             node: {
                 project: [

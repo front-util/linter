@@ -1,4 +1,4 @@
-import { Linter } from "eslint";
+import { Linter } from 'eslint';
 
 const customRules = {
     'no-mixed-operators'             : 'off',
@@ -9,17 +9,14 @@ const customRules = {
         { blankLine: 'any', prev: ['const', 'let', 'var'], next: ['const', 'let', 'var'], }
     ],
     'no-param-reassign': 'off',
-    indent             : ['warn', 4, {
-        SwitchCase: 1,
-    }],
-    'getter-return' : 'off',
-    'no-console'    : 'off',
-    'accessor-pairs': ['warn', {
+    'getter-return'    : 'off',
+    'no-console'       : 'off',
+    'accessor-pairs'   : ['warn', {
         setWithoutGet: true,
         getWithoutSet: false,
     }],
     'class-methods-use-this': 'off',
-    complexity              : ['off', {
+    'complexity'            : ['off', {
         max: 8,
     }],
     'consistent-return': ['off', {
@@ -28,13 +25,7 @@ const customRules = {
     'default-case'        : 'off',
     'dot-notation'        : 'off',
     'no-case-declarations': 'off',
-    'no-multi-spaces'     : ['warn', {
-        exceptions: {
-            VariableDeclarator: true,
-        },
-        ignoreEOLComments: true,
-    }],
-    'comma-dangle': ['warn', {
+    'comma-dangle'        : ['warn', {
         objects: 'always',
         exports: 'always',
     }],
@@ -83,45 +74,67 @@ const customRules = {
         classes : 'always',
         switches: 'never',
     }],
-    'arrow-parens'                     : ['warn', 'always'],
-    'global-require'                   : 'off',
-    'no-restricted-globals'            : 'off',
-    'prefer-promise-reject-errors'     : 'off',
-    'no-unused-expressions'            : 'off',
-    'no-underscore-dangle'             : 'off',
-    'no-plusplus'                      : 'off',
-    'max-len'                          : ['warn', 250, 4, {}],
-    'no-use-before-define'             : 'off',
-    'linebreak-style'                  : 'off',
-    'no-shadow'                        : 'off',
-    'no-multiple-empty-lines'          : ["error", { "max": 1, "maxEOF": 0, "maxBOF": 0, }],
-    'no-nested-ternary'                : ['error'],
-    "semi"                             : ["error", "always"],
-    "no-var"                           : 'error',
-    "prefer-const"                     : 'error',
+    'arrow-parens'                    : ['warn', 'always'],
+    'global-require'                  : 'off',
+    'no-restricted-globals'           : 'off',
+    'prefer-promise-reject-errors'    : 'off',
+    'no-unused-expressions'           : 'off',
+    'no-underscore-dangle'            : 'off',
+    'no-plusplus'                     : 'off',
+    'no-use-before-define'            : 'off',
+    'linebreak-style'                 : 'off',
+    'no-shadow'                       : 'off',
+    'no-multiple-empty-lines'         : ['error', { max: 1, maxEOF: 0, maxBOF: 0, }],
+    'no-nested-ternary'               : ['error'],
+    'semi'                            : ['error', 'always'],
+    'no-var'                          : 'error',
+    'prefer-const'                    : 'error',
     // Современные правила из лучших практик
-    "logical-assignment-operators"     : ["error", "always"],
-    "prefer-arrow-callback"            : "error",
-    "arrow-body-style"                 : ["error", "as-needed"],
-    "prefer-template"                  : "error",
-    "prefer-exponentiation-operator"   : "error",
-    "prefer-object-has-own"            : "error",
-    "prefer-regex-literals"            : ["error", {"disallowRedundantWrapping": true,}],
-    "no-useless-rename"                : "error",
-    "object-shorthand"                 : "error",
-    "prefer-destructuring"             : ["error", {"object": true, "array": false,}],
-    "sonarjs/deprecation"              : 'off',
-    'sonarjs/function-return-type'     : 'off',
-    'sonarjs/todo-tag'                 : 'off',
-    'sonarjs/no-array-index-key'       : 'off',
-    'sonarjs/no-ignored-exceptions'    : 'off',
-    'sonarjs/pseudo-random'            : 'off',
-    'sonarjs/no-clear-text-protocols'  : 'off',
-    'sonarjs/prefer-nullish-coalescing': 'off',
+    'prefer-arrow-callback'           : 'error',
+    'prefer-template'                 : 'error',
+    'prefer-exponentiation-operator'  : 'error',
+    'prefer-object-has-own'           : 'error',
+    'prefer-regex-literals'           : ['error', { disallowRedundantWrapping: true, }],
+    'no-useless-rename'               : 'error',
+    'object-shorthand'                : 'error',
+    'prefer-destructuring'            : ['error', { object: true, array: false, }],
+    'security/detect-object-injection': 'off',
+    'unicorn/expiring-todo-comments'  : 'off',
+    'unicorn/import-style'            : 'off',
+    'unicorn/filename-case'           : [
+        'error',
+        {
+            cases: {
+                camelCase : true,
+                pascalCase: true,
+            },
+        }
+    ],
+    'unicorn/no-array-sort'     : 'off',
+    'unicorn/no-array-reduce'   : 'off',
+    'indent'                    : 'off',
+    'perfectionist/sort-imports': ['warn', {
+        internalPattern: ['^#.+', '^@/.+'],
+    }],
+
+    'no-multi-spaces'                   : 'off',
+    'arrow-body-style'                  : 'off',
+    'unicorn/prefer-global-this'        : 'off',
+    'unicorn/prefer-array-some'         : 'off',
+    'unicorn/no-new-array'              : 'off',
+    'unicorn/prefer-query-selector'     : 'off',
+    'unicorn/prefer-string-slice'       : 'off',
+    'unicorn/no-array-reverse'          : 'off',
+    'unicorn/prefer-add-event-listener' : 'off',
+    'max-len'                           : 'off',
+    'security/detect-non-literal-regexp': 'off',
+    'logical-assignment-operators'      : 'off',
+    'unicorn/prefer-at'                 : 'off',
+    'eqeqeq'                            : ['error', 'always'],
 } satisfies Linter.RulesRecord;
 
 const onlyTSRules = {
-    'no-unused-vars': "off",
+    'no-unused-vars': 'off',
 } satisfies Linter.RulesRecord;
 
 const tsCommonRules = {
@@ -130,8 +143,8 @@ const tsCommonRules = {
         args                     : 'after-used',
         ignoreRestSiblings       : false,
         varsIgnorePattern        : 'React',
-        argsIgnorePattern        : "^_",
-        caughtErrorsIgnorePattern: "^_",
+        argsIgnorePattern        : '^_',
+        caughtErrorsIgnorePattern: '^_',
     }],
     '@typescript-eslint/no-use-before-define': ['error'],
     '@typescript-eslint/ban-ts-comment'      : 0,
@@ -140,7 +153,7 @@ const tsCommonRules = {
 } satisfies Linter.RulesRecord;
 
 const onlyJSRules = {
-    'no-unused-vars': "error",
+    'no-unused-vars': 'error',
 } satisfies Linter.RulesRecord;
 
 const allyRules = {
@@ -170,7 +183,7 @@ const importRules = {
 } satisfies Linter.RulesRecord;
 
 const reactRules = {
-    "react/jsx-uses-vars": "error",
+    'react/jsx-uses-vars': 'error',
     'react/sort-comp'    : [1, {
         order: [
             'static-variables',
@@ -204,7 +217,6 @@ const reactRules = {
         forbidDefaultForRequired: true,
     }],
     'react/jsx-indent'            : ['warn', 4],
-    'react/jsx-indent-props'      : ['warn', 4],
     'react/jsx-max-props-per-line': ['off', {
         maximum: 3,
     }],
@@ -226,6 +238,10 @@ const reactRules = {
         }
     ],
     'react/function-component-definition': [2, { namedComponents: 'arrow-function', }],
+    'react/display-name'                 : 'off',
+    'react/prop-types'                   : 'off',
+    'react/jsx-indent-props'             : 'off',
+    'react/no-unescaped-entities'        : 'off',
 } satisfies Linter.RulesRecord;
 
 const reactHookRules = {
@@ -236,6 +252,15 @@ const reactHookRules = {
 const sonarRules = {
     'sonarjs/no-nested-template-literals': 0,
     'sonarjs/no-duplicate-string'        : 0,
+    'sonarjs/deprecation'                : 'off',
+    'sonarjs/function-return-type'       : 'off',
+    'sonarjs/todo-tag'                   : 'off',
+    'sonarjs/no-array-index-key'         : 'off',
+    'sonarjs/no-ignored-exceptions'      : 'off',
+    'sonarjs/pseudo-random'              : 'off',
+    'sonarjs/no-clear-text-protocols'    : 'off',
+    'sonarjs/prefer-nullish-coalescing'  : 'off',
+    'sonarjs/new-cap'                    : 'off',
 } satisfies Linter.RulesRecord;
 
 const testLibRules = {
@@ -243,7 +268,6 @@ const testLibRules = {
     'testing-library/no-container'                   : 'error',
     'testing-library/no-debugging-utils'             : 'error',
     'testing-library/no-dom-import'                  : ['error', 'react'],
-    'testing-library/no-node-access'                 : 'error',
     'testing-library/no-promise-in-fire-event'       : 'error',
     'testing-library/no-unnecessary-act'             : 'error',
     'testing-library/no-wait-for-multiple-assertions': 'error',
@@ -253,7 +277,70 @@ const testLibRules = {
     'testing-library/prefer-presence-queries'        : 'error',
     'testing-library/prefer-query-by-disappearance'  : 'error',
     'testing-library/prefer-screen-queries'          : 'error',
-    'testing-library/render-result-naming-convention': 'error',
+    'testing-library/render-result-naming-convention': 'off',
+    'testing-library/no-node-access'                 : 'off',
+} satisfies Linter.RulesRecord;
+
+const stylisticRules = {
+    '@stylistic/indent': ['warn', 4, {
+        SwitchCase: 1,
+    }],
+    '@stylistic/jsx-indent-props': ['warn', 4],
+    '@stylistic/comma-dangle'    : ['warn', {
+        objects: 'always',
+        exports: 'always',
+    }],
+    '@stylistic/key-spacing': ['warn', {
+        singleLine: {
+            beforeColon: false,
+            afterColon : true,
+        },
+        multiLine: {
+            afterColon: true,
+            align     : 'colon',
+        },
+    }],
+    '@stylistic/keyword-spacing': ['warn', {
+        overrides: {
+            if    : { after: false, },
+            for   : { after: false, },
+            while : { after: false, },
+            catch : { after: false, },
+            switch: { after: false, },
+            return: { after: true, },
+        },
+    }],
+    '@stylistic/padded-blocks': ['warn', {
+        blocks  : 'never',
+        classes : 'always',
+        switches: 'never',
+    }],
+    '@stylistic/arrow-parens'           : ['warn', 'always'],
+    '@stylistic/max-len'                : ['warn', 250, 4, {}],
+    '@stylistic/no-multiple-empty-lines': ['error', { max: 1, maxEOF: 0, maxBOF: 0, }],
+    '@stylistic/semi'                   : ['error', 'always'],
+    '@stylistic/object-curly-newline'   : ['off', {
+        ObjectExpression: {
+            minProperties: 1,
+            multiline    : true,
+        },
+        ObjectPattern: 'never',
+    }],
+    '@stylistic/type-annotation-spacing'    : 'off',
+    '@stylistic/no-multi-spaces'            : 'off',
+    '@stylistic/space-before-function-paren': ['error', 'never'],
+    '@stylistic/member-delimiter-style'     : ['warn', {
+        multiline: {
+            delimiter  : 'semi',
+            requireLast: true,
+        },
+        singleline: {
+            delimiter  : 'semi',
+            requireLast: true,
+        },
+        multilineDetection: 'brackets',
+    }],
+    '@stylistic/indent-binary-ops': ['error', 4],
 } satisfies Linter.RulesRecord;
 
 export const customRulesMap = {
@@ -267,4 +354,5 @@ export const customRulesMap = {
     import    : importRules,
     sonar     : sonarRules,
     test      : testLibRules,
+    stylistic : stylisticRules,
 };

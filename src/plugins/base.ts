@@ -1,4 +1,5 @@
-import js from "@eslint/js";
+import js from '@eslint/js';
+import stylistic from '@stylistic/eslint-plugin';
 import compatPlugin from 'eslint-plugin-compat';
 // @ts-expect-error - ESLint plugin types
 import filenamesPlugin from 'eslint-plugin-filenames';
@@ -12,7 +13,7 @@ import promisePlugin from 'eslint-plugin-promise';
 import pluginSecurity from 'eslint-plugin-security';
 import sonarPlugin from 'eslint-plugin-sonarjs';
 import unicorn from 'eslint-plugin-unicorn';
-import { defineConfig } from "eslint/config";
+import { defineConfig } from 'eslint/config';
 import globals from 'globals';
 
 import {
@@ -23,15 +24,16 @@ import { customRulesMap } from '../custom_rules.config.js';
 const config = defineConfig({
     plugins: {
         'jsx-a11y'      : ally11Plugin,
-        filenames       : filenamesPlugin,
+        'filenames'     : filenamesPlugin,
         'optimize-regex': regexPlugin,
     },
     languageOptions: {
         ecmaVersion: 'latest',
-        sourceType : "module",
+        sourceType : 'module',
         globals    : {
             ...globals.browser,
             ...globals.node,
+            ...globals.jest,
         },
         parserOptions: {
             ecmaFeatures: {
@@ -41,13 +43,14 @@ const config = defineConfig({
     },
     ignores,
     linterOptions: {
-        reportUnusedDisableDirectives: true,
+        reportUnusedDisableDirectives: 'error',
     },
     rules: {
         ...customRulesMap.base,
         ...customRulesMap.sonar,
         ...customRulesMap.import,
         ...customRulesMap.jsxA11y,
+        ...customRulesMap.stylistic,
         ...regexPlugin.configs.recommended.rules,
     },
 });
@@ -87,11 +90,13 @@ const modernPluginsConfig = defineConfig({
 
 export const baseConfig = defineConfig([
     js.configs.recommended,
-    compatPlugin.configs["flat/recommended"],
+    compatPlugin.configs['flat/recommended'],
     importPlugin.flatConfigs.recommended,
     promisePlugin.configs['flat/recommended'],
     sonarPlugin.configs.recommended,
     pluginSecurity.configs.recommended,
     modernPluginsConfig,
-    config
+    config,
+    stylistic.configs.recommended,
+    stylistic.configs['disable-legacy']
 ]);
