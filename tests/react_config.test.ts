@@ -1,25 +1,25 @@
-import { describe, expect, it } from "bun:test";
-import { ESLint } from "eslint";
+import { describe, expect, it } from 'bun:test';
+import { ESLint } from 'eslint';
 
 describe('eslint.config.react.js', () => {
     let eslint: ESLint;
 
-    it('should load React configuration without errors', async () => {
+    it('should load React configuration without errors', async() => {
         eslint = new ESLint({
             overrideConfigFile: 'test_pkg/eslint.config.react.js',
         });
 
-        const isPathIgnored = await eslint.isPathIgnored('test_pkg/react_test.tsx');
+        const isPathIgnored = await eslint.isPathIgnored('test_pkg/reactTest.tsx');
 
         expect(isPathIgnored).toBe(false);
     });
 
-    it('should lint React file without errors', async () => {
+    it('should lint React file without errors', async() => {
         eslint = new ESLint({
             overrideConfigFile: 'test_pkg/eslint.config.react.js',
         });
 
-        const results = await eslint.lintFiles(['test_pkg/react_test.tsx']);
+        const results = await eslint.lintFiles(['test_pkg/reactTest.tsx']);
 
         // Проверяем, что нет ошибок линтинга
         const hasErrors = results.some((result) =>
@@ -29,12 +29,12 @@ describe('eslint.config.react.js', () => {
         expect(hasErrors).toBe(false);
     });
 
-    it('should have correct React configuration structure', async () => {
+    it('should have correct React configuration structure', async() => {
         eslint = new ESLint({
             overrideConfigFile: 'test_pkg/eslint.config.react.js',
         });
 
-        const config = await eslint.calculateConfigForFile('test_pkg/react_test.tsx');
+        const config = await eslint.calculateConfigForFile('test_pkg/reactTest.tsx');
 
         // Проверяем, что конфигурация загрузилась и имеет ожидаемую структуру
         expect(config).toBeDefined();
@@ -42,18 +42,18 @@ describe('eslint.config.react.js', () => {
         expect(config.rules || config.extends).toBeDefined();
     });
 
-    it('should handle JSX syntax correctly', async () => {
+    it('should handle JSX syntax correctly', async() => {
         eslint = new ESLint({
             overrideConfigFile: 'test_pkg/eslint.config.react.js',
         });
 
-        const results = await eslint.lintFiles(['test_pkg/react_test.tsx']);
+        const results = await eslint.lintFiles(['test_pkg/reactTest.tsx']);
 
         // Проверяем, что JSX синтаксис распознается корректно
         const hasJsxErrors = results.some((result) =>
             result.messages.some((message) =>
-                message.ruleId === 'react/jsx-uses-react' ||
-                message.ruleId === 'react/jsx-uses-vars'
+                message.ruleId === 'react/jsx-uses-react'
+                || message.ruleId === 'react/jsx-uses-vars'
             )
         );
 

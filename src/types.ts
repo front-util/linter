@@ -1,4 +1,4 @@
-import { Linter } from "eslint";
+import { Linter } from 'eslint';
 
 export type CustomTypes = 'react' | 'test' | 'ts';
 
