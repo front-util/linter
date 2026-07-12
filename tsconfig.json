@@ -12,11 +12,11 @@
     "rootDir": ".",
     "strict": true,
     "noImplicitAny": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "baseUrl": ".",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "types": ["bun-types"]
+    "types": ["bun"]
   },
   "exclude": [
     "node_modules",

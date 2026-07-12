@@ -22,102 +22,43 @@ const customRules = {
     'consistent-return': ['off', {
         treatUndefinedAsUnspecified: true,
     }],
-    'default-case'        : 'off',
-    'dot-notation'        : 'off',
-    'no-case-declarations': 'off',
-    'comma-dangle'        : ['warn', {
-        objects: 'always',
-        exports: 'always',
-    }],
-    'key-spacing': ['warn', {
-        singleLine: {
-            beforeColon: false,
-            afterColon : true,
-        },
-        multiLine: {
-            afterColon: true,
-            align     : 'colon',
-        },
-    }],
-    'keyword-spacing': ['warn', {
-        overrides: {
-            if: {
-                after: false,
-            },
-            for: {
-                after: false,
-            },
-            while: {
-                after: false,
-            },
-            catch: {
-                after: false,
-            },
-            switch: {
-                after: false,
-            },
-            return: {
-                after: true,
-            },
-        },
-    }],
-    'no-restricted-syntax': ['off', 'FunctionExpression', 'WithStatement'],
-    'object-curly-newline': ['off', {
-        ObjectExpression: {
-            minProperties: 1,
-            multiline    : true,
-        },
-        ObjectPattern: 'never',
-    }],
-    'padded-blocks': ['warn', {
-        blocks  : 'never',
-        classes : 'always',
-        switches: 'never',
-    }],
-    'arrow-parens'                    : ['warn', 'always'],
-    'global-require'                  : 'off',
-    'no-restricted-globals'           : 'off',
-    'prefer-promise-reject-errors'    : 'off',
-    'no-unused-expressions'           : 'off',
-    'no-underscore-dangle'            : 'off',
-    'no-plusplus'                     : 'off',
-    'no-use-before-define'            : 'off',
-    'linebreak-style'                 : 'off',
-    'no-shadow'                       : 'off',
-    'no-multiple-empty-lines'         : ['error', { max: 1, maxEOF: 0, maxBOF: 0, }],
-    'no-nested-ternary'               : ['error'],
-    'semi'                            : ['error', 'always'],
-    'no-var'                          : 'error',
-    'prefer-const'                    : 'error',
+    'default-case'                           : 'off',
+    'dot-notation'                           : 'off',
+    'no-case-declarations'                   : 'off',
+    'no-restricted-syntax'                   : ['off', 'FunctionExpression', 'WithStatement'],
+    'global-require'                         : 'off',
+    'no-restricted-globals'                  : 'off',
+    'prefer-promise-reject-errors'           : 'off',
+    'no-unused-expressions'                  : 'off',
+    'no-underscore-dangle'                   : 'off',
+    'no-plusplus'                            : 'off',
+    'no-use-before-define'                   : 'off',
+    'linebreak-style'                        : 'off',
+    'no-shadow'                              : 'off',
+    'no-nested-ternary'                      : ['error'],
+    'no-var'                                 : 'error',
+    'prefer-const'                           : 'error',
     // Современные правила из лучших практик
-    'prefer-arrow-callback'           : 'error',
-    'prefer-template'                 : 'error',
-    'prefer-exponentiation-operator'  : 'error',
-    'prefer-object-has-own'           : 'error',
-    'prefer-regex-literals'           : ['error', { disallowRedundantWrapping: true, }],
-    'no-useless-rename'               : 'error',
-    'object-shorthand'                : 'error',
-    'prefer-destructuring'            : ['error', { object: true, array: false, }],
-    'security/detect-object-injection': 'off',
-    'unicorn/expiring-todo-comments'  : 'off',
-    'unicorn/import-style'            : 'off',
-    'unicorn/filename-case'           : [
-        'error',
-        {
-            cases: {
-                camelCase : true,
-                pascalCase: true,
-            },
-        }
-    ],
-    'unicorn/no-array-sort'     : 'off',
-    'unicorn/no-array-reduce'   : 'off',
-    'indent'                    : 'off',
-    'perfectionist/sort-imports': ['warn', {
+    'prefer-arrow-callback'                  : 'error',
+    'prefer-template'                        : 'error',
+    'prefer-exponentiation-operator'         : 'error',
+    'prefer-object-has-own'                  : 'error',
+    'prefer-regex-literals'                  : ['error', { disallowRedundantWrapping: true, }],
+    'no-useless-rename'                      : 'error',
+    'object-shorthand'                       : 'error',
+    'prefer-destructuring'                   : ['error', { object: true, array: false, }],
+    'security/detect-object-injection'       : 'off',
+    'security/detect-non-literal-fs-filename': 'off',
+    'unicorn/expiring-todo-comments'         : 'off',
+    'unicorn/import-style'                   : 'off',
+    // unicorn 70 добавил name-replacements — слишком агрессивное, отключаем
+    'unicorn/name-replacements'              : 'off',
+    // filename-case перенесён в check-file/filename-naming-convention (более гибкий)
+    'unicorn/filename-case'                  : 'off',
+    'unicorn/no-array-sort'                  : 'off',
+    'perfectionist/sort-imports'             : ['warn', {
         internalPattern: ['^#.+', '^@/.+'],
     }],
-
-    'no-multi-spaces'                   : 'off',
     'arrow-body-style'                  : 'off',
     'unicorn/prefer-global-this'        : 'off',
     'unicorn/prefer-array-some'         : 'off',
@@ -126,7 +67,6 @@ const customRules = {
     'unicorn/prefer-string-slice'       : 'off',
     'unicorn/no-array-reverse'          : 'off',
     'unicorn/prefer-add-event-listener' : 'off',
-    'max-len'                           : 'off',
     'security/detect-non-literal-regexp': 'off',
     'logical-assignment-operators'      : 'off',
     'unicorn/prefer-at'                 : 'off',
@@ -150,10 +90,6 @@ const tsCommonRules = {
     '@typescript-eslint/ban-ts-comment'      : 0,
     '@typescript-eslint/no-shadow'           : 'error',
     '@typescript-eslint/ban-types'           : 0,
-} satisfies Linter.RulesRecord;
-
-const onlyJSRules = {
-    'no-unused-vars': 'error',
 } satisfies Linter.RulesRecord;
 
 const allyRules = {
@@ -183,70 +119,16 @@ const importRules = {
 } satisfies Linter.RulesRecord;
 
 const reactRules = {
-    'react/jsx-uses-vars': 'error',
-    'react/sort-comp'    : [1, {
-        order: [
-            'static-variables',
-            'static-methods',
-            'instance-variables',
-            'lifecycle',
-            'everything-else',
-            'render'
-        ],
-    }],
-    'react/jsx-uses-react'             : [1],
-    'react/jsx-props-no-spreading'     : 'off',
-    'react/static-property-placement'  : 'off',
-    'react/state-in-constructor'       : 'off',
-    'react/jsx-fragments'              : 'off',
-    'react/no-access-state-in-setstate': 'off',
-    'react/destructuring-assignment'   : 'off',
-    'react-hooks/rules-of-hooks'       : 'error',
-    'react-hooks/exhaustive-deps'      : 'warn',
-    'react/forbid-prop-types'          : ['warn', {
-        forbid: [
-            'any'
-        ],
-        checkContextTypes     : true,
-        checkChildContextTypes: true,
-    }],
-    'react/no-array-index-key'   : 'off',
-    'react/no-children-prop'     : 'off',
-    'react/no-danger'            : 'off',
-    'react/require-default-props': ['off', {
-        forbidDefaultForRequired: true,
-    }],
-    'react/jsx-indent'            : ['warn', 4],
-    'react/jsx-max-props-per-line': ['off', {
-        maximum: 3,
-    }],
-    'react/jsx-one-expression-per-line': 'off',
-    'react/jsx-tag-spacing'            : ['error', {
-        closingSlash     : 'never',
-        beforeSelfClosing: 'always',
-        afterOpening     : 'never',
-    }],
-    'react/jsx-filename-extension': [
-        'error',
-        {
-            extensions: [
-                '.js',
-                '.jsx',
-                '.ts',
-                '.tsx'
-            ],
-        }
-    ],
-    'react/function-component-definition': [2, { namedComponents: 'arrow-function', }],
-    'react/display-name'                 : 'off',
-    'react/prop-types'                   : 'off',
-    'react/jsx-indent-props'             : 'off',
-    'react/no-unescaped-entities'        : 'off',
-} satisfies Linter.RulesRecord;
-
-const reactHookRules = {
-    'react-hooks/rules-of-hooks' : 'error',
-    'react-hooks/exhaustive-deps': 'warn',
+    // eslint-plugin-react-x заменил eslint-plugin-react (несовместим с ESLint 10).
+    // Имена правил: react/* → react-x/* (без префикса jsx-, т.к. стилистика в @stylistic).
+    'react-x/no-access-state-in-setstate'      : 'off',
+    'react-x/no-array-index-key'               : 'off',
+    'react-x/no-children-prop'                 : 'off',
+    'react-x/no-danger'                        : 'off',
+    'react-x/no-missing-component-display-name': 'off',
+    'react-x/rules-of-hooks'                   : 'error',
+    'react-x/exhaustive-deps'                  : 'warn',
+    // Стилизация JSX (indent, tag-spacing и т.п.) перенесена в @stylistic
 } satisfies Linter.RulesRecord;
 
 const sonarRules = {
@@ -261,24 +143,6 @@ const sonarRules = {
     'sonarjs/no-clear-text-protocols'    : 'off',
     'sonarjs/prefer-nullish-coalescing'  : 'off',
     'sonarjs/new-cap'                    : 'off',
-} satisfies Linter.RulesRecord;
-
-const testLibRules = {
-    'testing-library/await-async-utils'              : 'error',
-    'testing-library/no-container'                   : 'error',
-    'testing-library/no-debugging-utils'             : 'error',
-    'testing-library/no-dom-import'                  : ['error', 'react'],
-    'testing-library/no-promise-in-fire-event'       : 'error',
-    'testing-library/no-unnecessary-act'             : 'error',
-    'testing-library/no-wait-for-multiple-assertions': 'error',
-    'testing-library/no-wait-for-side-effects'       : 'error',
-    'testing-library/no-wait-for-snapshot'           : 'error',
-    'testing-library/prefer-find-by'                 : 'error',
-    'testing-library/prefer-presence-queries'        : 'error',
-    'testing-library/prefer-query-by-disappearance'  : 'error',
-    'testing-library/prefer-screen-queries'          : 'error',
-    'testing-library/render-result-naming-convention': 'off',
-    'testing-library/no-node-access'                 : 'off',
 } satisfies Linter.RulesRecord;
 
 const stylisticRules = {
@@ -328,6 +192,7 @@ const stylisticRules = {
     }],
     '@stylistic/type-annotation-spacing'    : 'off',
     '@stylistic/no-multi-spaces'            : 'off',
+    '@stylistic/jsx-one-expression-per-line': 'off',
     '@stylistic/space-before-function-paren': ['error', 'never'],
     '@stylistic/member-delimiter-style'     : ['warn', {
         multiline: {
@@ -344,15 +209,12 @@ const stylisticRules = {
 } satisfies Linter.RulesRecord;
 
 export const customRulesMap = {
-    base      : customRules,
-    onlyTS    : onlyTSRules,
-    onlyJS    : onlyJSRules,
-    tsEslint  : tsCommonRules,
-    react     : reactRules,
-    reactHooks: reactHookRules,
-    jsxA11y   : allyRules,
-    import    : importRules,
-    sonar     : sonarRules,
-    test      : testLibRules,
-    stylistic : stylisticRules,
+    base     : customRules,
+    onlyTS   : onlyTSRules,
+    tsEslint : tsCommonRules,
+    react    : reactRules,
+    jsxA11y  : allyRules,
+    import   : importRules,
+    sonar    : sonarRules,
+    stylistic: stylisticRules,
 };
