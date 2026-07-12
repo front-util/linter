@@ -89,7 +89,6 @@ const tsCommonRules = {
     '@typescript-eslint/no-use-before-define': ['error'],
     '@typescript-eslint/ban-ts-comment'      : 0,
     '@typescript-eslint/no-shadow'           : 'error',
-    '@typescript-eslint/ban-types'           : 0,
 } satisfies Linter.RulesRecord;
 
 const allyRules = {
@@ -143,6 +142,8 @@ const sonarRules = {
     'sonarjs/no-clear-text-protocols'    : 'off',
     'sonarjs/prefer-nullish-coalescing'  : 'off',
     'sonarjs/new-cap'                    : 'off',
+    // Крашится с typescript@6.0.3 — несовместимость API
+    'sonarjs/no-async-constructor'       : 'off',
 } satisfies Linter.RulesRecord;
 
 const stylisticRules = {

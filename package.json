@@ -1,6 +1,6 @@
 {
   "name": "@front-utils/linter",
-  "version": "1.4.0",
+  "version": "2.0.0",
   "description": "Configuration files for linting",
   "author": "IVGolubev",
   "license": "ISC",
@@ -86,7 +86,8 @@
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
     "simple-git-hooks": "^2.13.1",
-    "typescript": "^5.9.3",
+    "@typescript/native": "npm:typescript@^7.0.2",
+    "typescript": "~6.0.3",
     "typescript-eslint": "*"
   },
   "peerDependencies": {

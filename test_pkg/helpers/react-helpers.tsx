@@ -136,9 +136,9 @@ export function EffectPatterns({ userId, filters, }: {
     useEffect(() => {
         setLoading(true);
         async function loadUser() {
-            const user = JSON.parse(`{"id": ${userId}, "name": "User ${userId}"}`) as User;
+            const loadedUser = JSON.parse(`{"id": ${userId}, "name": "User ${userId}"}`) as User;
 
-            setUser(user);
+            setUser(loadedUser);
             setLoading(false);
         }
         loadUser();
@@ -397,15 +397,15 @@ interface ErrorBoundaryState {
 
 export class ErrorBoundary extends React.Component<BaseProps, ErrorBoundaryState> {
 
-    static displayName = 'ErrorBoundary';
+    static readonly displayName = 'ErrorBoundary';
+
+    static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+        return { hasError: true, error, };
+    }
 
     constructor(props: BaseProps) {
         super(props);
         this.state = { hasError: false, error: null, };
-    }
-
-    static getDerivedStateFromError(error: Error): ErrorBoundaryState {
-        return { hasError: true, error, };
     }
 
     componentDidCatch(error: Error, info: React.ErrorInfo) {

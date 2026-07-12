@@ -23,6 +23,12 @@ export default defineConfig([
             '@typescript-eslint/explicit-function-return-type': 'off',
         },
     },
+    {
+        files: ['helpers/**'],
+        rules: {
+            'check-file/filename-naming-convention': 'off',
+        },
+    },
     // Отключаем правила, требующие информации о типах (recommendedTypeChecked),
     // т.к. test_pkg не является полноценным TS-проектом
     tseslint.configs.disableTypeChecked

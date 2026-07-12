@@ -118,36 +118,34 @@ export function parseInput(input: string | object): object | string {
     return JSON.stringify(input);
 }
 
-// ─── Namespace ────────────────────────────────────────────────────
+// ─── Validation (замена namespace) ────────────────────────────────
 
-export namespace Validation {
-    export interface Rule {
-        name    : string;
-        validate: (value: unknown) => boolean;
-        message : string;
-    }
+export interface ValidationRule {
+    name   : string;
+    isValid: (value: unknown) => boolean;
+    message: string;
+}
 
-    export function createRule(
-        name: string,
-        validate: (value: unknown) => boolean,
-        message: string
-    ): Rule {
-        return { name, validate, message, };
-    }
+export function createValidationRule(
+    name: string,
+    isValid: (value: unknown) => boolean,
+    message: string
+): ValidationRule {
+    return { name, isValid, message, };
+}
 
-    export function validateAll(
-        value: unknown,
-        rules: Rule[]
-    ): { valid: boolean; errors: string[]; } {
-        const errors: string[] = [];
+export function validateAll(
+    value: unknown,
+    rules: ValidationRule[]
+): { valid: boolean; errors: string[]; } {
+    const errors: string[] = [];
 
-        for(const rule of rules) {
-            if(!rule.validate(value)) {
-                errors.push(rule.message);
-            }
+    for(const rule of rules) {
+        if(!rule.isValid(value)) {
+            errors.push(rule.message);
         }
-        return { valid: errors.length === 0, errors, };
     }
+    return { valid: errors.length === 0, errors, };
 }
 
 // ─── @typescript-eslint/no-use-before-define ──────────────────────
