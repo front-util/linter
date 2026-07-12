@@ -362,8 +362,6 @@ export class Config {
         delete this.#data[key];
     }
 
-
-    
     clear() {
         this.#data = {};
     }

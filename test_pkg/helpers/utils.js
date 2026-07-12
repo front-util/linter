@@ -215,7 +215,7 @@ export function unicornPatterns(arr) {
 const outerValue = 'outer';
 
 export function noShadowTest() {
-    const innerValue = 'inner';
+    const innerValue = `inner (outer is: ${outerValue})`;
     return innerValue;
 }
 
