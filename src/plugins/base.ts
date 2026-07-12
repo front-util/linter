@@ -1,12 +1,9 @@
 import js from '@eslint/js';
 import stylistic from '@stylistic/eslint-plugin';
+import checkFilePlugin from 'eslint-plugin-check-file';
 import compatPlugin from 'eslint-plugin-compat';
-// @ts-expect-error - ESLint plugin types
-import filenamesPlugin from 'eslint-plugin-filenames';
 import importPlugin from 'eslint-plugin-import';
 import ally11Plugin from 'eslint-plugin-jsx-a11y';
-// @ts-expect-error - ESLint plugin types
-import regexPlugin from 'eslint-plugin-optimize-regex';
 import perfectionist from 'eslint-plugin-perfectionist';
 // @ts-expect-error - ESLint plugin types
 import promisePlugin from 'eslint-plugin-promise';
@@ -23,9 +20,8 @@ import { customRulesMap } from '../custom_rules.config.js';
 
 const config = defineConfig({
     plugins: {
-        'jsx-a11y'      : ally11Plugin,
-        'filenames'     : filenamesPlugin,
-        'optimize-regex': regexPlugin,
+        'jsx-a11y'  : ally11Plugin,
+        'check-file': checkFilePlugin,
     },
     languageOptions: {
         ecmaVersion: 'latest',
@@ -51,7 +47,29 @@ const config = defineConfig({
         ...customRulesMap.import,
         ...customRulesMap.jsxA11y,
         ...customRulesMap.stylistic,
-        ...regexPlugin.configs.recommended.rules,
+        // check-file заменяет заброшенный eslint-plugin-filenames.
+        // Конфигурационные файлы (eslint.config.*, *.config.ts) и тесты (*.test.*)
+        // используют dot.notation/snake_case по конвенции — проверяются отдельным
+        // блоком ниже (configFilesIgnored), где правило отключено.
+        'check-file/filename-naming-convention': [
+            'error',
+            {
+                '**/*.{ts,tsx}': 'CAMEL_CASE',
+                '**/*.{js,jsx}': 'CAMEL_CASE',
+            }
+        ],
+    },
+});
+
+// Конфиги и тесты освобождены от проверки имён: они используют dot.notation
+const configFilesIgnored = defineConfig({
+    files: [
+        '**/*.config.{ts,js}',
+        '**/eslint.config.*',
+        '**/*.test.{ts,tsx,js,jsx}'
+    ],
+    rules: {
+        'check-file/filename-naming-convention': 'off',
     },
 });
 
@@ -69,7 +87,6 @@ const modernPluginsConfig = defineConfig({
         'unicorn/prefer-optional-catch-binding': 'off',
         'unicorn/prefer-top-level-await'       : 'off',
         'unicorn/prevent-abbreviations'        : 'off',
-        'unicorn/filename-case'                : ['error', { case: 'snakeCase', }],
         // Настраиваем perfectionist для алфавитной сортировки
         'perfectionist/sort-imports'           : ['error', {
             type           : 'alphabetical',
@@ -93,10 +110,12 @@ export const baseConfig = defineConfig([
     compatPlugin.configs['flat/recommended'],
     importPlugin.flatConfigs.recommended,
     promisePlugin.configs['flat/recommended'],
-    sonarPlugin.configs.recommended,
+    sonarPlugin.configs?.recommended,
     pluginSecurity.configs.recommended,
+    // stylistic.configs.recommended ДО custom-правил, чтобы наши переопределения имели приоритет
+    stylistic.configs.recommended,
+    stylistic.configs['disable-legacy'],
     modernPluginsConfig,
     config,
-    stylistic.configs.recommended,
-    stylistic.configs['disable-legacy']
+    configFilesIgnored
 ]);

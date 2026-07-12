@@ -1,25 +1,25 @@
-import { describe, expect, it } from "bun:test";
-import { ESLint } from "eslint";
+import { describe, expect, it } from 'bun:test';
+import { ESLint } from 'eslint';
 
 describe('eslint.config.js', () => {
     let eslint: ESLint;
 
-    it('should load JavaScript configuration without errors', async () => {
+    it('should load JavaScript configuration without errors', async() => {
         eslint = new ESLint({
             overrideConfigFile: 'test_pkg/eslint.config.js',
         });
 
-        const isPathIgnored = await eslint.isPathIgnored('test_pkg/js_test.js');
+        const isPathIgnored = await eslint.isPathIgnored('test_pkg/jsTest.js');
 
         expect(isPathIgnored).toBe(false);
     });
 
-    it('should lint JavaScript file without errors', async () => {
+    it('should lint JavaScript file without errors', async() => {
         eslint = new ESLint({
             overrideConfigFile: 'test_pkg/eslint.config.js',
         });
 
-        const results = await eslint.lintFiles(['test_pkg/js_test.js']);
+        const results = await eslint.lintFiles(['test_pkg/jsTest.js']);
 
         // Проверяем, что нет ошибок линтинга
         const hasErrors = results.some((result) =>
@@ -29,12 +29,12 @@ describe('eslint.config.js', () => {
         expect(hasErrors).toBe(false);
     });
 
-    it('should have correct configuration structure', async () => {
+    it('should have correct configuration structure', async() => {
         eslint = new ESLint({
             overrideConfigFile: 'test_pkg/eslint.config.js',
         });
 
-        const config = await eslint.calculateConfigForFile('test_pkg/js_test.js');
+        const config = await eslint.calculateConfigForFile('test_pkg/jsTest.js');
 
         // Проверяем, что конфигурация загрузилась и имеет ожидаемую структуру
         expect(config).toBeDefined();

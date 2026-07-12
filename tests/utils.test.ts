@@ -1,4 +1,4 @@
-import { describe, expect, it } from "bun:test";
+import { describe, expect, it } from 'bun:test';
 
 import {
     createEslintAlias
@@ -9,8 +9,8 @@ describe('[src/utils]', () => {
     // Converts config entries to alias paths correctly
         it('should convert config entries to alias paths correctly when config is provided', () => {
             const config = {
-                'module1': 'src/module1',
-                'module2': 'src/module2',
+                module1: 'src/module1',
+                module2: 'src/module2',
             };
             const basePath = '/project';
             const name = 'alias';
@@ -18,9 +18,9 @@ describe('[src/utils]', () => {
                 ['@alias/module1', '/project/src/module1'],
                 ['@alias/module2', '/project/src/module2']
             ];
-  
+
             const result = createEslintAlias({ basePath, name, config, });
-  
+
             expect(result).toEqual(expected);
         });
 
@@ -30,18 +30,18 @@ describe('[src/utils]', () => {
             const basePath = '/project';
             const name = 'alias';
             const expected: string[][] = [];
-  
+
             const result = createEslintAlias({ basePath, name, config, });
-  
+
             expect(result).toEqual(expected);
         });
 
         // Handles multiple config entries efficiently
         it('should handle multiple config entries efficiently', () => {
             const config = {
-                'entry1': 'path1',
-                'entry2': 'path2',
-                'entry3': 'path3',
+                entry1: 'path1',
+                entry2: 'path2',
+                entry3: 'path3',
             };
             const result = createEslintAlias({ basePath: '/base', name: 'alias', config, });
 
@@ -55,8 +55,8 @@ describe('[src/utils]', () => {
         // Returns an array of alias mappings
         it('should return an array of alias mappings', () => {
             const config = {
-                'key1': 'value1',
-                'key2': 'value2',
+                key1: 'value1',
+                key2: 'value2',
             };
             const result = createEslintAlias({ basePath: '/root', name: 'pkg', config, });
 

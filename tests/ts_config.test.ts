@@ -1,25 +1,25 @@
-import { describe, expect, it } from "bun:test";
-import { ESLint } from "eslint";
+import { describe, expect, it } from 'bun:test';
+import { ESLint } from 'eslint';
 
 describe('eslint.config.ts', () => {
     let eslint: ESLint;
 
-    it('should load TypeScript configuration without errors', async () => {
+    it('should load TypeScript configuration without errors', async() => {
         eslint = new ESLint({
             overrideConfigFile: 'test_pkg/eslint.config.ts',
         });
 
-        const isPathIgnored = await eslint.isPathIgnored('test_pkg/ts_test.ts');
+        const isPathIgnored = await eslint.isPathIgnored('test_pkg/tsTest.ts');
 
         expect(isPathIgnored).toBe(false);
     });
 
-    it('should lint TypeScript file without errors', async () => {
+    it('should lint TypeScript file without errors', async() => {
         eslint = new ESLint({
             overrideConfigFile: 'test_pkg/eslint.config.ts',
         });
 
-        const results = await eslint.lintFiles(['test_pkg/ts_test.ts']);
+        const results = await eslint.lintFiles(['test_pkg/tsTest.ts']);
 
         // Проверяем, что файл не игнорируется
         const ignoredFiles = results.filter((result) => result.messages.some((msg) => msg.message.includes('File ignored')));
@@ -31,12 +31,12 @@ describe('eslint.config.ts', () => {
         expect(results.length).toBeGreaterThan(0);
     });
 
-    it('should have correct TypeScript configuration structure', async () => {
+    it('should have correct TypeScript configuration structure', async() => {
         eslint = new ESLint({
             overrideConfigFile: 'test_pkg/eslint.config.ts',
         });
 
-        const config = await eslint.calculateConfigForFile('test_pkg/ts_test.ts');
+        const config = await eslint.calculateConfigForFile('test_pkg/tsTest.ts');
 
         // Проверяем, что конфигурация загрузилась и имеет ожидаемую структуру
         expect(config).toBeDefined();
@@ -44,18 +44,18 @@ describe('eslint.config.ts', () => {
         expect(config.rules || config.extends).toBeDefined();
     });
 
-    it('should handle TypeScript-specific syntax correctly', async () => {
+    it('should handle TypeScript-specific syntax correctly', async() => {
         eslint = new ESLint({
             overrideConfigFile: 'test_pkg/eslint.config.ts',
         });
 
-        const results = await eslint.lintFiles(['test_pkg/ts_test.ts']);
+        const results = await eslint.lintFiles(['test_pkg/tsTest.ts']);
 
         // Проверяем, что TypeScript синтаксис распознается корректно
         const hasTsErrors = results.some((result) =>
             result.messages.some((message) =>
-                message.ruleId?.includes('typescript') ||
-                message.ruleId?.includes('ts')
+                message.ruleId?.includes('typescript')
+                || message.ruleId?.includes('ts')
             )
         );
 
@@ -63,18 +63,18 @@ describe('eslint.config.ts', () => {
         expect(hasTsErrors).toBe(false);
     });
 
-    it('should handle interface and type definitions', async () => {
+    it('should handle interface and type definitions', async() => {
         eslint = new ESLint({
             overrideConfigFile: 'test_pkg/eslint.config.ts',
         });
 
-        const results = await eslint.lintFiles(['test_pkg/ts_test.ts']);
+        const results = await eslint.lintFiles(['test_pkg/tsTest.ts']);
 
         // Проверяем, что интерфейсы и типы распознаются корректно
         const hasInterfaceErrors = results.some((result) =>
             result.messages.some((message) =>
-                message.message.includes('interface') ||
-                message.message.includes('type')
+                message.message.includes('interface')
+                || message.message.includes('type')
             )
         );
 

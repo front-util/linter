@@ -101,19 +101,13 @@ const customRules = {
     'security/detect-object-injection': 'off',
     'unicorn/expiring-todo-comments'  : 'off',
     'unicorn/import-style'            : 'off',
-    'unicorn/filename-case'           : [
-        'error',
-        {
-            cases: {
-                camelCase : true,
-                pascalCase: true,
-            },
-        }
-    ],
-    'unicorn/no-array-sort'     : 'off',
-    'unicorn/no-array-reduce'   : 'off',
-    'indent'                    : 'off',
-    'perfectionist/sort-imports': ['warn', {
+    // unicorn 70 добавил name-replacements — слишком агрессивное, отключаем
+    'unicorn/name-replacements'       : 'off',
+    // filename-case перенесён в check-file/filename-naming-convention (более гибкий)
+    'unicorn/filename-case'           : 'off',
+    'unicorn/no-array-sort'           : 'off',
+    'indent'                          : 'off',
+    'perfectionist/sort-imports'      : ['warn', {
         internalPattern: ['^#.+', '^@/.+'],
     }],
 
@@ -152,10 +146,6 @@ const tsCommonRules = {
     '@typescript-eslint/ban-types'           : 0,
 } satisfies Linter.RulesRecord;
 
-const onlyJSRules = {
-    'no-unused-vars': 'error',
-} satisfies Linter.RulesRecord;
-
 const allyRules = {
     'jsx-a11y/anchor-is-valid'                       : 'off',
     'jsx-a11y/no-noninteractive-element-interactions': 'off',
@@ -183,70 +173,23 @@ const importRules = {
 } satisfies Linter.RulesRecord;
 
 const reactRules = {
-    'react/jsx-uses-vars': 'error',
-    'react/sort-comp'    : [1, {
-        order: [
-            'static-variables',
-            'static-methods',
-            'instance-variables',
-            'lifecycle',
-            'everything-else',
-            'render'
-        ],
-    }],
-    'react/jsx-uses-react'             : [1],
-    'react/jsx-props-no-spreading'     : 'off',
-    'react/static-property-placement'  : 'off',
-    'react/state-in-constructor'       : 'off',
-    'react/jsx-fragments'              : 'off',
-    'react/no-access-state-in-setstate': 'off',
-    'react/destructuring-assignment'   : 'off',
-    'react-hooks/rules-of-hooks'       : 'error',
-    'react-hooks/exhaustive-deps'      : 'warn',
-    'react/forbid-prop-types'          : ['warn', {
-        forbid: [
-            'any'
-        ],
-        checkContextTypes     : true,
-        checkChildContextTypes: true,
-    }],
-    'react/no-array-index-key'   : 'off',
-    'react/no-children-prop'     : 'off',
-    'react/no-danger'            : 'off',
-    'react/require-default-props': ['off', {
-        forbidDefaultForRequired: true,
-    }],
-    'react/jsx-indent'            : ['warn', 4],
-    'react/jsx-max-props-per-line': ['off', {
-        maximum: 3,
-    }],
-    'react/jsx-one-expression-per-line': 'off',
-    'react/jsx-tag-spacing'            : ['error', {
-        closingSlash     : 'never',
-        beforeSelfClosing: 'always',
-        afterOpening     : 'never',
-    }],
-    'react/jsx-filename-extension': [
-        'error',
-        {
-            extensions: [
-                '.js',
-                '.jsx',
-                '.ts',
-                '.tsx'
-            ],
-        }
-    ],
-    'react/function-component-definition': [2, { namedComponents: 'arrow-function', }],
-    'react/display-name'                 : 'off',
-    'react/prop-types'                   : 'off',
-    'react/jsx-indent-props'             : 'off',
-    'react/no-unescaped-entities'        : 'off',
+    // eslint-plugin-react-x заменил eslint-plugin-react (несовместим с ESLint 10).
+    // Имена правил: react/* → react-x/* (без префикса jsx-, т.к. стилистика в @stylistic).
+    'react-x/no-access-state-in-setstate'      : 'off',
+    'react-x/no-array-index-key'               : 'off',
+    'react-x/no-children-prop'                 : 'off',
+    'react-x/no-danger'                        : 'off',
+    'react-x/no-missing-component-display-name': 'off',
+    'react-x/rules-of-hooks'                   : 'error',
+    'react-x/exhaustive-deps'                  : 'warn',
+    // Стилизация JSX (indent, tag-spacing и т.п.) перенесена в @stylistic
 } satisfies Linter.RulesRecord;
 
 const reactHookRules = {
-    'react-hooks/rules-of-hooks' : 'error',
-    'react-hooks/exhaustive-deps': 'warn',
+    // react-hooks теперь часть react-x (rules-of-hooks, exhaustive-deps)
+    // Эта секция оставлена для совместимости, но дублирует react-x правила
+    'react-x/rules-of-hooks' : 'error',
+    'react-x/exhaustive-deps': 'warn',
 } satisfies Linter.RulesRecord;
 
 const sonarRules = {
@@ -261,24 +204,6 @@ const sonarRules = {
     'sonarjs/no-clear-text-protocols'    : 'off',
     'sonarjs/prefer-nullish-coalescing'  : 'off',
     'sonarjs/new-cap'                    : 'off',
-} satisfies Linter.RulesRecord;
-
-const testLibRules = {
-    'testing-library/await-async-utils'              : 'error',
-    'testing-library/no-container'                   : 'error',
-    'testing-library/no-debugging-utils'             : 'error',
-    'testing-library/no-dom-import'                  : ['error', 'react'],
-    'testing-library/no-promise-in-fire-event'       : 'error',
-    'testing-library/no-unnecessary-act'             : 'error',
-    'testing-library/no-wait-for-multiple-assertions': 'error',
-    'testing-library/no-wait-for-side-effects'       : 'error',
-    'testing-library/no-wait-for-snapshot'           : 'error',
-    'testing-library/prefer-find-by'                 : 'error',
-    'testing-library/prefer-presence-queries'        : 'error',
-    'testing-library/prefer-query-by-disappearance'  : 'error',
-    'testing-library/prefer-screen-queries'          : 'error',
-    'testing-library/render-result-naming-convention': 'off',
-    'testing-library/no-node-access'                 : 'off',
 } satisfies Linter.RulesRecord;
 
 const stylisticRules = {
@@ -328,6 +253,7 @@ const stylisticRules = {
     }],
     '@stylistic/type-annotation-spacing'    : 'off',
     '@stylistic/no-multi-spaces'            : 'off',
+    '@stylistic/jsx-one-expression-per-line': 'off',
     '@stylistic/space-before-function-paren': ['error', 'never'],
     '@stylistic/member-delimiter-style'     : ['warn', {
         multiline: {
@@ -346,13 +272,11 @@ const stylisticRules = {
 export const customRulesMap = {
     base      : customRules,
     onlyTS    : onlyTSRules,
-    onlyJS    : onlyJSRules,
     tsEslint  : tsCommonRules,
     react     : reactRules,
     reactHooks: reactHookRules,
     jsxA11y   : allyRules,
     import    : importRules,
     sonar     : sonarRules,
-    test      : testLibRules,
     stylistic : stylisticRules,
 };
