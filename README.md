@@ -1,246 +1,152 @@
-# Front-utils/linter
+# @front-utils/linter
 
-🚀 **Высокопроизводительная конфигурация ESLint для современных JavaScript/TypeScript проектов**
+ESLint 10 flat-config presets for JavaScript, TypeScript, and React projects.
 
-Оптимизированная конфигурация ESLint с фокусом на производительность и качество кода. Поддерживает JavaScript, TypeScript, React и тестирование.
+Three composable presets (`js`, `ts`, `react`) with curated rules from 12+ plugins — ready to use, easy to extend.
 
-## ✨ Особенности
-
-- ⚡ **Высокая производительность** - оптимизированные правила и плагины
-- 🎯 **ESLint 9 Flat Config** - современная плоская конфигурация
-- 📦 **Готовые пресеты** - js, ts, react, test конфигурации
-- 🔧 **Расширяемость** - легко кастомизировать под проект
-- 📚 **TypeScript поддержка** - полный типчек и анализ
-- ⚛️ **React интеграция** - хуки, JSX и лучшие практики
-
-## 📊 Производительность
-
-Результаты тестирования (среднее время на файл):
-- **JavaScript**: ~2.7 сек
-- **TypeScript**: ~3.6 сек
-- **React**: ~3.7 сек
-
-> **Улучшение производительности на 25-45%** после оптимизации медленных правил
-
-## 🚀 Установка
+## Installation
 
 ```bash
+# bun (recommended)
+bun add -D @front-utils/linter
+
 # npm
 npm install @front-utils/linter --save-dev
-
-# yarn
-yarn add @front-utils/linter -D
-
-# bun
-bun add @front-utils/linter --dev
 ```
 
-## 📖 Быстрый старт
+### Peer dependencies
 
-### Использование готовых конфигов
+Each preset requires its own set of peer dependencies. Install only what you need:
+
+**JavaScript (`configs.js`)**
+```bash
+bun add -D @eslint/js eslint eslint-plugin-import eslint-plugin-promise \
+  eslint-plugin-compat eslint-plugin-sonarjs eslint-plugin-security \
+  eslint-plugin-unicorn eslint-plugin-perfectionist eslint-plugin-check-file \
+  eslint-plugin-jsx-a11y @stylistic/eslint-plugin
+```
+
+**TypeScript (`configs.ts`)** — adds to the above:
+```bash
+bun add -D typescript-eslint eslint-import-resolver-typescript
+```
+
+**React (`configs.react`)** — adds to the above:
+```bash
+bun add -D eslint-plugin-react-x globals
+```
+
+## Quick start
 
 ```js
 // eslint.config.js
 import { configs } from "@front-utils/linter";
 
-// JavaScript проект
 export default configs.js;
-
-// TypeScript проект
-export default configs.ts;
-
-// React + TypeScript
-export default configs.react;
 ```
 
-### Кастомная конфигурация
-
-```js
-import { defineConfig } from 'eslint/config';
-import { configs } from "@front-utils/linter";
-
-export default defineConfig({
-    extends: configs.react,
-    files  : ['src/**/*.{ts,tsx,js,jsx}'],
-    rules  : {
-        // Ваши кастомные правила
-        'import/no-unresolved': ['error', { ignore: ['^bun:'], }],
-    },
-});
-```
-
-## 📋 Доступные конфигурации
-
-| Конфиг | Описание | Включаемые плагины |
-|--------|----------|-------------------|
-| `configs.js` | Базовая JS конфигурация | @eslint/js, import, promise, compat, optimize-regex, sonarjs, filenames, jsx-a11y, security |
-| `configs.ts` | TypeScript поддержка | + typescript-eslint, import/resolver-typescript |
-| `configs.react` | React + TypeScript | + react, react-hooks, globals |
-
-## 🔧 Создание алиасов
-
-```js
-import { utils } from "@front-utils/linter";
-import importPlugin from 'eslint-plugin-import';
-
-export const aliases = [
-    ...utils.createEslintAlias({
-        name: 'pkg',
-        basePath: '.',
-        config: {
-            utils: 'src/infrastructure/utils',
-            models: 'src/data/models'
-        }
-    }),
-];
-
-const importConfig = {
-    plugins: { import: importPlugin },
-    settings: {
-        'import/resolver': {
-            alias: {
-                map       : aliases,
-                extensions: ['.ts', '.tsx', '.js', '.jsx'],
-            },
-        },
-    }
-};
-```
-
-## 📦 Зависимости
-
-### Минимальные зависимости (для configs.js)
-```bash
-npm install @eslint/js eslint-plugin-import eslint-plugin-promise --save-dev
-```
-
-### TypeScript проект (для configs.ts)
-```bash
-npm install typescript-eslint eslint-import-resolver-typescript --save-dev
-```
-
-### React проект (для configs.react)
-```bash
-npm install eslint-plugin-react eslint-plugin-react-hooks globals --save-dev
-```
-
-### Полный набор (monorepo)
-```bash
-npm install typescript-eslint eslint-plugin-react eslint-plugin-react-hooks \
-    eslint-plugin-testing-library eslint-plugin-jest-dom globals --save-dev
-```
-
-### Дополнительные плагины (используются в базовой конфигурации)
-```bash
-# Опциональные плагины для расширенного функционала
-npm install eslint-plugin-compat eslint-plugin-optimize-regex \
-    eslint-plugin-sonarjs eslint-plugin-filenames \
-    eslint-plugin-jsx-a11y eslint-plugin-security --save-dev
-```
-
-## ⚡ Оптимизации производительности
-
-Конфигурация оптимизирована путем отключения медленных правил:
-
-- ❌ `indent` - медленное форматирование
-- ❌ `max-len` - проверка длины строк
-- ❌ `unicorn/*` - отключены медленные правила
-- ❌ `sonarjs` - отключен для ускорения
-- ❌ `perfectionist/sort-imports` - заменен на `import/order`
-
-## 🛠 Расширенное использование
-
-### Кастомные правила
-
-```js
-import { defineConfig } from 'eslint/config';
-import { configs } from "@front-utils/linter";
-
-export default defineConfig({
-    extends: configs.react,
-    rules: {
-        // Отключить строгие правила для легаси кода
-        'react/prop-types': 'off',
-        'react/require-default-props': 'off',
-
-        // Добавить кастомные правила
-        'no-console': 'warn',
-        'prefer-const': 'error',
-    },
-});
-```
-
-### Игнорирование файлов
-
-```js
-import { defineConfig } from 'eslint/config';
-import { configs } from "@front-utils/linter";
-
-export default defineConfig({
-    extends: configs.react,
-    ignores: [
-        'dist/**/*',
-        'node_modules/**/*',
-        'coverage/**/*',
-        '**/*.d.ts',
-    ],
-});
-```
-
-
-## 📚 Примеры проектов
-
-### Next.js + TypeScript
-```js
-// eslint.config.js
-import { configs } from "@front-utils/linter";
-
-export default defineConfig({
-    extends: configs.react,
-    files  : ['**/*.{ts,tsx,js,jsx}'],
-    settings: {
-        react: {
-            version: 'detect',
-        },
-    },
-});
-```
-
-### Node.js API
-```js
-// eslint.config.js
+```ts
+// eslint.config.ts
+import { defineConfig } from "eslint/config";
 import { configs } from "@front-utils/linter";
 
 export default defineConfig({
     extends: configs.ts,
-    files  : ['src/**/*.{ts,js}'],
-    languageOptions: {
-        globals: {
-            console: 'readonly',
-            process: 'readonly',
-            Buffer: 'readonly',
-        },
+    files: ["src/**/*.{ts,tsx}"],
+});
+```
+
+Configs are composable — `configs.ts` extends `configs.js`, `configs.react` extends `configs.ts`. You can mix them with your own rules via `defineConfig`.
+
+## Available presets
+
+| Preset | Description | Key plugins |
+|--------|-------------|-------------|
+| `configs.js` | JavaScript | @eslint/js, import, promise, compat, sonarjs, security, unicorn, perfectionist, check-file, jsx-a11y, @stylistic |
+| `configs.ts` | TypeScript (extends js) | + typescript-eslint (recommended + recommendedTypeChecked), import/resolver-typescript |
+| `configs.react` | React + TypeScript (extends ts) | + react-x (rules-of-hooks, exhaustive-deps) |
+
+## Custom configuration
+
+```ts
+import { defineConfig } from "eslint/config";
+import { configs } from "@front-utils/linter";
+
+export default defineConfig({
+    extends: configs.react,
+    files: ["src/**/*.{ts,tsx,js,jsx}"],
+    rules: {
+        "no-console": "warn",
+        "import/no-unresolved": ["error", { ignore: ["^bun:", "^node:"] }],
     },
 });
 ```
 
-## 🔍 Поиск и устранение проблем
+### Ignoring files
 
-### Медленная работа ESLint
-1. Используйте `--cache` флаг
-2. Ограничьте файлы: `files: ['src/**/*.{ts,tsx,js,jsx}']`
-3. Отключите ненужные плагины
-
-### Ошибки импорта
-```js
-// Добавьте в правила
-rules: {
-    'import/no-unresolved': ['error', {
-        ignore: ['^bun:', '^node:'],
-    }],
-}
+```ts
+export default defineConfig({
+    extends: configs.ts,
+    ignores: ["dist/**", "coverage/**", "**/*.d.ts"],
+});
 ```
 
-## 📄 Лицензия
+## Import aliases
 
-ISC License
+`createEslintAlias` generates alias mappings for `eslint-import-resolver-alias`:
+
+```js
+import { utils } from "@front-utils/linter";
+
+const aliases = utils.createEslintAlias({
+    name: "app",
+    basePath: ".",
+    config: {
+        utils: "src/utils",
+        models: "src/models",
+    },
+});
+
+// aliases → [["@app/utils", "./src/utils"], ["@app/models", "./src/models"]]
+```
+
+## File naming convention
+
+The `check-file/filename-naming-convention` rule enforces `camelCase` for `.ts`/`.js` files. Config files (`*.config.*`, `eslint.config.*`) and test files (`*.test.*`) are excluded.
+
+## Stylistic rules
+
+All formatting rules use `@stylistic/eslint-plugin`. Legacy ESLint stylistic rules are disabled via `disable-legacy`. Customize in your config:
+
+```ts
+export default defineConfig({
+    extends: configs.ts,
+    rules: {
+        "@stylistic/indent": ["warn", 2],
+        "@stylistic/semi": ["error", "never"],
+    },
+});
+```
+
+## Troubleshooting
+
+**Slow linting** — use `--cache` and limit `files` to your source directory.
+
+**Import errors for Node builtins** — add to your rules:
+```js
+"import/no-unresolved": ["error", { ignore: ["^node:", "^bun:"] }]
+```
+
+**Type-checked rules fail in test_pkg / standalone files** — disable type-checked rules:
+```js
+import tseslint from "typescript-eslint";
+
+export default defineConfig([
+    { extends: configs.ts, files: ["**/*.ts"] },
+    tseslint.configs.disableTypeChecked,
+]);
+```
+
+## License
+
+ISC

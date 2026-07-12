@@ -27,3 +27,6 @@ build
 temp
 dist
 types
+
+#ai
+.mimocode

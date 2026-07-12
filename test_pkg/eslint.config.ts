@@ -5,14 +5,14 @@ import { configs } from '../dist/index.js';
 
 export default defineConfig([
     {
-        extends       : configs.ts,
-        files         : ['**/*.{ts,tsx}'],
+        extends        : configs.ts,
+        files          : ['**/*.{ts,tsx}'],
         languageOptions: {
             parserOptions: {
                 // Для тестового стенда отключаем projectService — типизированный линтинг
                 // требует, чтобы файлы были частью TS-проекта
-                project        : null,
-                projectService : false,
+                project       : null,
+                projectService: false,
             },
         },
         rules: {
@@ -25,5 +25,5 @@ export default defineConfig([
     },
     // Отключаем правила, требующие информации о типах (recommendedTypeChecked),
     // т.к. test_pkg не является полноценным TS-проектом
-    tseslint.configs.disableTypeChecked,
+    tseslint.configs.disableTypeChecked
 ]);

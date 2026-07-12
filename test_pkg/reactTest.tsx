@@ -2,7 +2,7 @@ import React from 'react';
 
 interface Props {
     name: string;
-    age: number;
+    age : number;
 }
 
 const UserComponent: React.FC<Props> = ({ name, age, }) => (

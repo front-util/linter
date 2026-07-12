@@ -1,15 +1,7 @@
-const fs = require('node:fs');
+import { readFile } from 'node:fs/promises';
 
-function readFileContent(filename) {
-    return new Promise((resolve, reject) => {
-        fs.readFile(filename, 'utf8', (err, data) => {
-            if(err) {
-                reject(err);
-            } else {
-                resolve(data);
-            }
-        });
-    });
+async function readFileContent(filename) {
+    return readFile(filename, 'utf8');
 }
 
 function processData(data) {
@@ -20,7 +12,4 @@ function processData(data) {
     return data.toUpperCase();
 }
 
-module.exports = {
-    readFileContent,
-    processData,
-};
+export { processData, readFileContent, };
