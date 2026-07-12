@@ -7,8 +7,9 @@ import { tsConfig } from './ts.js';
 const customReactConfig = defineConfig({
     settings: {
         'react-x': {
-            // Указываем версию React для правил, зависящих от версии
-            version: '19.0.0',
+            // Автоопределение версии React из node_modules потребителя.
+            // Поддерживает любую установленную версию (17, 18, 19 и т.д.)
+            version: 'detect',
         },
     },
     rules: customRulesMap.react,
