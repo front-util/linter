@@ -3,6 +3,6 @@
         "bash -c 'npm run check:lint && npm run check:types'"
     ],
     "tests/**/*.ts": [
-        "npm run check:lint"
+        "bash -c 'npm run check:lint && npm run check:types'"
     ]
 }

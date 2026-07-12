@@ -1,7 +1,11 @@
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 import { defineConfig } from 'eslint/config';
-import tseslint from 'typescript-eslint';
 
 import { configs } from '../dist/index.js';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig([
     {
@@ -9,17 +13,22 @@ export default defineConfig([
         files          : ['**/*.{ts,tsx,js,jsx}'],
         languageOptions: {
             parserOptions: {
-                // Для тестового стенда отключаем projectService — типизированный линтинг
-                // требует, чтобы файлы были частью TS-проекта
-                project       : null,
-                projectService: false,
+                projectService: {
+                    defaultProject: path.join(__dirname, 'tsconfig.json'),
+                },
+                tsconfigRootDir: __dirname,
             },
         },
         rules: {
-            'import/no-unresolved': ['error', { ignore: ['^bun:'], }],
+            'import/no-unresolved'                            : ['error', { ignore: ['^bun:'], }],
+            '@typescript-eslint/no-explicit-any'              : 'off',
+            '@typescript-eslint/explicit-function-return-type': 'off',
+            // JS-хелперы не имеют типов → any-вывод неизбежен
+            '@typescript-eslint/no-unsafe-assignment'         : 'off',
+            '@typescript-eslint/no-unsafe-call'               : 'off',
+            '@typescript-eslint/no-unsafe-member-access'      : 'off',
+            '@typescript-eslint/no-unsafe-return'             : 'off',
+            '@typescript-eslint/no-unsafe-argument'           : 'off',
         },
     },
-    // Отключаем правила, требующие информации о типах (recommendedTypeChecked),
-    // т.к. test_pkg не является полноценным TS-проектом
-    tseslint.configs.disableTypeChecked
 ]);
