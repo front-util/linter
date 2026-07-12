@@ -89,7 +89,6 @@ const tsCommonRules = {
     '@typescript-eslint/no-use-before-define': ['error'],
     '@typescript-eslint/ban-ts-comment'      : 0,
     '@typescript-eslint/no-shadow'           : 'error',
-    '@typescript-eslint/ban-types'           : 0,
 } satisfies Linter.RulesRecord;
 
 const allyRules = {

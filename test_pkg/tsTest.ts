@@ -20,11 +20,12 @@ import type {
 } from './helpers/types.ts';
 
 import {
+    createValidationRule,
     DataStore,
     getFileStatus,
     parseInput,
     processUser,
-    Validation
+    validateAll
 } from './helpers/types.ts';
 
 // ─── Базовые типы ─────────────────────────────────────────────────
@@ -258,19 +259,19 @@ const stringified = parseInput({ key: 'value', });
 
 // ─── Validation namespace из helpers ───────────────────────────────
 
-const requiredRule = Validation.createRule(
+const requiredRule = createValidationRule(
     'required',
     (value) => value !== null && value !== undefined && value !== '',
     'Field is required'
 );
 
-const minLengthRule = Validation.createRule(
+const minLengthRule = createValidationRule(
     'minLength',
     (value) => typeof value === 'string' && value.length >= 3,
     'Minimum 3 characters'
 );
 
-const validation = Validation.validateAll('ab', [requiredRule, minLengthRule]);
+const validation = validateAll('ab', [requiredRule, minLengthRule]);
 
 // ─── processUser из helpers ────────────────────────────────────────
 

@@ -17,11 +17,12 @@ import type {
 } from './helpers/types.ts';
 
 import {
+    createValidationRule,
     DataStore,
     getFileStatus,
     parseInput,
     processUser,
-    Validation
+    validateAll
 } from './helpers/types.ts';
 import {
     applyDefaults,
@@ -902,8 +903,8 @@ function getTypesHelpers() {
     const parsed = parseInput('{"key": "value"}');
     const stringified = parseInput({ key: 'value', });
 
-    const rule = Validation.createRule('required', (v) => !!v, 'Required');
-    const result = Validation.validateAll('test', [rule]);
+    const rule = createValidationRule('required', (v) => !!v, 'Required');
+    const result = validateAll('test', [rule]);
 
     const userDto = processUser();
     const currentStatus = getFileStatus();

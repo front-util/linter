@@ -13,7 +13,6 @@
     "strict": true,
     "noImplicitAny": true,
     "moduleResolution": "bundler",
-    "baseUrl": ".",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "types": ["bun"]
