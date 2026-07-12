@@ -929,7 +929,7 @@ function getClassesHelpers() {
         .where('active = true')
         .build();
 
-    const appSettings = Config.getInstance() as unknown as Config;
+    const appSettings = Config.getInstance();
 
     appSettings.set('key', 'value');
     const configVal = appSettings.get('key');

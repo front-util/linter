@@ -8,7 +8,7 @@ import React, {
     useMemo,
     useReducer,
     useRef,
-    useState,
+    useState
 } from 'react';
 
 import type { User } from './types.ts';
@@ -17,31 +17,31 @@ import type { User } from './types.ts';
 
 interface BaseProps {
     className?: string;
-    children?: React.ReactNode;
+    children? : React.ReactNode;
 }
 
 interface ListProps<T> {
-    items: T[];
-    renderItem: (item: T, index: number) => React.ReactNode;
-    keyExtractor: (item: T) => string;
+    items        : T[];
+    renderItem   : (item: T, index: number) => React.ReactNode;
+    keyExtractor : (item: T) => string;
     emptyMessage?: string;
 }
 
 interface FormFieldProps {
-    label: string;
-    value: string;
-    onChange: (value: string) => void;
-    error?: string;
+    label    : string;
+    value    : string;
+    onChange : (value: string) => void;
+    error?   : string;
     required?: boolean;
     disabled?: boolean;
 }
 
 interface CounterProps {
     initialValue?: number;
-    step?: number;
-    min?: number;
-    max?: number;
-    onChange?: (value: number) => void;
+    step?        : number;
+    min?         : number;
+    max?         : number;
+    onChange?    : (value: number) => void;
 }
 
 // ─── rules-of-hooks: Правильные хуки ──────────────────────────────
@@ -73,12 +73,13 @@ export function HookPatterns() {
 
 // ─── exhaustive-deps: Полные зависимости ──────────────────────────
 
-export function EffectWithDeps({ userId, token }: { userId: string; token: string }) {
+export function EffectWithDeps({ userId, token, }: { userId: string; token: string; }) {
     const [data, setData] = useState<User | null>(null);
 
     useEffect(() => {
         async function loadUser() {
             const user = JSON.parse(`{"id": ${userId}, "name": "User ${userId}", "token": "${token}"}`) as User;
+
             setData(user);
         }
         loadUser();
@@ -89,7 +90,7 @@ export function EffectWithDeps({ userId, token }: { userId: string; token: strin
 
 // ─── no-array-index-key: Правильные ключи ─────────────────────────
 
-export function IndexKeyList({ items }: { items: string[] }) {
+export function IndexKeyList({ items, }: { items: string[]; }) {
     return (
         <ul>
             {items.map((item) => (
@@ -101,32 +102,32 @@ export function IndexKeyList({ items }: { items: string[] }) {
 
 // ─── no-children-prop ─────────────────────────────────────────────
 
-export function ChildrenPropExample({ children }: BaseProps) {
+export function ChildrenPropExample({ children, }: BaseProps) {
     return <div>{children}</div>;
 }
 
 // ─── no-danger ─────────────────────────────────────────────────────
 
-export function SafeHTML({ text }: { text: string }) {
+export function SafeHTML({ text, }: { text: string; }) {
     return <div>{text}</div>;
 }
 
 // ─── no-missing-component-display-name ─────────────────────────────
 
-export const NamedComponent = memo(function NamedComponent() {
+export const NamedComponent = memo(() => {
     return <div>Has display name</div>;
 });
 
 export const NamedForwarded = forwardRef<HTMLDivElement>(
-    function NamedForwarded(props, ref) {
+    (props, ref) => {
         return <div ref={ref}>Forwarded with name</div>;
-    },
+    }
 );
 
 // ─── useEffect: Сложные зависимости ───────────────────────────────
 
-export function EffectPatterns({ userId, filters }: {
-    userId: string;
+export function EffectPatterns({ userId, filters, }: {
+    userId : string;
     filters: Record<string, string>;
 }) {
     const [user, setUser] = useState<User | null>(null);
@@ -136,14 +137,15 @@ export function EffectPatterns({ userId, filters }: {
         setLoading(true);
         async function loadUser() {
             const user = JSON.parse(`{"id": ${userId}, "name": "User ${userId}"}`) as User;
+
             setUser(user);
             setLoading(false);
         }
         loadUser();
     }, [userId, filters]);
 
-    if (loading) return <p>Loading...</p>;
-    if (!user) return <p>Not found</p>;
+    if(loading) return <p>Loading...</p>;
+    if(!user) return <p>Not found</p>;
 
     return (
         <div>
@@ -155,7 +157,7 @@ export function EffectPatterns({ userId, filters }: {
 
 // ─── useMemo / useCallback ────────────────────────────────────────
 
-export function MemoPatterns({ items, query }: {
+export function MemoPatterns({ items, query, }: {
     items: User[];
     query: string;
 }) {
@@ -163,14 +165,16 @@ export function MemoPatterns({ items, query }: {
 
     const filtered = useMemo(() => {
         const lower = query.toLowerCase();
+
         return items
             .filter((item) =>
-                item.name.toLowerCase().includes(lower) ||
-                item.email.toLowerCase().includes(lower),
+                item.name.toLowerCase().includes(lower)
+                || item.email.toLowerCase().includes(lower)
             )
             .sort((a, b) => {
                 const aVal = String(a[sortBy]);
                 const bVal = String(b[sortBy]);
+
                 return aVal.localeCompare(bVal);
             });
     }, [items, query, sortBy]);
@@ -195,64 +199,72 @@ export function MemoPatterns({ items, query }: {
 // ─── useReducer ───────────────────────────────────────────────────
 
 interface TodoState {
-    items: Array<{ id: number; text: string; done: boolean }>;
+    items : Array<{ id: number; text: string; done: boolean; }>;
     nextId: number;
     filter: 'all' | 'active' | 'done';
 }
 
-type TodoAction =
-    | { type: 'ADD'; text: string }
-    | { type: 'TOGGLE'; id: number }
-    | { type: 'DELETE'; id: number }
-    | { type: 'SET_FILTER'; filter: TodoState['filter'] };
+type TodoAction
+    = | { type: 'ADD'; text: string; }
+        | { type: 'TOGGLE'; id: number; }
+        | { type: 'DELETE'; id: number; }
+        | { type: 'SET_FILTER'; filter: TodoState['filter']; };
 
 function todoReducer(state: TodoState, action: TodoAction): TodoState {
-    switch (action.type) {
-        case 'ADD':
+    switch(action.type) {
+        case 'ADD': {
             return {
                 ...state,
-                items: [...state.items, { id: state.nextId, text: action.text, done: false }],
+                items : [...state.items, { id: state.nextId, text: action.text, done: false, }],
                 nextId: state.nextId + 1,
             };
-        case 'TOGGLE':
+        }
+        case 'TOGGLE': {
             return {
                 ...state,
                 items: state.items.map((item) =>
-                    item.id === action.id ? { ...item, done: !item.done } : item,
+                    item.id === action.id ? { ...item, done: !item.done, } : item
                 ),
             };
-        case 'DELETE':
+        }
+        case 'DELETE': {
             return {
                 ...state,
                 items: state.items.filter((item) => item.id !== action.id),
             };
-        case 'SET_FILTER':
-            return { ...state, filter: action.filter };
-        default:
+        }
+        case 'SET_FILTER': {
+            return { ...state, filter: action.filter, };
+        }
+        default: {
             return state;
+        }
     }
 }
 
 export function TodoApp() {
     const [state, dispatch] = useReducer(todoReducer, {
-        items: [],
+        items : [],
         nextId: 1,
         filter: 'all',
     });
     const [input, setInput] = useState('');
 
     const filteredItems = useMemo(() => {
-        switch (state.filter) {
-            case 'active': return state.items.filter((i) => !i.done);
-            case 'done': return state.items.filter((i) => i.done);
-            default: return state.items;
+        switch(state.filter) {
+            case 'active': { return state.items.filter((i) => !i.done);
+            }
+            case 'done': { return state.items.filter((i) => i.done);
+            }
+            default: { return state.items;
+            }
         }
     }, [state.items, state.filter]);
 
     const handleSubmit = useCallback((e: React.FormEvent) => {
         e.preventDefault();
-        if (input.trim()) {
-            dispatch({ type: 'ADD', text: input.trim() });
+        if(input.trim()) {
+            dispatch({ type: 'ADD', text: input.trim(), });
             setInput('');
         }
     }, [input, dispatch]);
@@ -266,10 +278,10 @@ export function TodoApp() {
             <ul>
                 {filteredItems.map((item) => (
                     <li key={item.id}>
-                        <span onClick={() => dispatch({ type: 'TOGGLE', id: item.id })}>
+                        <span onClick={() => dispatch({ type: 'TOGGLE', id: item.id, })}>
                             {item.text}
                         </span>
-                        <button onClick={() => dispatch({ type: 'DELETE', id: item.id })}>
+                        <button onClick={() => dispatch({ type: 'DELETE', id: item.id, })}>
                             Delete
                         </button>
                     </li>
@@ -287,7 +299,7 @@ export function GenericList<T>({
     keyExtractor,
     emptyMessage = 'No items',
 }: ListProps<T>) {
-    if (items.length === 0) return <p>{emptyMessage}</p>;
+    if(items.length === 0) return <p>{emptyMessage}</p>;
 
     return (
         <ul>
@@ -301,7 +313,7 @@ export function GenericList<T>({
 // ─── forwardRef ───────────────────────────────────────────────────
 
 export const InputField = forwardRef<HTMLInputElement, FormFieldProps>(
-    function InputField({ label, value, onChange, error, required, disabled }, ref) {
+    ({ label, value, onChange, error, required, disabled, }, ref) => {
         return (
             <div>
                 <label>
@@ -316,7 +328,7 @@ export const InputField = forwardRef<HTMLInputElement, FormFieldProps>(
                 {error && <span>{error}</span>}
             </div>
         );
-    },
+    }
 );
 
 // ─── Counter ──────────────────────────────────────────────────────
@@ -332,10 +344,12 @@ export function Counter({
     const prevRef = useRef(count);
 
     useEffect(() => {
-        if (prevRef.current !== count) {
-            prevRef.current = count;
-            onChange?.(count);
+        if(prevRef.current === count) {
+            return;
         }
+
+        prevRef.current = count;
+        onChange?.(count);
     }, [count, onChange]);
 
     const increment = useCallback(() => {
@@ -378,19 +392,20 @@ export function A11yExample() {
 
 interface ErrorBoundaryState {
     hasError: boolean;
-    error: Error | null;
+    error   : Error | null;
 }
 
 export class ErrorBoundary extends React.Component<BaseProps, ErrorBoundaryState> {
+
     static displayName = 'ErrorBoundary';
 
     constructor(props: BaseProps) {
         super(props);
-        this.state = { hasError: false, error: null };
+        this.state = { hasError: false, error: null, };
     }
 
     static getDerivedStateFromError(error: Error): ErrorBoundaryState {
-        return { hasError: true, error };
+        return { hasError: true, error, };
     }
 
     componentDidCatch(error: Error, info: React.ErrorInfo) {
@@ -398,30 +413,31 @@ export class ErrorBoundary extends React.Component<BaseProps, ErrorBoundaryState
     }
 
     render() {
-        if (this.state.hasError) {
+        if(this.state.hasError) {
             return <div>Error: {this.state.error?.message}</div>;
         }
         return this.props.children;
     }
+
 }
 
 // ─── Context ──────────────────────────────────────────────────────
 
 interface ThemeContextValue {
-    theme: 'light' | 'dark';
+    theme      : 'light' | 'dark';
     toggleTheme: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
-export function ThemeProvider({ children }: BaseProps) {
+export function ThemeProvider({ children, }: BaseProps) {
     const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
     const toggleTheme = useCallback(() => {
         setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
     }, []);
 
-    const value = useMemo(() => ({ theme, toggleTheme }), [theme, toggleTheme]);
+    const value = useMemo(() => ({ theme, toggleTheme, }), [theme, toggleTheme]);
 
     return (
         <ThemeContext value={value}>
@@ -432,7 +448,8 @@ export function ThemeProvider({ children }: BaseProps) {
 
 export function useTheme(): ThemeContextValue {
     const context = useContext(ThemeContext);
-    if (!context) {
+
+    if(!context) {
         throw new Error('useTheme must be used within ThemeProvider');
     }
     return context;

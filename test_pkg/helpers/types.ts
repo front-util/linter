@@ -5,17 +5,17 @@
 // ─── Базовые типы ─────────────────────────────────────────────────
 
 export interface User {
-    id: number;
-    name: string;
-    email: string;
-    role: UserRole;
+    id       : number;
+    name     : string;
+    email    : string;
+    role     : UserRole;
     createdAt: Date;
 }
 
 export enum UserRole {
     Admin = 'admin',
     Editor = 'editor',
-    Viewer = 'viewer',
+    Viewer = 'viewer'
 }
 
 export type UserSummary = Pick<User, 'id' | 'name' | 'role'>;
@@ -25,22 +25,23 @@ export type PartialUser = Partial<User>;
 // ─── Generics ─────────────────────────────────────────────────────
 
 export interface ApiResponse<T> {
-    data: T;
-    status: number;
+    data   : T;
+    status : number;
     message: string;
 }
 
 export interface PaginatedResponse<T> extends ApiResponse<T[]> {
-    page: number;
+    page    : number;
     pageSize: number;
-    total: number;
+    total   : number;
 }
 
-export type ApiResult<T, E = Error> =
-    | { success: true; data: T }
-    | { success: false; error: E };
+export type ApiResult<T, E = Error>
+    = | { success: true; data: T; }
+        | { success: false; error: E; };
 
-export class DataStore<T extends { id: number }> {
+export class DataStore<T extends { id: number; }> {
+
     #items: T[] = [];
 
     add(item: T): void {
@@ -57,17 +58,20 @@ export class DataStore<T extends { id: number }> {
 
     update(id: number, updates: Partial<T>): T | undefined {
         const index = this.#items.findIndex((item) => item.id === id);
-        if (index === -1) return undefined;
-        this.#items[index] = { ...this.#items[index], ...updates };
+
+        if(index === -1) return undefined;
+        this.#items[index] = { ...this.#items[index], ...updates, };
         return this.#items[index];
     }
 
     delete(id: number): boolean {
         const index = this.#items.findIndex((item) => item.id === id);
-        if (index === -1) return false;
+
+        if(index === -1) return false;
         this.#items.splice(index, 1);
         return true;
     }
+
 }
 
 // ─── Utility Types ────────────────────────────────────────────────
@@ -108,7 +112,7 @@ export type NullableAll<T> = {
 export function parseInput(input: string): object;
 export function parseInput(input: object): string;
 export function parseInput(input: string | object): object | string {
-    if (typeof input === 'string') {
+    if(typeof input === 'string') {
         return JSON.parse(input);
     }
     return JSON.stringify(input);
@@ -118,46 +122,47 @@ export function parseInput(input: string | object): object | string {
 
 export namespace Validation {
     export interface Rule {
-        name: string;
+        name    : string;
         validate: (value: unknown) => boolean;
-        message: string;
+        message : string;
     }
 
     export function createRule(
         name: string,
         validate: (value: unknown) => boolean,
-        message: string,
+        message: string
     ): Rule {
-        return { name, validate, message };
+        return { name, validate, message, };
     }
 
     export function validateAll(
         value: unknown,
-        rules: Rule[],
-    ): { valid: boolean; errors: string[] } {
+        rules: Rule[]
+    ): { valid: boolean; errors: string[]; } {
         const errors: string[] = [];
-        for (const rule of rules) {
-            if (!rule.validate(value)) {
+
+        for(const rule of rules) {
+            if(!rule.validate(value)) {
                 errors.push(rule.message);
             }
         }
-        return { valid: errors.length === 0, errors };
+        return { valid: errors.length === 0, errors, };
     }
 }
 
 // ─── @typescript-eslint/no-use-before-define ──────────────────────
 
 interface UserDTO {
-    id: number;
-    name: string;
+    id   : number;
+    name : string;
     email: string;
 }
 
 function processUser(): UserDTO {
-    return { id: 1, name: 'test', email: 'test@test.com' };
+    return { id: 1, name: 'test', email: 'test@test.com', };
 }
 
-export { processUser };
+export { processUser, };
 
 // ─── @typescript-eslint/no-shadow ─────────────────────────────────
 
@@ -165,9 +170,10 @@ export const status = 'active';
 
 export function getFileStatus(): string {
     const fileStatus = 'pending';
+
     return fileStatus;
 }
 
 // ─── Экспорт типов ────────────────────────────────────────────────
 
-export type { User as UserType };
+export type { User as UserType, };
