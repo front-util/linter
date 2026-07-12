@@ -142,6 +142,8 @@ const sonarRules = {
     'sonarjs/no-clear-text-protocols'    : 'off',
     'sonarjs/prefer-nullish-coalescing'  : 'off',
     'sonarjs/new-cap'                    : 'off',
+    // Крашится с typescript@6.0.3 — несовместимость API
+    'sonarjs/no-async-constructor'       : 'off',
 } satisfies Linter.RulesRecord;
 
 const stylisticRules = {
