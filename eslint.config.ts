@@ -6,7 +6,7 @@ export default defineConfig({
     extends: configs.ts,
     files  : ['src/**/*.{ts,tsx,js}', 'eslint.config.ts', 'tests/*'],
     rules  : {
-        'import/no-unresolved': ['error', { ignore: ['^bun:'], }],
+        'import-x/no-unresolved': ['error', { ignore: ['^bun:'], }],
     },
     ignores: ['test_pkg/', 'dist/'],
 }, {

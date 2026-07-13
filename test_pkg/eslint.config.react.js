@@ -1,7 +1,7 @@
+import { defineConfig } from 'eslint/config';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-
-import { defineConfig } from 'eslint/config';
+import tseslint from 'typescript-eslint';
 
 import { configs } from '../dist/index.js';
 
@@ -20,7 +20,7 @@ export default defineConfig([
             },
         },
         rules: {
-            'import/no-unresolved'                            : ['error', { ignore: ['^bun:'], }],
+            'import-x/no-unresolved'                          : ['error', { ignore: ['^bun:'], }],
             '@typescript-eslint/no-explicit-any'              : 'off',
             '@typescript-eslint/explicit-function-return-type': 'off',
             // JS-хелперы не имеют типов → any-вывод неизбежен
@@ -31,4 +31,15 @@ export default defineConfig([
             '@typescript-eslint/no-unsafe-argument'           : 'off',
         },
     },
+    // Конфиги вне tsconfig — отключаем type-checked правила
+    {
+        files          : ['**/*.config.{ts,js}', '**/eslint.config.*'],
+        languageOptions: {
+            parserOptions: {
+                projectService: false,
+                project       : null,
+            },
+        },
+        rules: tseslint.configs.disableTypeChecked.rules,
+    }
 ]);

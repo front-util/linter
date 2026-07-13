@@ -35,18 +35,10 @@ const customRules = {
     'no-use-before-define'                   : 'off',
     'linebreak-style'                        : 'off',
     'no-shadow'                              : 'off',
-    'no-nested-ternary'                      : ['error'],
     'no-var'                                 : 'error',
     'prefer-const'                           : 'error',
-    // Современные правила из лучших практик
     'prefer-arrow-callback'                  : 'error',
-    'prefer-template'                        : 'error',
-    'prefer-exponentiation-operator'         : 'error',
     'prefer-object-has-own'                  : 'error',
-    'prefer-regex-literals'                  : ['error', { disallowRedundantWrapping: true, }],
-    'no-useless-rename'                      : 'error',
-    'object-shorthand'                       : 'error',
-    'prefer-destructuring'                   : ['error', { object: true, array: false, }],
     'security/detect-object-injection'       : 'off',
     'security/detect-non-literal-fs-filename': 'off',
     'unicorn/expiring-todo-comments'         : 'off',
@@ -86,9 +78,7 @@ const tsCommonRules = {
         argsIgnorePattern        : '^_',
         caughtErrorsIgnorePattern: '^_',
     }],
-    '@typescript-eslint/no-use-before-define': ['error'],
-    '@typescript-eslint/ban-ts-comment'      : 0,
-    '@typescript-eslint/no-shadow'           : 'error',
+    '@typescript-eslint/ban-ts-comment': 0,
 } satisfies Linter.RulesRecord;
 
 const allyRules = {
@@ -100,21 +90,21 @@ const allyRules = {
 } satisfies Linter.RulesRecord;
 
 const importRules = {
-    'import/no-extraneous-dependencies': [
+    'import-x/no-extraneous-dependencies': [
         'error',
         {
             peerDependencies    : true,
             optionalDependencies: true,
         }
     ],
-    'import/prefer-default-export'     : 0,
-    'import/no-named-as-default'       : 'off',
-    'import/no-dynamic-require'        : 'off',
-    'import/no-named-as-default-member': 'off',
-    'import/extensions'                : 'off',
-    'import/namespace'                 : 'off',
-    'import/default'                   : 'off',
-    'import/export'                    : 'off',
+    'import-x/prefer-default-export'     : 0,
+    'import-x/no-named-as-default'       : 'off',
+    'import-x/no-dynamic-require'        : 'off',
+    'import-x/no-named-as-default-member': 'off',
+    'import-x/extensions'                : 'off',
+    'import-x/namespace'                 : 'off',
+    'import-x/default'                   : 'off',
+    'import-x/export'                    : 'off',
 } satisfies Linter.RulesRecord;
 
 const reactRules = {

@@ -16,7 +16,7 @@ export default defineConfig([
             },
         },
         rules: {
-            'import/no-unresolved'                            : ['error', { ignore: ['^bun:', '^node:'], }],
+            'import-x/no-unresolved'                          : ['error', { ignore: ['^bun:', '^node:'], }],
             // Отключаем строгие правила для тестовых файлов
             '@typescript-eslint/no-explicit-any'              : 'off',
             '@typescript-eslint/no-unused-vars'               : 'off',

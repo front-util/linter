@@ -1,4 +1,6 @@
-import importPlugin from 'eslint-plugin-import';
+import type { Linter } from 'eslint';
+
+import { importX as importPlugin } from 'eslint-plugin-import-x';
 import { defineConfig } from 'eslint/config';
 import tseslint from 'typescript-eslint';
 
@@ -9,9 +11,9 @@ const tsImportPluginConfig = defineConfig({
     settings: {
 
         ...(importPlugin.configs.typescript.settings as Record<string, unknown>),
-        'import/resolver': {
+        'import-x/resolver': {
 
-            ...(importPlugin.configs.typescript.settings?.['import/resolver'] as Record<string, unknown>),
+            ...(importPlugin.configs.typescript.settings?.['import-x/resolver'] as Record<string, unknown>),
             typescript: {
                 alwaysTryTypes: true,
                 project       : null,
@@ -51,6 +53,22 @@ const customPluginConfigTS = defineConfig({
     rules: customRulesMap.onlyTS,
 });
 
+// Конфиги и test_pkg-файлы не являются частью TS-проекта —
+// отключаем projectService и правила, требующие информации о типах.
+// disableTypeChecked содержит все type-checked правила — извлекаем их для применения
+// только к конфиг-файлам (а не ко всем файлам как в test_pkg).
+const { rules: typeCheckedOffRules, } = tseslint.configs.disableTypeChecked;
+const configFilesOverride = defineConfig({
+    files          : ['**/*.config.{ts,js}', '**/eslint.config.*'],
+    rules          : typeCheckedOffRules as Linter.RulesRecord,
+    languageOptions: {
+        parserOptions: {
+            projectService: false,
+            project       : null,
+        },
+    },
+});
+
 export const tsConfig = defineConfig([
     ...baseConfig,
     tseslint.configs.recommended,
@@ -60,5 +78,6 @@ export const tsConfig = defineConfig([
     importPlugin.flatConfigs.typescript,
     tsImportPluginConfig,
     tsPluginConfig,
-    customPluginConfigTS
+    customPluginConfigTS,
+    configFilesOverride
 ]);
