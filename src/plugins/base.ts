@@ -2,7 +2,7 @@ import js from '@eslint/js';
 import stylistic from '@stylistic/eslint-plugin';
 import checkFilePlugin from 'eslint-plugin-check-file';
 import compatPlugin from 'eslint-plugin-compat';
-import importPlugin from 'eslint-plugin-import';
+import { importX as importPlugin } from 'eslint-plugin-import-x';
 import ally11Plugin from 'eslint-plugin-jsx-a11y';
 import perfectionist from 'eslint-plugin-perfectionist';
 // @ts-expect-error - ESLint plugin types

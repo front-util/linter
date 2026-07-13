@@ -6,6 +6,6 @@ export default defineConfig({
     extends: configs.js,
     files  : ['jsTest.js'],
     rules  : {
-        'import/no-unresolved': ['error', { ignore: ['^bun:'], }],
+        'import-x/no-unresolved': ['error', { ignore: ['^bun:'], }],
     },
 });

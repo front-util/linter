@@ -20,7 +20,7 @@ Each preset requires its own set of peer dependencies. Install only what you nee
 
 **JavaScript (`configs.js`)**
 ```bash
-bun add -D @eslint/js eslint eslint-plugin-import eslint-plugin-promise \
+bun add -D @eslint/js eslint eslint-plugin-import-x eslint-plugin-promise \
   eslint-plugin-compat eslint-plugin-sonarjs eslint-plugin-security \
   eslint-plugin-unicorn eslint-plugin-perfectionist eslint-plugin-check-file \
   eslint-plugin-jsx-a11y @stylistic/eslint-plugin
@@ -62,9 +62,12 @@ Configs are composable — `configs.ts` extends `configs.js`, `configs.react` ex
 
 | Preset | Description | Key plugins |
 |--------|-------------|-------------|
-| `configs.js` | JavaScript | @eslint/js, import, promise, compat, sonarjs, security, unicorn, perfectionist, check-file, jsx-a11y, @stylistic |
-| `configs.ts` | TypeScript (extends js) | + typescript-eslint (recommended + recommendedTypeChecked), import/resolver-typescript |
+| `configs.js` | JavaScript | @eslint/js, import-x, promise, compat, sonarjs, security, unicorn, perfectionist, check-file, jsx-a11y, @stylistic |
+| `configs.ts` | TypeScript (extends js) | + typescript-eslint (recommended + recommendedTypeChecked), import-x/resolver-typescript |
 | `configs.react` | React + TypeScript (extends ts) | + react-x (rules-of-hooks, exhaustive-deps) |
+| `configs.strict` | JS + strict rules | base + style/preference rules, unicorn strict, sonarjs strict |
+| `configs['strict-ts']` | TS + strict rules | ts + strict rules + TS-specific strict rules |
+| `configs['strict-react']` | React + TS + strict rules | react + strict rules + TS-specific strict rules |
 
 ## Custom configuration
 
@@ -77,7 +80,7 @@ export default defineConfig({
     files: ["src/**/*.{ts,tsx,js,jsx}"],
     rules: {
         "no-console": "warn",
-        "import/no-unresolved": ["error", { ignore: ["^bun:", "^node:"] }],
+        "import-x/no-unresolved": ["error", { ignore: ["^bun:", "^node:"] }],
     },
 });
 ```
@@ -128,13 +131,40 @@ export default defineConfig({
 });
 ```
 
+## Migration from 1.x
+
+### New peer dependencies
+Install these (they were not required in 1.x):
+```bash
+bun add -D @stylistic/eslint-plugin eslint-plugin-check-file globals eslint-plugin-import-x
+```
+
+### Removed dependencies
+These are no longer used — uninstall them:
+```bash
+bun remove eslint-plugin-filenames eslint-plugin-optimize-regex eslint-plugin-import
+```
+
+### New presets (v2.1.0+)
+Strict presets enable additional quality rules that may require code changes:
+- `configs.strict` — JS + strict rules
+- `configs['strict-ts']` — TS + strict rules
+- `configs['strict-react']` — React + TS + strict rules
+
+Base presets (`js`, `ts`, `react`) are softer — style-preference rules
+(`no-nested-ternary`, `prefer-template`, `object-shorthand`, etc.) moved to strict.
+
+### Rule prefix changes
+- `import/*` → `import-x/*` (eslint-plugin-import → eslint-plugin-import-x)
+- `react/*` → `react-x/*` (eslint-plugin-react → eslint-plugin-react-x)
+
 ## Troubleshooting
 
 **Slow linting** — use `--cache` and limit `files` to your source directory.
 
 **Import errors for Node builtins** — add to your rules:
 ```js
-"import/no-unresolved": ["error", { ignore: ["^node:", "^bun:"] }]
+"import-x/no-unresolved": ["error", { ignore: ["^node:", "^bun:"] }]
 ```
 
 **Type-checked rules fail in test_pkg / standalone files** — disable type-checked rules:
