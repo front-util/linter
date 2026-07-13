@@ -4,14 +4,14 @@
 
 // ─── eqeqeq ───────────────────────────────────────────────────────
 export function checkEquality(a, b) {
-    if (a === b) return 'equal';
-    if (a !== b) return 'not-equal';
+    if(a === b) return 'equal';
+    if(a !== b) return 'not-equal';
     return 'unknown';
 }
 
 export function checkNullish(value) {
-    if (value === null) return 'null';
-    if (value === undefined) return 'undefined';
+    if(value === null) return 'null';
+    if(value === undefined) return 'undefined';
     return 'defined';
 }
 
@@ -20,6 +20,7 @@ let globalCounter = 0;
 
 export function incrementCounter() {
     const step = 1;
+
     globalCounter += step;
     return globalCounter;
 }
@@ -31,37 +32,40 @@ export const CONSTANT_ARRAY = [1, 2, 3];
 export function greetUser(name, role) {
     const greeting = `Hello, ${name}!`;
     const message = `Role: ${role} | Name: ${name}`;
-    return { greeting, message };
+
+    return { greeting, message, };
 }
 
 // ─── object-shorthand ─────────────────────────────────────────────
 export function createUser(name, age, email) {
     const role = 'user';
-    const active = true;
-    return { name, age, email, role, active };
+    const isActive = true;
+
+    return { name, age, email, role, active: isActive, };
 }
 
 export function mergeConfigs(defaults, overrides) {
-    return { ...defaults, ...overrides };
+    return { ...defaults, ...overrides, };
 }
 
 // ─── no-nested-ternary ────────────────────────────────────────────
 export function classifyScore(score) {
-    if (score > 90) return 'excellent';
-    if (score > 70) return 'good';
-    if (score > 50) return 'average';
+    if(score > 90) return 'excellent';
+    if(score > 70) return 'good';
+    if(score > 50) return 'average';
     return 'poor';
 }
 
 // ─── no-useless-rename ────────────────────────────────────────────
-export function renameDestructured({ name, age, email }) {
-    return { name, age, email };
+export function renameDestructured({ name, age, email, }) {
+    return { name, age, email, };
 }
 
 // ─── prefer-destructuring ─────────────────────────────────────────
 export function extractFromArray(arr) {
     const [first, second, ...rest] = arr;
-    return { first, second, rest };
+
+    return { first, second, rest, };
 }
 
 // ─── prefer-exponentiation-operator ───────────────────────────────
@@ -83,7 +87,8 @@ export function createPatterns() {
     const email = /^[\w.-]+@[\w.-]+\.\w+$/;
     const phone = /\d{3}-\d{4}/;
     const url = /https?:\/\/[^\s]+/;
-    return { email, phone, url };
+
+    return { email, phone, url, };
 }
 
 // ─── prefer-arrow-callback ────────────────────────────────────────
@@ -105,13 +110,14 @@ export function withPadding(a, b, c) {
 
     const z = x * y;
 
-    if (z > 0) return z;
+    if(z > 0) return z;
 
     return 0;
 }
 
 // ─── accessor-pairs ───────────────────────────────────────────────
 export class TemperatureSensor {
+
     #celsius = 0;
 
     constructor(celsius) {
@@ -133,6 +139,7 @@ export class TemperatureSensor {
     set fahrenheit(value) {
         this.#celsius = ((value - 32) * 5) / 9;
     }
+
 }
 
 // ─── arrow-body-style ─────────────────────────────────────────────
@@ -157,46 +164,47 @@ export function stylisticDemo() {
 }
 
 export const wellSpaced = {
-    name    : 'test',
-    value   : 42,
-    active  : true,
+    name  : 'test',
+    value : 42,
+    active: true,
 };
 
 export function trailingComma(
     param1,
     param2,
-    param3,
+    param3
 ) {
     return [param1, param2, param3];
 }
 
 // ─── promise/ правила ──────────────────────────────────────────────
 export async function readJson(path) {
-    const { readFile } = await import('node:fs/promises');
+    const { readFile, } = await import('node:fs/promises');
     const content = await readFile(path, 'utf8');
+
     return JSON.parse(content);
 }
 
 export function promiseChain() {
     return readJson('/tmp/data.json')
         .then((data) => data.items)
-        .catch((err) => {
-            console.error(err);
+        .catch((error) => {
+            console.error(error);
             return [];
         });
 }
 
 // ─── security/ правила ─────────────────────────────────────────────
 export function sanitize(input) {
-    return input.replace(/[<>]/g, '');
+    return input.replaceAll(/[<>]/g, '');
 }
 
 // ─── sonarjs/ правила ──────────────────────────────────────────────
 export function simpleLogic(a, b, c) {
-    if (a > 0 && b > 0 && c > 0) {
+    if(a > 0 && b > 0 && c > 0) {
         return a + b + c;
     }
-    if (a > 0 && b > 0) {
+    if(a > 0 && b > 0) {
         return a + b;
     }
     return 0;
@@ -208,7 +216,8 @@ export function unicornPatterns(arr) {
     const hasItems = arr.length > 0;
     const first = arr.at(0);
     const last = arr.at(-1);
-    return { found, hasItems, first, last };
+
+    return { found, hasItems, first, last, };
 }
 
 // ─── no-shadow ─────────────────────────────────────────────────────
@@ -216,6 +225,7 @@ const outerValue = 'outer';
 
 export function noShadowTest() {
     const innerValue = `inner (outer is: ${outerValue})`;
+
     return innerValue;
 }
 
@@ -230,6 +240,7 @@ export function useAfterDefine() {
 
 // ─── Классы ───────────────────────────────────────────────────────
 export class Circle {
+
     #radius;
 
     constructor(radius) {
@@ -247,9 +258,11 @@ export class Circle {
     circumference() {
         return 2 * Math.PI * this.#radius;
     }
+
 }
 
 export class Rectangle {
+
     #width;
     #height;
 
@@ -273,15 +286,19 @@ export class Rectangle {
     perimeter() {
         return 2 * (this.#width + this.#height);
     }
+
 }
 
 export class Square extends Rectangle {
+
     constructor(side) {
         super(side, side);
     }
+
 }
 
 export class Range {
+
     #start;
     #end;
     #step;
@@ -299,12 +316,13 @@ export class Range {
 
         return {
             next() {
-                if (current < end) {
+                if(current < end) {
                     const value = current;
+
                     current += step;
-                    return { value, done: false };
+                    return { value, done: false, };
                 }
-                return { value: undefined, done: true };
+                return { value: undefined, done: true, };
             },
         };
     }
@@ -315,18 +333,21 @@ export class Range {
 
     sum() {
         let total = 0;
-        for (const value of this) {
+
+        for(const value of this) {
             total += value;
         }
         return total;
     }
+
 }
 
 export class EventEmitter {
+
     #listeners = new Map();
 
     on(event, callback) {
-        if (!this.#listeners.has(event)) {
+        if(!this.#listeners.has(event)) {
             this.#listeners.set(event, new Set());
         }
         this.#listeners.get(event).add(callback);
@@ -339,15 +360,18 @@ export class EventEmitter {
 
     emit(event, ...args) {
         const callbacks = this.#listeners.get(event);
-        if (callbacks) {
-            for (const callback of callbacks) {
+
+        if(callbacks) {
+            for(const callback of callbacks) {
                 callback(...args);
             }
         }
     }
+
 }
 
 export class QueryBuilder {
+
     #table = '';
     #conditions = [];
     #selects = ['*'];
@@ -369,14 +393,17 @@ export class QueryBuilder {
 
     build() {
         let sql = `SELECT ${this.#selects.join(', ')} FROM ${this.#table}`;
-        if (this.#conditions.length > 0) {
+
+        if(this.#conditions.length > 0) {
             sql += ` WHERE ${this.#conditions.join(' AND ')}`;
         }
         return sql;
     }
+
 }
 
 export class BankAccount {
+
     #owner;
     #balance = 0;
 
@@ -394,35 +421,38 @@ export class BankAccount {
     }
 
     deposit(amount) {
-        if (amount <= 0) throw new RangeError('Amount must be positive');
+        if(amount <= 0) throw new RangeError('Amount must be positive');
         this.#balance += amount;
         return this.#balance;
     }
 
     withdraw(amount) {
-        if (amount <= 0) throw new RangeError('Amount must be positive');
-        if (amount > this.#balance) throw new Error('Insufficient funds');
+        if(amount <= 0) throw new RangeError('Amount must be positive');
+        if(amount > this.#balance) throw new Error('Insufficient funds');
         this.#balance -= amount;
         return this.#balance;
     }
+
 }
 
 export class Config {
+
     static #instance = null;
     #data = {};
 
     static getInstance() {
-        if (!Config.#instance) {
+        if(!Config.#instance) {
             Config.#instance = new Config();
         }
         return Config.#instance;
     }
 
-    get(key, defaultValue = undefined) {
+    get(key, defaultValue) {
         return this.#data[key] ?? defaultValue;
     }
 
     set(key, value) {
         this.#data[key] = value;
     }
+
 }

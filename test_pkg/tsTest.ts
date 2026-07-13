@@ -56,11 +56,11 @@ enum Permission {
 // ─── Generics ─────────────────────────────────────────────────────
 
 interface Repository<T extends { id: number; }> {
-    findById(id: number): Promise<T | null>;
-    findAll(): Promise<T[]>;
-    create(item: Omit<T, 'id'>): Promise<T>;
-    update(id: number, updates: Partial<T>): Promise<T | null>;
-    delete(id: number): Promise<boolean>;
+    findById(id: number): T | null;
+    findAll(): T[];
+    create(item: Omit<T, 'id'>): T;
+    update(id: number, updates: Partial<T>): T | null;
+    delete(id: number): boolean;
 }
 
 class InMemoryRepository<T extends { id: number; }> implements Repository<T> {
@@ -68,22 +68,22 @@ class InMemoryRepository<T extends { id: number; }> implements Repository<T> {
     #items: T[] = [];
     #nextId = 1;
 
-    async findById(id: number): Promise<T | null> {
+    findById(id: number): T | null {
         return this.#items.find((item) => item.id === id) ?? null;
     }
 
-    async findAll(): Promise<T[]> {
+    findAll(): T[] {
         return [...this.#items];
     }
 
-    async create(item: Omit<T, 'id'>): Promise<T> {
+    create(item: Omit<T, 'id'>): T {
         const newItem = { ...item, id: this.#nextId++, } as T;
 
         this.#items.push(newItem);
         return newItem;
     }
 
-    async update(id: number, updates: Partial<T>): Promise<T | null> {
+    update(id: number, updates: Partial<T>): T | null {
         const index = this.#items.findIndex((item) => item.id === id);
 
         if(index === -1) return null;
@@ -91,7 +91,7 @@ class InMemoryRepository<T extends { id: number; }> implements Repository<T> {
         return this.#items[index];
     }
 
-    async delete(id: number): Promise<boolean> {
+    delete(id: number): boolean {
         const index = this.#items.findIndex((item) => item.id === id);
 
         if(index === -1) return false;
@@ -227,7 +227,7 @@ async function readWithRetry<T>(
         }
     }
 
-    throw lastError;
+    throw lastError ?? new Error('Unknown error');
 }
 
 // ─── DataStore из helpers ──────────────────────────────────────────

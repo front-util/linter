@@ -6,6 +6,7 @@
 // ─── accessor-pairs: Только getter ────────────────────────────────
 
 export class TemperatureSensor {
+
     #celsius = 0;
 
     constructor(celsius) {
@@ -19,11 +20,13 @@ export class TemperatureSensor {
     get kelvin() {
         return this.#celsius + 273.15;
     }
+
 }
 
 // ─── accessor-pairs: Только setter ─────────────────────────────────
 
 export class Logger {
+
     #level = 'info';
     #buffer = [];
 
@@ -36,19 +39,22 @@ export class Logger {
     }
 
     log(message) {
-        this.#buffer.push({ level: this.#level, message, timestamp: Date.now() });
+        this.#buffer.push({ level: this.#level, message, timestamp: Date.now(), });
     }
 
     flush() {
         const entries = [...this.#buffer];
+
         this.#buffer = [];
         return entries;
     }
+
 }
 
 // ─── class-methods-use-this ───────────────────────────────────────
 
 export class StaticUtils {
+
     static PI = 3.14159;
     static E = 2.71828;
 
@@ -63,11 +69,13 @@ export class StaticUtils {
     formatAsStatic(value) {
         return `Value: ${value}`;
     }
+
 }
 
 // ─── Приватные поля ────────────────────────────────────────────────
 
 export class BankAccount {
+
     #owner;
     #balance = 0;
     #transactions = [];
@@ -86,32 +94,34 @@ export class BankAccount {
     }
 
     deposit(amount) {
-        if (amount <= 0) throw new RangeError('Amount must be positive');
+        if(amount <= 0) throw new RangeError('Amount must be positive');
         this.#balance += amount;
-        this.#transactions.push({ type: 'deposit', amount, date: new Date() });
+        this.#transactions.push({ type: 'deposit', amount, date: new Date(), });
         return this.#balance;
     }
 
     withdraw(amount) {
-        if (amount <= 0) throw new RangeError('Amount must be positive');
-        if (amount > this.#balance) throw new Error('Insufficient funds');
+        if(amount <= 0) throw new RangeError('Amount must be positive');
+        if(amount > this.#balance) throw new Error('Insufficient funds');
         this.#balance -= amount;
-        this.#transactions.push({ type: 'withdraw', amount, date: new Date() });
+        this.#transactions.push({ type: 'withdraw', amount, date: new Date(), });
         return this.#balance;
     }
 
     getStatement() {
         return {
-            owner: this.#owner,
-            balance: this.#balance,
+            owner       : this.#owner,
+            balance     : this.#balance,
             transactions: [...this.#transactions],
         };
     }
+
 }
 
 // ─── Наследование ──────────────────────────────────────────────────
 
 export class Shape {
+
     #color;
 
     constructor(color = 'black') {
@@ -129,9 +139,11 @@ export class Shape {
     toString() {
         return `Shape(color=${this.#color})`;
     }
+
 }
 
 export class Circle extends Shape {
+
     #radius;
 
     constructor(radius, color = 'black') {
@@ -154,9 +166,11 @@ export class Circle extends Shape {
     toString() {
         return `Circle(r=${this.#radius}, color=${this.color})`;
     }
+
 }
 
 export class Rectangle extends Shape {
+
     #width;
     #height;
 
@@ -185,9 +199,11 @@ export class Rectangle extends Shape {
     toString() {
         return `Rectangle(${this.#width}x${this.#height}, color=${this.color})`;
     }
+
 }
 
 export class Square extends Rectangle {
+
     constructor(side, color = 'black') {
         super(side, side, color);
     }
@@ -195,11 +211,13 @@ export class Square extends Rectangle {
     toString() {
         return `Square(side=${this.width}, color=${this.color})`;
     }
+
 }
 
 // ─── Symbol.iterator ──────────────────────────────────────────────
 
 export class Range {
+
     #start;
     #end;
     #step;
@@ -217,12 +235,13 @@ export class Range {
 
         return {
             next() {
-                if (current < end) {
+                if(current < end) {
                     const value = current;
+
                     current += step;
-                    return { value, done: false };
+                    return { value, done: false, };
                 }
-                return { value: undefined, done: true };
+                return { value: undefined, done: true, };
             },
         };
     }
@@ -233,20 +252,23 @@ export class Range {
 
     sum() {
         let total = 0;
-        for (const value of this) {
+
+        for(const value of this) {
             total += value;
         }
         return total;
     }
+
 }
 
 // ─── Event Emitter ────────────────────────────────────────────────
 
 export class EventEmitter {
+
     #listeners = new Map();
 
     on(event, callback) {
-        if (!this.#listeners.has(event)) {
+        if(!this.#listeners.has(event)) {
             this.#listeners.set(event, new Set());
         }
         this.#listeners.get(event).add(callback);
@@ -259,8 +281,9 @@ export class EventEmitter {
 
     emit(event, ...args) {
         const callbacks = this.#listeners.get(event);
-        if (callbacks) {
-            for (const callback of callbacks) {
+
+        if(callbacks) {
+            for(const callback of callbacks) {
                 callback(...args);
             }
         }
@@ -271,13 +294,16 @@ export class EventEmitter {
             unsubscribe();
             callback(...args);
         });
+
         return unsubscribe;
     }
+
 }
 
 // ─── Builder Pattern ──────────────────────────────────────────────
 
 export class QueryBuilder {
+
     #table = '';
     #conditions = [];
     #orderBy = null;
@@ -301,7 +327,7 @@ export class QueryBuilder {
     }
 
     order(column, direction = 'ASC') {
-        this.#orderBy = { column, direction };
+        this.#orderBy = { column, direction, };
         return this;
     }
 
@@ -317,36 +343,39 @@ export class QueryBuilder {
 
     build() {
         let sql = `SELECT ${this.#selects.join(', ')} FROM ${this.#table}`;
-        if (this.#conditions.length > 0) {
+
+        if(this.#conditions.length > 0) {
             sql += ` WHERE ${this.#conditions.join(' AND ')}`;
         }
-        if (this.#orderBy) {
+        if(this.#orderBy) {
             sql += ` ORDER BY ${this.#orderBy.column} ${this.#orderBy.direction}`;
         }
-        if (this.#limit !== null) {
+        if(this.#limit !== null) {
             sql += ` LIMIT ${this.#limit}`;
         }
-        if (this.#offset !== null) {
+        if(this.#offset !== null) {
             sql += ` OFFSET ${this.#offset}`;
         }
         return sql;
     }
+
 }
 
 // ─── Singleton ────────────────────────────────────────────────────
 
 export class Config {
+
     static #instance = null;
     #data = {};
 
     static getInstance() {
-        if (!Config.#instance) {
+        if(!Config.#instance) {
             Config.#instance = new Config();
         }
         return Config.#instance;
     }
 
-    get(key, defaultValue = undefined) {
+    get(key, defaultValue) {
         return this.#data[key] ?? defaultValue;
     }
 
@@ -365,4 +394,5 @@ export class Config {
     clear() {
         this.#data = {};
     }
+
 }

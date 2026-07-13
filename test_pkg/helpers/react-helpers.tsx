@@ -77,7 +77,7 @@ export function EffectWithDeps({ userId, token, }: { userId: string; token: stri
     const [data, setData] = useState<User | null>(null);
 
     useEffect(() => {
-        async function loadUser() {
+        function loadUser() {
             const user = JSON.parse(`{"id": ${userId}, "name": "User ${userId}", "token": "${token}"}`) as User;
 
             setData(user);
@@ -135,7 +135,7 @@ export function EffectPatterns({ userId, filters, }: {
 
     useEffect(() => {
         setLoading(true);
-        async function loadUser() {
+        function loadUser() {
             const loadedUser = JSON.parse(`{"id": ${userId}, "name": "User ${userId}"}`) as User;
 
             setUser(loadedUser);
