@@ -136,6 +136,33 @@ const sonarRules = {
     'sonarjs/no-async-constructor'       : 'off',
 } satisfies Linter.RulesRecord;
 
+const cssRules = {
+    // Пустые блоки — вероятная ошибка
+    'css/no-empty-blocks'             : 'error',
+    // !important — антипаттерн
+    'css/no-important'                : 'warn',
+    // Невалидные at-rules
+    'css/no-invalid-at-rules'         : 'error',
+    // Невалидные CSS-свойства
+    'css/no-invalid-properties'       : 'error',
+    // Невалидное размещение at-rules
+    'css/no-invalid-at-rule-placement': 'error',
+    // Дублирующиеся @import
+    'css/no-duplicate-imports'        : 'error',
+    // Нематченые селекторы
+    'css/no-unmatchable-selectors'    : 'error',
+    // Использование Baseline-фич — warn, т.к. не все проекты обязаны быть bleeding-edge
+    'css/use-baseline'                : ['warn', {
+        available: 'widely',
+    }],
+    // Fallback-шрифты
+    'css/font-family-fallbacks': 'warn',
+    // Сложность селекторов — ограничиваем
+    'css/selector-complexity'  : ['warn', {
+        maxCombinators: 3,
+    }],
+} satisfies Linter.RulesRecord;
+
 const stylisticRules = {
     '@stylistic/indent': ['warn', 4, {
         SwitchCase: 1,
@@ -208,4 +235,5 @@ export const customRulesMap = {
     import   : importRules,
     sonar    : sonarRules,
     stylistic: stylisticRules,
+    css      : cssRules,
 };
