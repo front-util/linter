@@ -5,6 +5,8 @@ import { strictConfig, strictReactConfig, strictTsConfig } from './plugins/stric
 import { tsConfig } from './plugins/ts.js';
 import { createEslintAlias } from './utils.js';
 
+export * as constants from './constants.js';
+
 const configs = {
     'js'          : baseConfig,
     'ts'          : tsConfig,
