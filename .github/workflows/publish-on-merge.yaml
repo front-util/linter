@@ -1,0 +1,88 @@
+name: Publish on Merge to Main
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'package.json'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run — skip npm publish'
+        type: boolean
+        default: true
+
+concurrency:
+  group: npm-publish
+  cancel-in-progress: false
+
+jobs:
+  check-version:
+    runs-on: ubuntu-latest
+    outputs:
+      version_changed: ${{ steps.check.outputs.changed }}
+      version: ${{ steps.check.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - id: check
+        run: |
+          CURRENT=$(node -p "require('./package.json').version")
+          echo "version=$CURRENT" >> "$GITHUB_OUTPUT"
+
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "Manual dispatch — forcing publish for v$CURRENT"
+          else
+            PREVIOUS=$(git show HEAD~1:package.json | node -p "JSON.parse(require('fs').readFileSync('/dev/stdin','utf8')).version")
+            if [ "$CURRENT" != "$PREVIOUS" ]; then
+              echo "changed=true" >> "$GITHUB_OUTPUT"
+              echo "Version changed: $PREVIOUS -> $CURRENT"
+            else
+              echo "changed=false" >> "$GITHUB_OUTPUT"
+              echo "Version unchanged ($CURRENT), skipping publish"
+            fi
+          fi
+
+  validate:
+    needs: check-version
+    if: needs.check-version.outputs.version_changed == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - run: bun install --frozen-lockfile
+      - run: bun run build
+      - run: bun run check:lint
+      - run: bun run check:types
+      - run: bun test
+
+  publish:
+    needs: [check-version, validate]
+    if: needs.check-version.outputs.version_changed == 'true'
+    runs-on: ubuntu-latest
+    environment: npm-publish
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          registry-url: 'https://registry.npmjs.org'
+      - run: npm ci
+
+      - if: ${{ inputs.dry_run != true }}
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - if: ${{ inputs.dry_run == true }}
+        run: echo "DRY RUN — would publish @front-utils/linter@${{ needs.check-version.outputs.version }}"
+
+      - if: ${{ inputs.dry_run != true }}
+        run: echo "Published @front-utils/linter@${{ needs.check-version.outputs.version }}"
